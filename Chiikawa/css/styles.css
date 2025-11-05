@@ -1,0 +1,130 @@
+(/* Styles for Chiikawa site. This file includes header/nav styles that create a "box" style navbar.
+   The HTML `main.html` was updated to include `id="site-header"`, `id="main-nav"`,
+   `class="nav-list"` on the <ul> and `class="nav-item"` on the <li> elements.
+   The nav links are displayed as box elements with hover/active/focus states and
+   a small responsive behavior that stacks items on narrow screens. */)
+
+:root {
+	--bg: #f7f9fc;
+	--header-bg: #ffffff;
+	--primary: #6c63ff; /* main box color */
+	--accent: #5a52e6;  /* hover */
+	--text: #1f2937;
+	--muted: #6b7280;
+}
+
+/* Basic reset */
+*, *::before, *::after {
+	box-sizing: border-box;
+}
+
+html, body {
+	height: 100%;
+	margin: 0;
+	background: var(--bg);
+	color: var(--text);
+	font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+/* Header layout */
+#site-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
+	padding: 1rem 1.5rem;
+	background: var(--header-bg);
+	border-bottom: 1px solid rgba(15, 23, 42, 0.04);
+	box-shadow: 0 2px 6px rgba(16,24,40,0.03);
+}
+
+#site-header h1 {
+	margin: 0;
+	font-size: 1.25rem;
+}
+
+#site-header h1 a {
+	color: var(--text);
+	text-decoration: none;
+	font-weight: 700;
+}
+
+/* Nav list shown as boxes */
+#main-nav .nav-list {
+	display: flex;
+	gap: 0.6rem;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	align-items: center;
+}
+
+#main-nav .nav-item { /* per-item container (use this selector if you need to add per-item styles) */ }
+
+#main-nav .nav-item a {
+	display: block;
+	padding: 0.5rem 0.9rem;
+	background: linear-gradient(180deg, var(--primary), var(--primary));
+	color: white;
+	border-radius: 10px;
+	text-decoration: none;
+	font-weight: 600;
+	font-size: 0.95rem;
+	border: 1px solid rgba(0,0,0,0.06);
+	box-shadow: 0 6px 14px rgba(99,102,241,0.12);
+	transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease;
+}
+
+#main-nav .nav-item a:hover,
+#main-nav .nav-item a:focus {
+	transform: translateY(-3px);
+	box-shadow: 0 12px 30px rgba(78,75,235,0.14);
+	background: linear-gradient(180deg, var(--accent), var(--accent));
+}
+
+#main-nav .nav-item a:active {
+	transform: translateY(-1px);
+}
+
+/* Visible focus for keyboard users */
+#main-nav .nav-item a:focus-visible {
+	outline: 3px solid rgba(92, 77, 255, 0.18);
+	outline-offset: 3px;
+}
+
+/* Active/current link styling if markup sets aria-current or .active */
+#main-nav .nav-item a[aria-current="page"],
+#main-nav .nav-item a.active {
+	box-shadow: 0 10px 26px rgba(99,102,241,0.16);
+	transform: translateY(-2px);
+}
+
+/* Responsive: stack nav items on small screens */
+@media (max-width: 700px) {
+	#site-header {
+		flex-direction: column;
+		align-items: stretch;
+	}
+	#main-nav .nav-list {
+		flex-direction: column;
+		gap: 0.5rem;
+		margin-top: 0.6rem;
+	}
+	#main-nav .nav-item a {
+		width: 100%;
+		text-align: center;
+	}
+}
+
+/* Small utility: muted link style for other header links */
+a.muted {
+	color: var(--muted);
+	background: transparent;
+	box-shadow: none;
+	font-weight: 500;
+}
+
+/* End of navbar styles */
+
