@@ -51,6 +51,7 @@ const quizData = [
 ];
 
 let current = 0;
+// Track user responses, null means unanswered
 const responses = Array(quizData.length).fill(null);
 
 function renderQuestion() {
@@ -94,9 +95,9 @@ document.getElementById('backBTN').onclick = () => {
 };
   document.getElementById('submitBTN').onclick = () => {
   // Show loading
-  // The section element in the HTML uses id="quiz-section" (kebab-case),
+  // The section element in the HTML uses id="quizSection" (camelCase),
   // so query that id here to find the buttons to disable.
-  document.getElementById('quiz-section').querySelectorAll('button').forEach(b => b.disabled = true);
+  document.getElementById('quizSection').querySelectorAll('button').forEach(b => b.disabled = true);
   const loadingEl = document.getElementById('quizLoading');
   const loadingTextEl = loadingEl.querySelector('p') || loadingEl;
   const messages = [
@@ -110,11 +111,15 @@ document.getElementById('backBTN').onclick = () => {
   let msgIndex = 0;
   // Ensure loading area visible and initialize text
   loadingEl.hidden = false;
-  if (loadingTextEl) loadingTextEl.textContent = messages[msgIndex];
+  if (loadingTextEl) {
+    loadingTextEl.textContent = messages[msgIndex];
+  }
   // Rotate messages every 1500ms
   const loadingInterval = setInterval(() => {
     msgIndex = (msgIndex + 1) % messages.length;
-    if (loadingTextEl) loadingTextEl.textContent = messages[msgIndex];
+    if (loadingTextEl) {
+        loadingTextEl.textContent = messages[msgIndex];
+    }
   }, 1500);
 
   document.getElementById('quizResult').hidden = true;
