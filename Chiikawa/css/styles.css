@@ -1,3 +1,31 @@
+/*
+   Styles the Home button in the navbar to match nav links but slightly larger.
+*/
+.nav-home {
+	display: inline-block;
+	padding: 0.7rem 1.3rem;
+	background: linear-gradient(180deg, var(--primary), var(--primary));
+	color: white;
+	border-radius: 14px;
+	text-decoration: none;
+	font-weight: 700;
+	font-size: 1.15rem;
+	border: 1.5px solid rgba(0,0,0,0.08);
+	box-shadow: 0 8px 18px rgba(99,102,241,0.13);
+	margin-right: 0.7rem;
+	transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease;
+}
+
+.nav-home:hover,
+.nav-home:focus {
+	transform: translateY(-4px);
+	box-shadow: 0 16px 36px rgba(78,75,235,0.16);
+	background: linear-gradient(180deg, var(--accent), var(--accent));
+}
+
+.nav-home:active {
+	transform: translateY(-2px);
+}
 
 /*
    :root defines CSS variables for site colors and theme.
