@@ -1,33 +1,40 @@
 # Chiikawa
 
-Website design for a chiikawa fan page
+A responsive fan website for Chiikawa, featuring story, character, game, and quiz sections.
 
-## Site Structure and Navigation
+## Project Status (as of November 2025)
 
-- **Home (`main.html`)**: Landing page with navigation bar linking to all main sections.
-- **Story (`pages/Story.html`)**: Page for the Chiikawa story content.
-- **Game (`pages/Game.html`)**: Page for Chiikawa-related games or interactive content.
-- **Character (`pages/Character.html`)**: Page listing or describing Chiikawa characters.
-- **Quiz (`pages/Quiz.html`)**: Page for Chiikawa-themed quizzes.
-
-All pages share a consistent navigation bar at the top:
-
-- The Home button is styled as a large, prominent box.
-- Each section is accessible from every page, and the current page is highlighted.
-- The navigation bar is responsive and accessible (keyboard and screen reader friendly).
-
-## Styling
-
-- All pages use a shared stylesheet: `css/styles.css`.
-- The navigation bar uses modern CSS (flexbox, variables, transitions) for a clean, responsive look.
-- The Home button uses a special `.nhome` class for extra emphasis.
+- **Navigation**: All pages use a consistent, accessible navbar. Navigation is responsive and highlights the current page.
+- **Styling**: Centralized in `css/styles.css` and `css/quiz.css`. Modern CSS (flexbox, variables, transitions) is used throughout. Button colors and sizes are customized for quiz navigation.
+- **Quiz**:
+  - Uses camelCase for all IDs and classes (e.g., `quizSection`, `quizFigure`, `quizImage`).
+  - Each question now stores its own response array for answers, supporting future multi-select.
+  - Quiz navigation buttons: Back (blue), Next (red), Submit (green), with custom sizes.
+  - Loading screen cycles through fun messages while computing the score.
+  - All logic and UI are refactored for maintainability and consistency.
+- **Pages**:
+  - `main.html`: Home/landing page
+  - `pages/Story.html`: Story section
+  - `pages/Game.html`: Game section
+  - `pages/Character.html`: Character section
+  - `pages/Quiz.html`: Interactive quiz
 
 ## How to Use
 
-- Open `main.html` to start browsing.
-- Use the navigation bar to move between Story, Game, Character, and Quiz pages.
-- The site is designed to work on both desktop and mobile browsers.
+1. Open `main.html` in your browser.
+2. Use the navigation bar to explore Story, Game, Character, and Quiz pages.
+3. On the Quiz page, answer all questions and submit to see your score (with animated loading messages).
 
 ## Authors
 
 - Made by Aris and Kelly
+
+---
+
+**Recent changes:**
+
+- Refactored all quiz-related IDs/classes to camelCase for consistency.
+- Quiz logic now uses per-question response arrays.
+- Quiz navigation buttons have distinct colors and sizes.
+- Loading screen cycles through multiple messages for a playful experience.
+- All styles are centralized in CSS files for easier maintenance.
