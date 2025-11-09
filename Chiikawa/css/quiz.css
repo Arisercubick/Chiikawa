@@ -15,7 +15,7 @@
     display: block;
     margin: 0 auto;
 }
-.quiz-choices-list {
+.quizChoicesList {
     margin: 1.5rem 0;
     display: flex;
     flex-direction: column;
