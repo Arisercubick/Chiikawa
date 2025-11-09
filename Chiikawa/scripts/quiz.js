@@ -125,10 +125,12 @@ document.getElementById('backBTN').onclick = () => {
     // Score calculation
     let score = 0;
     for (let i = 0; i < quizData.length; i++) {
-      if (responses[i] === quizData[i].answer) score++;
+      if (responses[i] === quizData[i].answer) {
+        score++;
+      }
     }
     document.getElementById('quizResult').textContent = `You scored ${score} out of ${quizData.length}!`;
-    //document.getElementById('quizResult').textContent = `You scored Hello World`;
+    // document.getElementById('quizResult').textContent = `You scored Hello World`; // This is a joke output
     document.getElementById('quizResult').hidden = false;
   }, 8000);
 };
