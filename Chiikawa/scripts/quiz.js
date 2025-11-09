@@ -97,16 +97,38 @@ document.getElementById('backBTN').onclick = () => {
   // The section element in the HTML uses id="quiz-section" (kebab-case),
   // so query that id here to find the buttons to disable.
   document.getElementById('quiz-section').querySelectorAll('button').forEach(b => b.disabled = true);
-  document.getElementById('quizLoading').hidden = false;
+  const loadingEl = document.getElementById('quizLoading');
+  const loadingTextEl = loadingEl.querySelector('p') || loadingEl;
+  const messages = [
+    'Computing your score...',
+    'Calling AI',
+    'Doing the griddy',
+    'Calling my ex to help',
+    'Analyzing data',
+    'Finalizing results'
+  ];
+  let msgIndex = 0;
+  // Ensure loading area visible and initialize text
+  loadingEl.hidden = false;
+  if (loadingTextEl) loadingTextEl.textContent = messages[msgIndex];
+  // Rotate messages every 1500ms
+  const loadingInterval = setInterval(() => {
+    msgIndex = (msgIndex + 1) % messages.length;
+    if (loadingTextEl) loadingTextEl.textContent = messages[msgIndex];
+  }, 1500);
+
   document.getElementById('quizResult').hidden = true;
   setTimeout(() => {
-    document.getElementById('quizLoading').hidden = true;
-    // Score
+    // Stop rotating messages and hide loader
+    clearInterval(loadingInterval);
+    loadingEl.hidden = true;
+    // Score calculation
     let score = 0;
     for (let i = 0; i < quizData.length; i++) {
       if (responses[i] === quizData[i].answer) score++;
     }
     document.getElementById('quizResult').textContent = `You scored ${score} out of ${quizData.length}!`;
+    //document.getElementById('quizResult').textContent = `You scored Hello World`;
     document.getElementById('quizResult').hidden = false;
   }, 8000);
 };
