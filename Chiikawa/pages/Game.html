@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Game</title>
     <link rel="stylesheet" href="../css/styles.css" />
+    <link rel="stylesheet" href="../css/game.css" />
+    <script src="../scripts/game.js" defer></script>
 </head>
 <body>
     <header id="header">
@@ -20,7 +22,19 @@
     </header>
     <main>
         <h2>Game</h2>
-        <p>This is the Game page.</p>
+        <div id="gameContainer">
+            <canvas id="gameCanvas" width="800" height="480"></canvas>
+            <div id="congratsScreen" class="hidden">
+                <h2>Congratulations!</h2>
+                <p>You finished the level!</p>
+            </div>
+            <div id="gameOverScreen" class="hidden">
+                <div class="gameOverOverlay">
+                    <h2>Game Over</h2>
+                    <button id="playAgainBTN">Play Again</button>
+                </div>
+            </div>
+        </div>
     </main>
     <footer>
         <h2>Made by Aris and Kelly</h2>
