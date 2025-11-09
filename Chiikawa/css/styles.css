@@ -1,7 +1,7 @@
 /*
    Styles the Home button in the navbar to match nav links but slightly larger.
 */
-.nav-home {
+.nhome {
 	display: inline-block;
 	padding: 0.7rem 1.3rem;
 	background: linear-gradient(180deg, var(--primary), var(--primary));
@@ -16,14 +16,14 @@
 	transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease;
 }
 
-.nav-home:hover,
-.nav-home:focus {
+.nhome:hover,
+.nhome:focus {
 	transform: translateY(-4px);
 	box-shadow: 0 16px 36px rgba(78,75,235,0.16);
 	background: linear-gradient(180deg, var(--accent), var(--accent));
 }
 
-.nav-home:active {
+.nhome:active {
 	transform: translateY(-2px);
 }
 
@@ -59,7 +59,10 @@ html, body {
 /*
 	Styles the site header as a horizontal flex container with spacing and shadow.
 */
-#site-header {
+/*
+	Styles the site header as a horizontal flex container with spacing and shadow.
+*/
+#header {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -70,12 +73,12 @@ html, body {
 	box-shadow: 0 2px 6px rgba(16,24,40,0.03);
 }
 
-#site-header h1 {
+#header h1 {
 	margin: 0;
 	font-size: 1.25rem;
 }
 
-#site-header h1 a {
+#header h1 a {
 	color: var(--text);
 	text-decoration: none;
 	font-weight: 700;
@@ -84,7 +87,7 @@ html, body {
 /*
 	Styles the nav list as a horizontal flex row with no default list styling.
 */
-#main-nav .nav-list {
+#nmain .nav-list {
 	display: flex;
 	gap: 0.6rem;
 	margin: 0;
@@ -96,7 +99,7 @@ html, body {
 /*
 	Styles nav links as rounded, colored boxes with shadow and smooth transitions.
 */
-#main-nav .nav-item a {
+#nmain .nav a {
 	display: block;
 	padding: 0.5rem 0.9rem;
 	background: linear-gradient(180deg, var(--primary), var(--primary));
@@ -113,21 +116,21 @@ html, body {
 /*
 	Styles nav links on hover and focus for interactivity and accessibility.
 */
-#main-nav .nav-item a:hover,
-#main-nav .nav-item a:focus {
+#nmain .nav a:hover,
+#nmain .nav a:focus {
 	transform: translateY(-3px);
 	box-shadow: 0 12px 30px rgba(78,75,235,0.14);
 	background: linear-gradient(180deg, var(--accent), var(--accent));
 }
 
-#main-nav .nav-item a:active {
+#nmain .nav a:active {
 	transform: translateY(-1px);
 }
 
 /*
 	Shows a visible outline for keyboard navigation focus.
 */
-#main-nav .nav-item a:focus-visible {
+#nmain .nav a:focus-visible {
 	outline: 3px solid rgba(92, 77, 255, 0.18);
 	outline-offset: 3px;
 }
@@ -135,8 +138,8 @@ html, body {
 /*
 	Styles the active/current nav link.
 */
-#main-nav .nav-item a[aria-current="page"],
-#main-nav .nav-item a.active {
+#nmain .nav a[aria-current="page"],
+#nmain .nav a.active {
 	box-shadow: 0 10px 26px rgba(99,102,241,0.16);
 	transform: translateY(-2px);
 }
@@ -145,16 +148,16 @@ html, body {
 	Makes the header and nav stack vertically on small screens (responsive design).
 */
 @media (max-width: 700px) {
-	#site-header {
+	#header {
 		flex-direction: column;
 		align-items: stretch;
 	}
-	#main-nav .nav-list {
+	#nmain .nav-list {
 		flex-direction: column;
 		gap: 0.5rem;
 		margin-top: 0.6rem;
 	}
-	#main-nav .nav-item a {
+	#nmain .nav a {
 		width: 100%;
 		text-align: center;
 	}
