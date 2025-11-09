@@ -46,12 +46,12 @@ for (let y = 0; y < level.length; y++) {
   }
 }
 
-// Goombas
-const goombas = [];
+// Broccoli positions
+const broccolis = [];
 for (let y = 0; y < level.length; y++) {
   for (let x = 0; x < level[y].length; x++) {
     if (level[y][x] === 'G') {
-      goombas.push({ x: x * tileSize, y: y * tileSize, w: tileSize, h: tileSize, dir: 1, alive: true });
+      broccolis.push({ x: x * tileSize, y: y * tileSize, w: tileSize, h: tileSize, dir: 1, alive: true });
     }
   }
 }
@@ -121,8 +121,8 @@ function update() {
       }
     }
   }
-  // Goombas
-  for (const g of goombas) {
+  // Broccoli
+  for (const g of broccolis) {
     if (!g.alive) continue;
     g.x += g.dir * 1.2;
     // Turn at platform edges
@@ -182,10 +182,10 @@ function draw() {
   for (const plat of platforms) {
     ctx.drawImage(groundImg, plat.x - cameraX, plat.y, plat.w, plat.h);
   }
-  // Goombas
-  for (const g of goombas) {
+  // Broccolis
+  for (const g of broccolis) {
     if (!g.alive) continue;
-    ctx.drawImage(goombaImg, g.x - cameraX, g.y, g.w, g.h);
+    ctx.drawImage(broccoliImg, g.x - cameraX, g.y, g.w, g.h);
   }
   // Player
   ctx.drawImage(playerImg, player.x - cameraX, player.y, player.w, player.h);
@@ -202,19 +202,19 @@ function triggerGameOver() {
   document.getElementById('gameOverScreen').classList.remove('hidden');
 }
 
-// Store original goomba positions for reset
-const goombaStartStates = goombas.map(g => ({ x: g.x, y: g.y, dir: g.dir }));
+// Store original broccoli positions for reset
+const broccoliStartStates = broccolis.map(g => ({ x: g.x, y: g.y, dir: g.dir }));
 
 function resetGame() {
   player.x = 2 * tileSize;
   player.y = 8 * tileSize;
   player.vx = 0;
   player.vy = 0;
-  for (let i = 0; i < goombas.length; i++) {
-    goombas[i].x = goombaStartStates[i].x;
-    goombas[i].y = goombaStartStates[i].y;
-    goombas[i].dir = goombaStartStates[i].dir;
-    goombas[i].alive = true;
+  for (let i = 0; i < broccolis.length; i++) {
+    broccolis[i].x = broccoliStartStates[i].x;
+    broccolis[i].y = broccoliStartStates[i].y;
+    broccolis[i].dir = broccoliStartStates[i].dir;
+    broccolis[i].alive = true;
   }
   gameWon = false;
   gameOver = false;
