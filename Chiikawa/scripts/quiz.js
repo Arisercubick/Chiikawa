@@ -61,9 +61,10 @@ function renderQuestion() {
   const choicesList = document.getElementById('quizChoices');
   choicesList.innerHTML = '';
   q.choices.forEach((choice, idx) => {
-    const li = document.createElement('li');
-    const btn = document.createElement('button');
-    btn.className = 'quizChoiceBTN';
+  const li = document.createElement('li');
+  const btn = document.createElement('button');
+  // Use the CSS class name defined in the page's stylesheet
+  btn.className = 'quiz-choice-btn';
     btn.textContent = choice;
     if (responses[current] === idx) btn.classList.add('selected');
     btn.onclick = () => {
@@ -91,9 +92,11 @@ document.getElementById('backBTN').onclick = () => {
     renderQuestion();
   }
 };
-document.getElementById('submitBTN').onclick = () => {
+  document.getElementById('submitBTN').onclick = () => {
   // Show loading
-  document.getElementById('quizSection').querySelectorAll('button').forEach(b => b.disabled = true);
+  // The section element in the HTML uses id="quiz-section" (kebab-case),
+  // so query that id here to find the buttons to disable.
+  document.getElementById('quiz-section').querySelectorAll('button').forEach(b => b.disabled = true);
   document.getElementById('quizLoading').hidden = false;
   document.getElementById('quizResult').hidden = true;
   setTimeout(() => {
