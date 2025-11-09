@@ -17,6 +17,15 @@ goombaImg.src = '../images/pngtree-sticker-vector-png-image_6818893.png';
 const groundImg = new Image();
 groundImg.src = '../images/gameAssets/ByIjUv.png';
 
+// Add broccoli image for broccolis
+defineBroccoliImg();
+
+function defineBroccoliImg() {
+  if (typeof broccoliImg !== 'undefined') return;
+  window.broccoliImg = new window.Image();
+  broccoliImg.src = '../images/pngtree-sticker-vector-png-image_6818893.png';
+}
+
 // Level data (simple Mario 1-1 style)
 const tileSize = 40;
 // Add a staircase in the middle of the level
@@ -32,7 +41,7 @@ const level = [
   '                                  =====                                         ',
   '                                 ======                                         ',
   '        ?   G    G              =======      G                    G             ',
-  '===========================   ============================   ================',
+  '===========================   ============================   ===================',
   '                                                                                '
 ];
 
@@ -225,10 +234,10 @@ function resetGame() {
 
 // Wait for images to load
 let loaded = 0;
-[playerImg, goombaImg, bgImg].forEach(img => {
+[playerImg, groundImg, bgImg, broccoliImg].forEach(img => {
   img.onload = () => {
     loaded++;
-    if (loaded === 3) loop();
+    if (loaded === 4) loop();
   };
 });
 

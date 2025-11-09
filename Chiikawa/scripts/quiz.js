@@ -1,13 +1,13 @@
 // Quiz data: 8 questions, each with image, caption, choices, and correct answer index
 const quizData = [
   {
-    image: "https://placehold.co/300x200?text=Q1",
+    image: "../images/AdorableCutieChiikawa.png?text=Q1",
     caption: "Who is the main character in Chiikawa?",
     choices: ["Chiikawa", "Hachiware", "Usagi", "Kurimanju"],
     answer: 0
   },
   {
-    image: "https://placehold.co/300x200?text=Q2",
+    image: "../images/SweetBabyHachiware2.png?text=Q2",
     caption: "Which character is known for their blue color?",
     choices: ["Chiikawa", "Hachiware", "Usagi", "Momonga"],
     answer: 1
