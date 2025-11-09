@@ -20,7 +20,7 @@ All pages share a consistent navigation bar at the top:
 
 - All pages use a shared stylesheet: `css/styles.css`.
 - The navigation bar uses modern CSS (flexbox, variables, transitions) for a clean, responsive look.
-- The Home button uses a special `.nav-home` class for extra emphasis.
+- The Home button uses a special `.nhome` class for extra emphasis.
 
 ## How to Use
 
