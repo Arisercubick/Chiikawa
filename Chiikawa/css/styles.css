@@ -1,9 +1,6 @@
 
 /*
-	CSS variables (also called "custom properties") make it easy to
-	change colors or spacing in one place. If you don't know these yet:
-	- They start with -- and are used with var(--name).
-	- Changing a value here updates it everywhere it's used.
+   :root defines CSS variables for site colors and theme.
 */
 :root {
 		--bg: #f7f9fc;
@@ -15,10 +12,7 @@
 }
 
 /*
-	This small reset makes width/height calculations easier.
-	box-sizing: border-box means padding and border are included
-	inside the element's width. Beginners often forget this and
-	get confused why boxes are bigger than expected.
+   Sets box-sizing to border-box for all elements for easier sizing.
 */
 *, *::before, *::after {
 	box-sizing: border-box;
@@ -34,13 +28,8 @@ html, body {
 	-moz-osx-font-smoothing: grayscale;
 }
 
-/* Header layout using Flexbox
-   Flexbox is used to place the site title on the left and the nav on the right.
-   Key properties beginners should notice:
-   - display: flex turns on flexbox
-   - align-items: center vertically centers items inside the header
-   - justify-content: space-between pushes items to the edges
-   - gap adds space between children (like margin but easier for lists)
+/*
+	Styles the site header as a horizontal flex container with spacing and shadow.
 */
 #site-header {
 	display: flex;
@@ -64,10 +53,8 @@ html, body {
 	font-weight: 700;
 }
 
-/* Nav list as horizontal boxes
-   We use flex again to lay out the list horizontally. Removing
-   default list margin/padding and list-style keeps the look clean.
-   If your links wrap oddly, check gap and padding on the anchors below.
+/*
+	Styles the nav list as a horizontal flex row with no default list styling.
 */
 #main-nav .nav-list {
 	display: flex;
@@ -78,15 +65,8 @@ html, body {
 	align-items: center;
 }
 
-/* removed empty .nav-item ruleset to avoid linter warnings; add per-item styles
-	here if you need them later, e.g. #main-nav .nav-item { margin: 0; } */
-
-/* Nav link “box” styling and transitions
-   - display: block lets the whole box (not just text) be clickable.
-   - border-radius makes rounded corners.
-   - box-shadow adds a soft shadow; beginners may overdo it—keep it subtle.
-   - transition controls animation timing. If you change transform duration,
-	 update transition to match so hover feels smooth.
+/*
+	Styles nav links as rounded, colored boxes with shadow and smooth transitions.
 */
 #main-nav .nav-item a {
 	display: block;
@@ -102,12 +82,8 @@ html, body {
 	transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease;
 }
 
-/* Hover and focus states
-   translateY(-3px) moves the box up a little on hover. That is a transform
-   and doesn't change layout (it just paints differently). If you remove
-   transform without removing transition, the animation will stop working.
-   Also: :focus is for mouse/keyboard focus; :focus-visible shows only when
-   the user is navigating with keyboard (good for accessibility).
+/*
+	Styles nav links on hover and focus for interactivity and accessibility.
 */
 #main-nav .nav-item a:hover,
 #main-nav .nav-item a:focus {
@@ -120,28 +96,25 @@ html, body {
 	transform: translateY(-1px);
 }
 
-/* Visible focus for keyboard users
-   - :focus-visible shows a ring only for keyboard users (not when clicking).
-   - This helps keyboard users know which item is focused. Older browsers
-	 may not support :focus-visible; then :focus will be used instead.
+/*
+	Shows a visible outline for keyboard navigation focus.
 */
 #main-nav .nav-item a:focus-visible {
 	outline: 3px solid rgba(92, 77, 255, 0.18);
 	outline-offset: 3px;
 }
 
-/* Active/current link styling if markup sets aria-current or .active */
+/*
+	Styles the active/current nav link.
+*/
 #main-nav .nav-item a[aria-current="page"],
 #main-nav .nav-item a.active {
 	box-shadow: 0 10px 26px rgba(99,102,241,0.16);
 	transform: translateY(-2px);
 }
 
-/* Responsive behavior: media query
-   When the screen is narrow (700px or less), we change layout so the nav
-   stacks vertically. Media queries are how we make sites responsive.
-   - flex-direction: column stacks items instead of lining them up in a row.
-   - width: 100% on links makes each button fill the available width.
+/*
+	Makes the header and nav stack vertically on small screens (responsive design).
 */
 @media (max-width: 700px) {
 	#site-header {
@@ -159,7 +132,9 @@ html, body {
 	}
 }
 
-/* Small utility: muted link style for other header links */
+/*
+	Styles muted links (less prominent links in the header).
+*/
 a.muted {
 	color: var(--muted);
 	background: transparent;
