@@ -21,6 +21,7 @@ A responsive fan website for Chiikawa, featuring story, character, game, and qui
   - Camera scrolls as the player moves; level includes a staircase and reduced jump gaps.
   - Game over and congratulations screens use semantic HTML and are fully styled.
   - "Play Again" reloads the page for a true fresh start.
+  - **Mobile controls:** Three large, semi-transparent pink overlay buttons (up, left, right) for mobile play, using Google Material Symbols. All controls use semantic containers and camelCase class names.
 - **Pages**:
   - `main.html`: Home/landing page
   - `pages/Story.html`: Story section
@@ -33,7 +34,7 @@ A responsive fan website for Chiikawa, featuring story, character, game, and qui
 1. Open `main.html` in your browser.
 2. Use the navigation bar to explore Story, Game, Character, and Quiz pages.
 3. On the Quiz page, answer all questions and submit to see your score (with animated loading messages).
-4. On the Game page, play the platformer! Use arrow keys and space to move/jump. If you lose, click "Play Again" to restart.
+4. On the Game page, play the platformer! Use arrow keys and space to move/jump, or use the on-screen mobile controls. If you lose, click "Play Again" to restart.
 
 ## Authors
 
@@ -52,3 +53,4 @@ A responsive fan website for Chiikawa, featuring story, character, game, and qui
 - Game assets (character, enemies, ground, background) are loaded and managed for reliability.
 - Game over and congratulations screens are semantic and accessible.
 - "Play Again" fully reloads the game for a fresh start.
+- **Mobile controls**: Overlay up/left/right buttons for touch play, using semantic containers and Google Material Symbols.
