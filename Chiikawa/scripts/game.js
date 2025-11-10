@@ -23,7 +23,7 @@ groundImg.src = '../images/gameAssets/ByIjUv.png';
 
 
 
-// Level data (simple Mario 1-1 style)
+// Level data size
 const tileSize = 40;
 // Add a staircase in the middle of the level
 const level = [
