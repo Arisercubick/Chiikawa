@@ -1,4 +1,7 @@
-// Quiz data: 8 questions, each with image, caption, choices, and correct answer index
+// Chiikawa Quiz Game
+// This script manages the quiz logic, user interaction, and UI updates for the Chiikawa quiz page.
+
+// Quiz data: each object is a question with image, caption, choices, and correct answer
 const quizData = [
   {
     image: "../images/AdorableCutieChiikawa.png?text=Q1",
@@ -50,10 +53,11 @@ const quizData = [
   }
 ];
 
-let current = 0;
+let current = 0; // Tracks the current question index
 // Track user responses, null means unanswered
 const responses = Array(quizData.length).fill(null);
 
+// Render the current question and choices
 function renderQuestion() {
   const q = quizData[current];
   document.getElementById('quizImage').src = q.image;
@@ -62,12 +66,13 @@ function renderQuestion() {
   const choicesList = document.getElementById('quizChoices');
   choicesList.innerHTML = '';
   q.choices.forEach((choice, idx) => {
-  const li = document.createElement('li');
-  const btn = document.createElement('button');
-  // Use the CSS class name defined in the page's stylesheet
-  btn.className = 'quiz-choice-btn';
+    const li = document.createElement('li');
+    const btn = document.createElement('button');
+    btn.className = 'quiz-choice-btn';
     btn.textContent = choice;
-    if (responses[current] === idx) btn.classList.add('selected');
+    if (responses[current] === idx) {
+      btn.classList.add('selected');
+    }
     btn.onclick = () => {
       responses[current] = idx;
       renderQuestion();
@@ -75,29 +80,34 @@ function renderQuestion() {
     li.appendChild(btn);
     choicesList.appendChild(li);
   });
-  // Nav buttons
+  // Show/hide navigation buttons based on current question
   document.getElementById('backBTN').hidden = !(current > 0);
   document.getElementById('nextBTN').hidden = !(current < quizData.length - 1);
   document.getElementById('submitBTN').hidden = !(current === quizData.length - 1);
 }
 
+// Next button: go to the next question
+// Only works if not on the last question
 document.getElementById('nextBTN').onclick = () => {
   if (current < quizData.length - 1) {
     current++;
     renderQuestion();
   }
 };
+// Back button: go to the previous question
+// Only works if not on the first question
 document.getElementById('backBTN').onclick = () => {
   if (current > 0) {
     current--;
     renderQuestion();
   }
 };
-  document.getElementById('submitBTN').onclick = () => {
-  // Show loading
-  // The section element in the HTML uses id="quizSection" (camelCase),
-  // so query that id here to find the buttons to disable.
-  document.getElementById('quizSection').querySelectorAll('button').forEach(b => b.disabled = true);
+// Submit button: show loading, then display score after delay
+document.getElementById('submitBTN').onclick = () => {
+  // Disable all buttons during loading
+  document.getElementById('quizSection').querySelectorAll('button').forEach(b => {
+    b.disabled = true;
+  });
   const loadingEl = document.getElementById('quizLoading');
   const loadingTextEl = loadingEl.querySelector('p') || loadingEl;
   const messages = [
@@ -109,25 +119,23 @@ document.getElementById('backBTN').onclick = () => {
     'Finalizing results'
   ];
   let msgIndex = 0;
-  // Ensure loading area visible and initialize text
+  // Show loading and start rotating messages
   loadingEl.hidden = false;
   if (loadingTextEl) {
     loadingTextEl.textContent = messages[msgIndex];
   }
-  // Rotate messages every 1500ms
   const loadingInterval = setInterval(() => {
     msgIndex = (msgIndex + 1) % messages.length;
     if (loadingTextEl) {
-        loadingTextEl.textContent = messages[msgIndex];
+      loadingTextEl.textContent = messages[msgIndex];
     }
   }, 1500);
-
   document.getElementById('quizResult').hidden = true;
   setTimeout(() => {
     // Stop rotating messages and hide loader
     clearInterval(loadingInterval);
     loadingEl.hidden = true;
-    // Score calculation
+    // Calculate score
     let score = 0;
     for (let i = 0; i < quizData.length; i++) {
       if (responses[i] === quizData[i].answer) {
@@ -135,10 +143,9 @@ document.getElementById('backBTN').onclick = () => {
       }
     }
     document.getElementById('quizResult').textContent = `You scored ${score} out of ${quizData.length}!`;
-    // document.getElementById('quizResult').textContent = `You scored Hello World`; // This is a joke output
     document.getElementById('quizResult').hidden = false;
   }, 8000);
 };
 
-// Initial render
+// Initial render: show the first question
 renderQuestion();
