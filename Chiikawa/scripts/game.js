@@ -12,19 +12,15 @@ const bgImg = new Image();
 bgImg.src = '../images/bd3410e44a72b4baa918181e82271ee3-400.jpg';
 const playerImg = new Image();
 playerImg.src = '../images/AdorableCutieChiikawa.png';
-const goombaImg = new Image();
-goombaImg.src = '../images/pngtree-sticker-vector-png-image_6818893.png';
+const broccoliImg = new Image();
+broccoliImg.src = '../images/pngtree-sticker-vector-png-image_6818893.png';
 const groundImg = new Image();
 groundImg.src = '../images/gameAssets/ByIjUv.png';
 
-// Add broccoli image for broccolis
-defineBroccoliImg();
 
-function defineBroccoliImg() {
-  if (typeof broccoliImg !== 'undefined') return;
-  window.broccoliImg = new window.Image();
-  broccoliImg.src = '../images/pngtree-sticker-vector-png-image_6818893.png';
-}
+
+
+
 
 // Level data (simple Mario 1-1 style)
 const tileSize = 40;
