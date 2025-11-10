@@ -1,14 +1,9 @@
 // Platformer game using canvas
-<<<<<<< HEAD
-// This code creates a simple Mario-style platformer game using HTML5 Canvas and JavaScript.
-// The player can move, jump, and interact with enemies and platforms.
-=======
 // Assets:
 // Player: /images/AdorableCutieChiikawa.png
 // Enemy: /images/pngtree-sticker-vector-png-image_6818893.png
 // Groynd: /images/gameAssets/ByIjUv.png
 // Background: /images/bd3410e44a72b4baa918181e82271ee3-400.jpg
->>>>>>> 3b32411c4e14ecea430cdc47c3417de9144adfd4
 
 // Get the canvas and its drawing context
 const canvas = document.getElementById('gameCanvas');
@@ -19,26 +14,12 @@ const bgImg = new Image();
 bgImg.src = '../images/bd3410e44a72b4baa918181e82271ee3-400.jpg';
 const playerImg = new Image();
 playerImg.src = '../images/AdorableCutieChiikawa.png';
-<<<<<<< HEAD
-=======
-const broccoliImg = new Image();
-broccoliImg.src = '../images/pngtree-sticker-vector-png-image_6818893.png';
->>>>>>> 3b32411c4e14ecea430cdc47c3417de9144adfd4
 const groundImg = new Image();
 groundImg.src = '../images/gameAssets/ByIjUv.png';
 const broccoliImg = new Image();
 broccoliImg.src = '../images/pngtree-sticker-vector-png-image_6818893.png';
 
-<<<<<<< HEAD
 // Level data: each string is a row, each character is a tile
-=======
-
-
-
-
-
-// Level data size
->>>>>>> 3b32411c4e14ecea430cdc47c3417de9144adfd4
 const tileSize = 40;
 const level = [
     // ...level layout with platforms, gaps, and staircase...
@@ -56,7 +37,7 @@ const level = [
     '                                                                                '
 ];
 
-// Build platform and enemy (broccoli) positions from the level data
+// Build platform from the level data
 const platforms = [];
 for (let y = 0; y < level.length; y++) {
     for (let x = 0; x < level[y].length; x++) {
@@ -66,6 +47,7 @@ for (let y = 0; y < level.length; y++) {
     }
 }
 
+// Define broccoli enemies based on level data
 const broccolis = [];
 for (let y = 0; y < level.length; y++) {
     for (let x = 0; x < level[y].length; x++) {
