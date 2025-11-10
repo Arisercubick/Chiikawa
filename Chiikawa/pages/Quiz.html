@@ -12,6 +12,7 @@
     <header id="header">
         <h1><a href="../main.html" class="nhome">Home</a></h1>
         <nav id="nmain" aria-label="Primary">
+            <!-- Navigation links  -->
             <ul class="nav-list">
                 <li class="nav"><a href="Story.html">Story</a></li>
                 <li class="nav"><a href="Game.html">Game</a></li>
@@ -23,19 +24,23 @@
     <main>
         <section id="quizSection">
             <figure class="quizFigure">
+                <!-- Quiz image and caption -->
                 <img id="quizImage" src="" alt="Quiz image" class="quizImage" />
                 <figcaption id="quizCaption"></figcaption>
             </figure>
+            <!-- Quiz choices -->
             <ul id="quizChoices" class="quizChoicesList"></ul>
             <nav class="quiz-nav">
                 <button id="backBTN" hidden>Back</button>
                 <button id="nextBTN">Next</button>
                 <button id="submitBTN" hidden>Submit Answers</button>
             </nav>
+            <!-- Loading state -->
             <aside id="quizLoading" hidden>
                 <article class="loader"></article>
                 <p>Computing your score...</p>
             </aside>
+            <!-- Quiz result -->
             <output id="quizResult" hidden></output>
         </section>
     </main>

@@ -6,12 +6,14 @@
     <title>Game</title>
     <link rel="stylesheet" href="../css/styles.css" />
     <link rel="stylesheet" href="../css/game.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
     <script src="../scripts/game.js" defer></script>
 </head>
 <body>
     <header id="header">
         <h1><a href="../main.html" class="nhome">Home</a></h1>
         <nav id="nmain" aria-label="Primary">
+            <!-- Navigation links  -->
             <ul class="nav-list">
                 <li class="nav"><a href="Story.html">Story</a></li>
                 <li class="nav"><a href="Game.html" aria-current="page">Game</a></li>
@@ -24,6 +26,19 @@
         <h2>Game</h2>
         <section id="gameContainer">
             <canvas id="gameCanvas" width="800" height="480"></canvas>
+            <div class="mobile-controls">
+                <button id="mobileUpBTN" class="mobile-btn">
+                    <span class="material-symbols-outlined">arrow_upward</span>
+                </button>
+                <div class="mobile-right-controls">
+                    <button id="mobileLeftBTN" class="mobile-btn">
+                        <span class="material-symbols-outlined">arrow_back</span>
+                    </button>
+                    <button id="mobileRightBTN" class="mobile-btn">
+                        <span class="material-symbols-outlined">arrow_forward</span>
+                    </button>
+                </div>
+            </div>
             <section id="congratsScreen" class="hidden">
                 <h2>Congratulations!</h2>
                 <p>You finished the level!</p>

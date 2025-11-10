@@ -71,3 +71,52 @@
   background: #222;
   color: #fff;
 }
+
+.mobile-controls {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  pointer-events: none;
+}
+
+.mobile-btn {
+  height: 2em;
+  width: 6em;
+  background: rgba(255, 192, 203, 0.85); /* pink, 85% transparent */
+  border: none;
+  border-radius: 1.5em;
+  margin: 0.5em;
+  padding: 0.5em;
+  font-size: 2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: auto;
+}
+
+.mobile-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.mobile-controls > .mobile-btn {
+  margin-left: 1em;
+}
+
+.mobile-right-controls {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5em;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+@media (min-width: 900px) {
+  .mobile-controls {
+    display: none;
+  }
+}

@@ -286,3 +286,41 @@ window.addEventListener('DOMContentLoaded', () => {
         };
     }
 });
+
+// Mobile controls: simulate key presses for mobile buttons
+function setupMobileControls() {
+    const upBtn = document.getElementById('mobileUpBTN');
+    const leftBtn = document.getElementById('mobileLeftBTN');
+    const rightBtn = document.getElementById('mobileRightBTN');
+    if (upBtn) {
+        upBtn.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+            keys['Space'] = true;
+        });
+        upBtn.addEventListener('touchend', function(e) {
+            e.preventDefault();
+            keys['Space'] = false;
+        });
+    }
+    if (leftBtn) {
+        leftBtn.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+            keys['ArrowLeft'] = true;
+        });
+        leftBtn.addEventListener('touchend', function(e) {
+            e.preventDefault();
+            keys['ArrowLeft'] = false;
+        });
+    }
+    if (rightBtn) {
+        rightBtn.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+            keys['ArrowRight'] = true;
+        });
+        rightBtn.addEventListener('touchend', function(e) {
+            e.preventDefault();
+            keys['ArrowRight'] = false;
+        });
+    }
+}
+window.addEventListener('DOMContentLoaded', setupMobileControls);
