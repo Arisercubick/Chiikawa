@@ -84,7 +84,7 @@
   align-items: flex-start;
 }
 
-.mobile-btn {
+.mobileBTN {
   height: 1em;
   width: 3em;
   background: rgba(255, 192, 203, 0.45); /* pink, 45% transparent */
@@ -99,7 +99,7 @@
   pointer-events: auto;
 }
 
-.mobileControls > .mobile-btn {
+.mobileControls > .mobileBTN {
   margin-left: 1em;
 }
 
