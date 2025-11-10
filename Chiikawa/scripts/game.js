@@ -1,8 +1,9 @@
 // Platformer game using canvas
 // Assets:
-// - Player: /images/AdorableCutieChiikawa.png
-// - Enemy: /images/pngtree-sticker-vector-png-image_6818893.png
-// - Background: /images/bd3410e44a72b4baa918181e82271ee3-400.jpg
+// Player: /images/AdorableCutieChiikawa.png
+// Enemy: /images/pngtree-sticker-vector-png-image_6818893.png
+// Groynd: /images/gameAssets/ByIjUv.png
+// Background: /images/bd3410e44a72b4baa918181e82271ee3-400.jpg
 
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
