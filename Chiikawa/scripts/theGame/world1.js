@@ -1,7 +1,4 @@
-
-// Import shared game data and helpers
-
-import { runGame } from './game.js';
+import { runGame } from './game.js'; // Import shared game data and helpers
 
 const level = [
     '                                                                                ',
