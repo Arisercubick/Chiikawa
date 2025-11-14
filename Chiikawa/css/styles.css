@@ -274,3 +274,7 @@ main {
 #details figcaption{
 	font-size:25px;
 }
+
+#characterList {
+	text-decoration: none;
+}
