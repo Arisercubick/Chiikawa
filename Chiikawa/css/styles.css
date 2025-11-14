@@ -198,11 +198,16 @@ a.muted {
 /* Css for the main body */
 main {
 	display: grid;
+	grid-template-areas: 
+		"banner banner"
+		"story character"
+		"footer footer";
 }
 
 /* Css for banner image */
 .banner {
 	text-align: center;
+	grid-area: banner;
 }
 .banner img {
 	height: 450px;
@@ -215,6 +220,7 @@ main {
 
 /* Css for the story section */
 #story {
+	grid-area: story;
 	border: solid 5px black;
 	background-color: ;
 }
@@ -229,6 +235,7 @@ main {
 
 /* Css for the character section */
 #character {
+	grid-area: character;
 	border: solid 5px black;
 	background-color: ;
 }
@@ -273,8 +280,4 @@ main {
 }
 #details figcaption{
 	font-size:25px;
-}
-
-#characterList {
-	text-decoration: none;
 }
