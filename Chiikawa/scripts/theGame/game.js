@@ -16,6 +16,9 @@ export function runGame({ level, playerStart, onWin }) {
         jump: playerDefaults.jump
     };
     let keys = {};
+    // Secret combo detection: w + a + a + w + q
+    const secretCombo = ['KeyW', 'KeyA', 'KeyA', 'KeyW', 'KeyQ'];
+    let comboProgress = 0;
     let gameWon = false;
     let gameOver = false;
     let cameraX = 0;
@@ -37,6 +40,28 @@ export function runGame({ level, playerStart, onWin }) {
         // Prevent page scroll when pressing Space (jump)
         if (e.code === 'Space' && document.activeElement === document.body) {
             e.preventDefault();
+        }
+        // Secret combo logic
+        if (e.code === secretCombo[comboProgress]) {
+            comboProgress++;
+            if (comboProgress === secretCombo.length) {
+                // Finish the level as if the player reached the end
+                if (!gameWon && !gameOver) {
+                    gameWon = true;
+                    document.getElementById('congratsScreen').classList.remove('hidden');
+                    if (onWin) onWin();
+                    setTimeout(() => {
+                        const restartBtn = document.getElementById('restartBTN');
+                        if (restartBtn) {
+                            restartBtn.onclick = () => { resetGame(); };
+                        }
+                    }, 0);
+                }
+                comboProgress = 0;
+            }
+        } else if (e.code !== secretCombo[0]) {
+            // Reset if wrong key (unless it's the first key in the combo)
+            comboProgress = 0;
         }
     });
     window.addEventListener('keyup', e => { keys[e.code] = false; });
