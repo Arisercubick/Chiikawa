@@ -123,9 +123,10 @@ export function runGame({ level, playerStart, onWin }) {
             ) {
                 f.dir *= -1;
             }
-            // Eliminate on player touch
+            // Player dies instantly on brocFly collision
             if (rectsCollide(player, f)) {
-                f.alive = false;
+                triggerGameOver();
+                return;
             }
         }
     }
@@ -286,6 +287,11 @@ export function runGame({ level, playerStart, onWin }) {
         for (const g of broccolis) {
             if (!g.alive) continue;
             ctx.drawImage(broccoliImg, g.x - cameraX, g.y - cameraY, g.w, g.h);
+        }
+        // Draw brocFly enemies
+        for (const f of brocFlys) {
+            if (!f.alive) continue;
+            ctx.drawImage(brocFlyImg, f.x - cameraX, f.y - cameraY, f.w, f.h);
         }
         // Directional vibration effect (horizontal or vertical, 500ms)
         let vibOffsetX = 0, vibOffsetY = 0;
