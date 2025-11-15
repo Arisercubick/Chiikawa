@@ -322,6 +322,7 @@ export function runGame({ level, playerStart, onWin }) {
 
     // Store original broccoli positions for reset
     const broccoliStartStates = broccolis.map(g => ({ x: g.x, y: g.y, dir: g.dir }));
+    const brocFlyStartStates = brocFlys.map(f => ({ x: f.x, y: f.y, dir: f.dir }));
     function resetGame() {
         player.x = playerDefaults.startX;
         player.y = playerDefaults.startY;
@@ -332,6 +333,12 @@ export function runGame({ level, playerStart, onWin }) {
             broccolis[i].y = broccoliStartStates[i].y;
             broccolis[i].dir = broccoliStartStates[i].dir;
             broccolis[i].alive = true;
+        }
+        for (let i = 0; i < brocFlys.length; i++) {
+            brocFlys[i].x = brocFlyStartStates[i].x;
+            brocFlys[i].y = brocFlyStartStates[i].y;
+            brocFlys[i].dir = brocFlyStartStates[i].dir;
+            brocFlys[i].alive = true;
         }
         gameWon = false;
         gameOver = false;

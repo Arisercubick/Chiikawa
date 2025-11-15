@@ -1,5 +1,7 @@
 # Chiikawa
 
+By Aris John and Kelly
+
 A responsive fan website for Chiikawa, featuring story, character, game, and quiz sections.
 
 ## Project Status (as of November 2025)
