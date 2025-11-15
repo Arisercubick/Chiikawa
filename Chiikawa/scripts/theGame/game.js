@@ -32,8 +32,21 @@ export function runGame({ level, playerStart, onWin }) {
     const broccoliImg = new Image();
     broccoliImg.src = assetPaths.broccoli;
 
-    window.addEventListener('keydown', e => { keys[e.code] = true; });
+    window.addEventListener('keydown', e => {
+        keys[e.code] = true;
+        // Prevent page scroll when pressing Space (jump)
+        if (e.code === 'Space' && document.activeElement === document.body) {
+            e.preventDefault();
+        }
+    });
     window.addEventListener('keyup', e => { keys[e.code] = false; });
+
+    function isLeftPressed() {
+        return keys['ArrowLeft'] || keys['KeyA'];
+    }
+    function isRightPressed() {
+        return keys['ArrowRight'] || keys['KeyD'];
+    }
 
     function rectsCollide(a, b) {
         return (
@@ -47,8 +60,8 @@ export function runGame({ level, playerStart, onWin }) {
     function update() {
         if (gameWon || gameOver) return;
         player.vx = 0;
-        if (keys['ArrowLeft']) player.vx = -player.speed;
-        if (keys['ArrowRight']) player.vx = player.speed;
+        if (isLeftPressed()) player.vx = -player.speed;
+        if (isRightPressed()) player.vx = player.speed;
         if (keys['Space'] && player.onGround) {
             player.vy = player.jump;
             player.onGround = false;
@@ -110,6 +123,13 @@ export function runGame({ level, playerStart, onWin }) {
             gameWon = true;
             document.getElementById('congratsScreen').classList.remove('hidden');
             if (onWin) onWin();
+            // Add restart button logic for congrats screen
+            setTimeout(() => {
+              const restartBtn = document.getElementById('restartBTN');
+              if (restartBtn) {
+                restartBtn.onclick = () => { resetGame(); };
+              }
+            }, 0);
         }
         if (player.y > canvas.height + 100) {
             triggerGameOver();

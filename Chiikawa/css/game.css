@@ -91,6 +91,33 @@
   color: #111;
 }
 
+.congratsButtons {
+  display: flex;
+  flex-direction: row;
+  gap: 1.2em;
+  justify-content: center;
+  align-items: stretch;
+  margin-top: 1.5em;
+}
+
+.restartBTN {
+  padding: 0.7em 2em;
+  background: #ffb3b3;
+  color: #222;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-top: 1.5em;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+.restartBTN:hover {
+  background: #ff6666;
+  color: #fff;
+}
+
 .mobileControls {
   position: absolute;
   top: 0;
@@ -172,4 +199,13 @@ main {
     max-width: 98vw;
     max-height: 60vw;
   }
+}
+
+.continueBTN, .restartBTN {
+  min-width: 140px;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
 }
