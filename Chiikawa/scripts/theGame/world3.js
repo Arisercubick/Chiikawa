@@ -1,16 +1,18 @@
 // world3.js - Third level for the platformer game
+'use strict';
 import { runGame } from './game.js';
 
 const level = [
     '                                                                                ',
     '                                                                                ',
+    '      ==      ==      ==      ==      ==      ==      ==      ==      ==      ==',
     '                                                                                ',
-    '       ==      ==      ==      ==      ==      ==      ==      ==      ==      ==      ==       ',
     '                                                                                ',
-    '       ==      ==      ==      ==      ==      ==      ==      ==      ==      ==      ==   G   ',
+    '      ==      ==      ==      ==      ==      ==      ==      ==      ==      ==',
     '                                                                                ',
-    '       ==      ==      ==      ==      ==      ==      ==      ==      ==      ==      ==       ',
-    '                                            G                           G       ',
+    '                                                                                ',
+    '      ==      ==      ==      ==      ==      ==      ==      ==      ==       ',
+    '      ?                                     G                           G       ',
     '===========================   ============================   ===================',
     '                                                                                ',
     '                                                                                '
@@ -20,6 +22,12 @@ runGame({
     level,
     playerStart: { x: undefined, y: undefined },
     onWin: () => {
-        alert('You finished World 3! More levels coming soon!');
+        const continueBtn = document.getElementById('continueBTN');
+        if (continueBtn) {
+            continueBtn.onclick = () => {
+                window.location.href = 'world4.html';
+                document.getElementById('congratsScreen').classList.add('hidden');
+            };
+        }
     }
 });

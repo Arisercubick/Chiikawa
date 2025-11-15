@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>World 3 - Game</title>
+    <link rel="stylesheet" href="../../css/styles.css" />
+    <link rel="stylesheet" href="../../css/game.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <script type="module" src="../../scripts/theGame/world3.js"></script>
+</head>
+<body>
+    <header id="header">
+        <h1><a href="../../main.html" class="nhome">Home</a></h1>
+        <nav id="nmain" aria-label="Primary">
+            <ul class="nav-list">
+                <li class="nav"><a href="../../pages/Story.html">Story</a></li>
+                <li class="nav"><a href="../Game.html">Game</a></li>
+                <li class="nav"><a href="../../pages/Character.html">Character</a></li>
+                <li class="nav"><a href="../../pages/Quiz.html">Quiz</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h2>World 3</h2>
+        <section id="gameContainer">
+            <canvas id="gameCanvas" width="800" height="480"></canvas>
+            <section class="mobileControls">
+                <button id="mobileUpBTN" class="mobileBTN">
+                    <i class="materialSymbolsOutlined">arrow_upward</i>
+                </button>
+                <nav class="mobileRightControls">
+                    <button id="mobileLeftBTN" class="mobileBTN">
+                        <i class="materialSymbolsOutlined">arrow_back</i>
+                    </button>
+                    <button id="mobileRightBTN" class="mobileBTN">
+                        <i class="materialSymbolsOutlined">arrow_forward</i>
+                    </button>
+                </nav>
+            </section>
+            <section id="congratsScreen" class="hidden">
+                <h2>Congratulations!</h2>
+                <p>You finished the level!</p>
+                <div class="congratsButtons">
+                  <button id="continueBTN" class="continueBTN">Continue</button>
+                  <button id="restartBTN" class="restartBTN">Restart</button>
+                </div>
+            </section>
+            <section id="gameOverScreen" class="hidden">
+                <article class="gameOverOverlay">
+                    <h2>Game Over</h2>
+                    <button id="playAgainBTN">Play Again</button>
+                </article>
+            </section>
+        </section>
+    </main>
+    <footer>
+        <h2>Made by Aris and Kelly</h2>
+    </footer>
+</body>
+</html>

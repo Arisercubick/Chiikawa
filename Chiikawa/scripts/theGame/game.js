@@ -1,4 +1,5 @@
 // --- Game Engine Logic ---
+'use strict';
 export function runGame({ level, playerStart, onWin }) {
     const canvas = document.getElementById('gameCanvas');
     const ctx = canvas.getContext('2d');
@@ -35,8 +36,12 @@ export function runGame({ level, playerStart, onWin }) {
     const broccoliImg = new Image();
     broccoliImg.src = assetPaths.broccoli;
 
-    window.addEventListener('keydown', e => {
+    const keydownHandler = e => {
         keys[e.code] = true;
+        // Stop vibration on any key press
+        if (typeof vibration !== 'undefined') {
+            vibration.active = false;
+        }
         // Prevent page scroll when pressing Space (jump)
         if (e.code === 'Space' && document.activeElement === document.body) {
             e.preventDefault();
@@ -63,8 +68,10 @@ export function runGame({ level, playerStart, onWin }) {
             // Reset if wrong key (unless it's the first key in the combo)
             comboProgress = 0;
         }
-    });
-    window.addEventListener('keyup', e => { keys[e.code] = false; });
+    };
+    const keyupHandler = e => { keys[e.code] = false; };
+    window.addEventListener('keydown', keydownHandler);
+    window.addEventListener('keyup', keyupHandler);
 
     function isLeftPressed() {
         return keys['ArrowLeft'] || keys['KeyA'];
@@ -82,35 +89,78 @@ export function runGame({ level, playerStart, onWin }) {
         );
     }
 
+    // Vibration state
+    let vibration = { active: false, dir: 0, axis: 'x', startTime: 0, duration: 100 };
+
     function update() {
         if (gameWon || gameOver) return;
         player.vx = 0;
-        if (isLeftPressed()) player.vx = -player.speed;
-        if (isRightPressed()) player.vx = player.speed;
+        let wantLeft = isLeftPressed();
+        let wantRight = isRightPressed();
+        if (wantLeft) player.vx = -player.speed;
+        if (wantRight) player.vx = player.speed;
         if (keys['Space'] && player.onGround) {
             player.vy = player.jump;
             player.onGround = false;
         }
         player.vy += 0.5;
+
+        // Try to move horizontally, check for block
+        let prevX = player.x;
         player.x += player.vx;
+        let blockedX = false;
         for (const plat of platforms) {
             if (rectsCollide(player, plat)) {
                 if (player.vx > 0) player.x = plat.x - player.w;
                 if (player.vx < 0) player.x = plat.x + plat.w;
+                blockedX = true;
             }
         }
+
+        // If blocked horizontally, start vibration in that direction (only if not already vibrating)
+        if (blockedX && (wantLeft || wantRight) && !vibration.active) {
+            vibration.active = true;
+            vibration.dir = wantLeft ? -1 : 1;
+            vibration.axis = 'x';
+            vibration.startTime = performance.now();
+        }
+
+        // Try to move vertically, check for block
+        let prevY = player.y;
         player.y += player.vy;
         player.onGround = false;
+        let blockedY = false;
+        let blockDirY = 0;
         for (const plat of platforms) {
             if (rectsCollide(player, plat)) {
                 if (player.vy > 0) {
                     player.y = plat.y - player.h;
                     player.vy = 0;
                     player.onGround = true;
+                    blockedY = true;
+                    blockDirY = 1; // Blocked below
                 } else if (player.vy < 0) {
                     player.y = plat.y + plat.h;
                     player.vy = 0;
+                    blockedY = true;
+                    blockDirY = -1; // Blocked above
                 }
+            }
+        }
+
+        // If blocked vertically (not on ground), vibrate vertically (only if not already vibrating)
+        if (blockedY && !player.onGround && !vibration.active) {
+            vibration.active = true;
+            vibration.dir = blockDirY;
+            vibration.axis = 'y';
+            vibration.startTime = performance.now();
+        }
+
+        // Stop vibration after 500ms or on key press
+        if (vibration.active) {
+            let elapsed = (performance.now() - vibration.startTime);
+            if (elapsed > vibration.duration) {
+                vibration.active = false;
             }
         }
         for (const g of broccolis) {
@@ -183,13 +233,26 @@ export function runGame({ level, playerStart, onWin }) {
             if (!g.alive) continue;
             ctx.drawImage(broccoliImg, g.x - cameraX, g.y, g.w, g.h);
         }
-        ctx.drawImage(playerImg, player.x - cameraX, player.y, player.w, player.h);
+        // Directional vibration effect (horizontal or vertical, 500ms)
+        let vibOffsetX = 0, vibOffsetY = 0;
+        if (vibration.active) {
+            let elapsed = (performance.now() - vibration.startTime);
+            let phase = (elapsed / vibration.duration) * 2 * Math.PI;
+            let swing = Math.sin(phase) * 4 * vibration.dir;
+            if (vibration.axis === 'x') {
+                vibOffsetX = swing;
+            } else if (vibration.axis === 'y') {
+                vibOffsetY = swing;
+            }
+        }
+        ctx.drawImage(playerImg, player.x - cameraX + vibOffsetX, player.y + vibOffsetY, player.w, player.h);
     }
 
+    let animationId;
     function loop() {
         update();
         draw();
-        requestAnimationFrame(loop);
+        animationId = requestAnimationFrame(loop);
     }
 
     function triggerGameOver() {
@@ -232,7 +295,35 @@ export function runGame({ level, playerStart, onWin }) {
         if (btn) {
             btn.onclick = () => { resetGame(); };
         }
+        // World selection buttons (if any)
+        const world1Btn = document.getElementById('world1BTN');
+        const world2Btn = document.getElementById('world2BTN');
+        const world3Btn = document.getElementById('world3BTN');
+        if (world1Btn) world1Btn.onclick = () => { switchWorld(1); };
+        if (world2Btn) world2Btn.onclick = () => { switchWorld(2); };
+        if (world3Btn) world3Btn.onclick = () => { switchWorld(3); };
     });
+
+    function switchWorld(worldNum) {
+        currentLevel = selectWorld(worldNum);
+        runGame({ playerStart: {}, onWin: getOnWinHandler(worldNum) });
+    }
+
+    function getOnWinHandler(worldNum) {
+        if (worldNum === 1) return onWinWorld1;
+        if (worldNum === 2) return onWinWorld2;
+        if (worldNum === 3) return onWinWorld3;
+        return onWinWorld1;
+    }
+
+    // Expose cleanup for this game instance
+    gameInstance = {
+        cleanup: () => {
+            window.removeEventListener('keydown', keydownHandler);
+            window.removeEventListener('keyup', keyupHandler);
+            if (animationId) cancelAnimationFrame(animationId);
+        }
+    };
 
     function setupMobileControls() {
         const upBtn = document.getElementById('mobileUpBTN');
@@ -285,13 +376,42 @@ export const playerDefaults = {
 };
 
 export const assetPaths = {
-    bg: '../images/bd3410e44a72b4baa918181e82271ee3-400.jpg',
-    player: '../images/AdorableCutieChiikawa.png',
-    ground: '../images/gameAssets/ByIjUv.png',
-    broccoli: '../images/pngtree-sticker-vector-png-image_6818893.png'
+    bg: '../../images/bd3410e44a72b4baa918181e82271ee3-400.jpg',
+    player: '../../images/AdorableCutieChiikawa.png',
+    ground: '../../images/gameAssets/ByIjUv.png',
+    broccoli: '../../images/pngtree-sticker-vector-png-image_6818893.png'
 };
 
-// Example: function to build platforms and enemies from level data
+// Example onWin handlers for each world
+function onWinWorld1() {
+    const continueBtn = document.getElementById('continueBTN');
+    if (continueBtn) {
+        continueBtn.onclick = () => {
+            switchWorld(2);
+            document.getElementById('congratsScreen').classList.add('hidden');
+        };
+    }
+}
+function onWinWorld2() {
+    const continueBtn = document.getElementById('continueBTN');
+    if (continueBtn) {
+        continueBtn.onclick = () => {
+            switchWorld(3);
+            document.getElementById('congratsScreen').classList.add('hidden');
+        };
+    }
+}
+function onWinWorld3() {
+    const continueBtn = document.getElementById('continueBTN');
+    if (continueBtn) {
+        continueBtn.onclick = () => {
+            document.getElementById('congratsScreen').classList.add('hidden');
+            alert('You finished all available levels! More coming soon!');
+        };
+    }
+}
+
+// This file is now a pure engine. No auto-start or world selection logic.
 export function buildPlatforms(level, tileSize) {
     const platforms = [];
     for (let y = 0; y < level.length; y++) {

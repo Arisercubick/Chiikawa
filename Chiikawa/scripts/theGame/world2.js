@@ -1,4 +1,6 @@
-import { runGame } from './game.js'; // Import shared game data and helpers
+// world2.js - Second level for the platformer game
+'use strict';
+import { runGame } from './game.js';
 
 const level = [
     '                                                                                ',
@@ -19,11 +21,10 @@ runGame({
     level,
     playerStart: { x: undefined, y: undefined },
     onWin: () => {
-        // logic for finishing world2 here
         const continueBtn = document.getElementById('continueBTN');
         if (continueBtn) {
             continueBtn.onclick = () => {
-                import('./world3.js');
+                window.location.href = 'world3.html';
                 document.getElementById('congratsScreen').classList.add('hidden');
             };
         }
