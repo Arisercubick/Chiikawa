@@ -20,6 +20,12 @@ runGame({
     playerStart: { x: undefined, y: undefined },
     onWin: () => {
         // logic for finishing world2 here
-        alert('You finished World 2!');
+        const continueBtn = document.getElementById('continueBTN');
+        if (continueBtn) {
+            continueBtn.onclick = () => {
+                import('./world3.js');
+                document.getElementById('congratsScreen').classList.add('hidden');
+            };
+        }
     }
 });
