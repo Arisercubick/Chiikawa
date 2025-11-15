@@ -5,6 +5,7 @@ export function runGame({ level, playerStart, onWin }) {
     const ctx = canvas.getContext('2d');
     const platforms = buildPlatforms(level, tileSize);
     const broccolis = buildBroccolis(level, tileSize);
+    const brocFlys = buildBrocFlys(level, tileSize);
     const player = {
         x: playerStart?.x ?? playerDefaults.startX,
         y: playerStart?.y ?? playerDefaults.startY,
@@ -38,6 +39,8 @@ export function runGame({ level, playerStart, onWin }) {
     groundImg.src = assetPaths.ground;
     const broccoliImg = new Image();
     broccoliImg.src = assetPaths.broccoli;
+    const brocFlyImg = new Image();
+    brocFlyImg.src = assetPaths.brocFly;
 
     const keydownHandler = e => {
         keys[e.code] = true;
@@ -94,6 +97,38 @@ export function runGame({ level, playerStart, onWin }) {
 
     // Vibration state
     let vibration = { active: false, dir: 0, axis: 'x', startTime: 0, duration: 100 };
+
+    // BrocFly movement logic
+    function updateBrocFlys() {
+        for (const f of brocFlys) {
+            if (!f.alive) continue;
+            // Move horizontally in current direction
+            f.x += f.dir * 2.2; // Faster than ground broccoli
+            // Check for edge of map
+            if (f.x < 0) {
+                f.x = 0;
+                f.dir = 1;
+            } else if (f.x + f.w > levelWidth) {
+                f.x = levelWidth - f.w;
+                f.dir = -1;
+            }
+            // Check for block in front (at same y)
+            let nextX = f.dir > 0 ? f.x + f.w : f.x - 1;
+            let gridY = Math.floor(f.y / tileSize);
+            let gridX = Math.floor(nextX / tileSize);
+            if (
+                gridY >= 0 && gridY < level.length &&
+                gridX >= 0 && gridX < level[0].length &&
+                level[gridY][gridX] === '='
+            ) {
+                f.dir *= -1;
+            }
+            // Eliminate on player touch
+            if (rectsCollide(player, f)) {
+                f.alive = false;
+            }
+        }
+    }
 
     function update() {
         if (gameWon || gameOver) return;
@@ -166,6 +201,10 @@ export function runGame({ level, playerStart, onWin }) {
                 vibration.active = false;
             }
         }
+
+        // Update flying enemies
+        updateBrocFlys();
+
         for (const g of broccolis) {
             if (!g.alive) continue;
             g.x += g.dir * 1.2;
@@ -296,10 +335,10 @@ export function runGame({ level, playerStart, onWin }) {
     }
 
     let loaded = 0;
-    [playerImg, groundImg, bgImg, broccoliImg].forEach(img => {
+    [playerImg, groundImg, bgImg, broccoliImg, brocFlyImg].forEach(img => {
         img.onload = () => {
             loaded++;
-            if (loaded === 4) {
+            if (loaded === 5) {
                 loop();
             }
         };
@@ -397,8 +436,21 @@ export const assetPaths = {
     bg: '../../images/bd3410e44a72b4baa918181e82271ee3-400.jpg',
     player: '../../images/AdorableCutieChiikawa.png',
     ground: '../../images/gameAssets/ByIjUv.png',
-    broccoli: '../../images/pngtree-sticker-vector-png-image_6818893.png'
+    broccoli: '../../images/pngtree-sticker-vector-png-image_6818893.png',
+    brocFly: '../../images/gameAssets/b9d20377-3663-4c52-bb67-de546498067d-removebg-preview.png'
 };
+// Build flying broccoli enemies ("T")
+export function buildBrocFlys(level, tileSize) {
+    const brocFlys = [];
+    for (let y = 0; y < level.length; y++) {
+        for (let x = 0; x < level[y].length; x++) {
+            if (level[y][x] === 'T') {
+                brocFlys.push({ x: x * tileSize, y: y * tileSize, w: tileSize, h: tileSize, dir: 1, alive: true });
+            }
+        }
+    }
+    return brocFlys;
+}
 
 // Example onWin handlers for each world
 // When finish, put =  alert('You finished all available levels! More coming soon!');
