@@ -185,7 +185,7 @@ export function runGame({ level, playerStart, onWin }) {
     window.addEventListener('DOMContentLoaded', () => {
         const btn = document.getElementById('playAgainBTN');
         if (btn) {
-            btn.onclick = () => { window.location.reload(); };
+            btn.onclick = () => { resetGame(); };
         }
     });
 
