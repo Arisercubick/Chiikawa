@@ -18,10 +18,13 @@ A responsive fan website for Chiikawa, featuring story, character, game, and qui
   - Each world/level is a separate file (e.g., `world1.js`, `world2.js`) that provides level data and calls the engine.
   - Level switching: When you finish a world, a "Continue" button appears to load the next world/level.
   - Main character: `AdorableCutieChiikawa.png`.
-  - Enemies (broccolis): `pngtree-sticker-vector-png-image_6818893.png`.
+  - Enemies:
+    - Broccolis (ground): `pngtree-sticker-vector-png-image_6818893.png`.
+    - BrocFly (Air): `b9d20377-3663-4c52-bb67-de546498067d-removebg-preview.png`.
   - Ground tiles: `ByIjUv.png`.
   - Background: `bd3410e44a72b4baa918181e82271ee3-400.jpg`, dimmed for clarity.
   - Camera scrolls as the player moves; level includes a staircase and reduced jump gaps.
+  - BrocFly enemies instantly kill the player on contact (player dies and game over screen appears; brocFly is immune).
   - Game over and congratulations screens use semantic HTML and are fully styled.
   - "Play Again" reloads the page for a true fresh start.
   - **Mobile controls:** Three large, semi-transparent pink overlay buttons (up, left, right) for mobile play, using Google Material Symbols. All controls use semantic containers and camelCase class names.
@@ -51,12 +54,14 @@ A responsive fan website for Chiikawa, featuring story, character, game, and qui
 
 - All button and layout styles (including the Game page's Start Game button) are now implemented in CSS files—no inline styles remain.
 - Modularized game engine: All platformer logic is in `game.js`, with each world as a separate file for easy extensibility.
-- Added `world2.js`, `world3.js`, and `world4.js` as additional levels; each world is loaded via its own HTML/JS pair.
+- Added `world2.js`, `world3.js`, `world4.js`, and `world5.js` as additional levels; each world is loaded via its own HTML/JS pair.
 - Level switching: When you finish a world, a "Continue" button appears to load the next world/level (e.g., from world3 to world4).
 - Game page now features a Mario-style platformer with camera scrolling, staircase, and semantic overlays.
 - Game assets (character, enemies, ground, background) are loaded and managed for reliability.
+- Added brocFly (flying enemy, 'T' in level): instantly kills player on contact, immune to being killed.
+- Game reset now restores both broccolis and brocFly enemies to their original positions and states.
 - Game over and congratulations screens are semantic, accessible, and fully styled.
-- "Play Again" fully reloads the game for a fresh start.
+- "Play Again" reloads the game.
 - Mobile controls: Overlay up/left/right buttons for touch play, using semantic containers and Google Material Symbols.
 - Refactored all quiz-related IDs/classes to camelCase for consistency.
 - Quiz logic now uses per-question response arrays.
