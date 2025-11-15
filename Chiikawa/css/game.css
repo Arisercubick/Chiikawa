@@ -209,3 +209,17 @@ main {
   justify-content: center;
   box-sizing: border-box;
 }
+
+#gameStartContainer {
+  text-align:center; 
+  margin-top:2em;
+}
+.startGameButton {
+  font-size:2em; 
+  padding:1em 2em; 
+  background:#4CAF50; 
+  color:#fff; 
+  border:none; 
+  border-radius:8px; 
+  text-decoration:none;
+}
