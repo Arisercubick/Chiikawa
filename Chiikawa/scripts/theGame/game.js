@@ -23,8 +23,11 @@ export function runGame({ level, playerStart, onWin }) {
     let gameWon = false;
     let gameOver = false;
     let cameraX = 0;
+    let cameraY = 0;
     const screenWidth = canvas.width;
+    const screenHeight = canvas.height;
     const levelWidth = level[0].length * tileSize;
+    const levelHeight = level.length * tileSize;
 
     // Load images
     const bgImg = new Image();
@@ -216,6 +219,18 @@ export function runGame({ level, playerStart, onWin }) {
         } else if (centerX - cameraX < screenWidth * 0.4 && cameraX > 0) {
             cameraX = Math.max(centerX - screenWidth * 0.4, 0);
         }
+
+        // Vertical camera scroll (if level is tall enough)
+        const centerY = player.y + player.h / 2;
+        if (levelHeight > screenHeight) {
+            if (centerY - cameraY > screenHeight * 0.6 && cameraY < levelHeight - screenHeight) {
+                cameraY = Math.min(centerY - screenHeight * 0.6, levelHeight - screenHeight);
+            } else if (centerY - cameraY < screenHeight * 0.4 && cameraY > 0) {
+                cameraY = Math.max(centerY - screenHeight * 0.4, 0);
+            }
+        } else {
+            cameraY = 0;
+        }
     }
 
     function draw() {
@@ -227,11 +242,11 @@ export function runGame({ level, playerStart, onWin }) {
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         ctx.restore();
         for (const plat of platforms) {
-            ctx.drawImage(groundImg, plat.x - cameraX, plat.y, plat.w, plat.h);
+            ctx.drawImage(groundImg, plat.x - cameraX, plat.y - cameraY, plat.w, plat.h);
         }
         for (const g of broccolis) {
             if (!g.alive) continue;
-            ctx.drawImage(broccoliImg, g.x - cameraX, g.y, g.w, g.h);
+            ctx.drawImage(broccoliImg, g.x - cameraX, g.y - cameraY, g.w, g.h);
         }
         // Directional vibration effect (horizontal or vertical, 500ms)
         let vibOffsetX = 0, vibOffsetY = 0;
@@ -245,7 +260,7 @@ export function runGame({ level, playerStart, onWin }) {
                 vibOffsetY = swing;
             }
         }
-        ctx.drawImage(playerImg, player.x - cameraX + vibOffsetX, player.y + vibOffsetY, player.w, player.h);
+        ctx.drawImage(playerImg, player.x - cameraX + vibOffsetX, player.y - cameraY + vibOffsetY, player.w, player.h);
     }
 
     let animationId;
@@ -299,9 +314,11 @@ export function runGame({ level, playerStart, onWin }) {
         const world1Btn = document.getElementById('world1BTN');
         const world2Btn = document.getElementById('world2BTN');
         const world3Btn = document.getElementById('world3BTN');
+        const world4Btn = document.getElementById('world4BTN');
         if (world1Btn) world1Btn.onclick = () => { switchWorld(1); };
         if (world2Btn) world2Btn.onclick = () => { switchWorld(2); };
         if (world3Btn) world3Btn.onclick = () => { switchWorld(3); };
+        if (world4Btn) world4Btn.onclick = () => { switchWorld(4); };
     });
 
     function switchWorld(worldNum) {
@@ -313,6 +330,7 @@ export function runGame({ level, playerStart, onWin }) {
         if (worldNum === 1) return onWinWorld1;
         if (worldNum === 2) return onWinWorld2;
         if (worldNum === 3) return onWinWorld3;
+        if (worldNum === 4) return onWinWorld4;
         return onWinWorld1;
     }
 
@@ -383,6 +401,7 @@ export const assetPaths = {
 };
 
 // Example onWin handlers for each world
+// When finish, put =  alert('You finished all available levels! More coming soon!');
 function onWinWorld1() {
     const continueBtn = document.getElementById('continueBTN');
     if (continueBtn) {
@@ -405,8 +424,18 @@ function onWinWorld3() {
     const continueBtn = document.getElementById('continueBTN');
     if (continueBtn) {
         continueBtn.onclick = () => {
+            switchWorld(4);
             document.getElementById('congratsScreen').classList.add('hidden');
+           
+        };
+    }
+}
+function onWinWorld4() {
+    const continueBtn = document.getElementById('continueBTN');
+    if (continueBtn) {
+        continueBtn.onclick = () => {
             alert('You finished all available levels! More coming soon!');
+            document.getElementById('congratsScreen').classList.add('hidden');
         };
     }
 }
