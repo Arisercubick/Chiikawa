@@ -249,6 +249,20 @@ main {
 	text-align: center;
 	font-size: 25px;
 }
+/* css for the quiz section */
+#quiz {
+	grid-area: quiz;
+	border: solid 5px black;
+	background-color: ;
+}
+
+/*css for the game section */ 
+#game {
+	grid-area: game;
+	border: solid 5px black;
+	background-color: ;
+}
+
 /* Css for the description for the links to our content pages */
 .description {
 	text-align: center;
@@ -321,24 +335,39 @@ main {
 #infobanners section {
 	transition: transform 0.25s cubic-bezier(0.4, 0.2, 0.2, 1);
 }
+#infobanners a {
+	text-decoration: none;
+	color: inherit;
+}
 #infobanners section:hover {
 	transform: scale(1.05);
 	z-index: 2;
 }
 
+/* Responsive design for smaller screens */
 @media (max-width: 900px) {
   .mainColumn {
     gap: 1.2em;
     padding: 0 0.2em;
   }
-  #story, #character, #aboutUs {
+  .info {
     padding: 1em 0.5em;
     max-width: 98vw;
   }
-  .bannerSection {
+  .info {
     margin-bottom: 1em;
   }
-  #story h1, #character h1, #aboutUs h1 {
+  .info h1 {
     font-size: 1.2rem;
   }
+img {
+	width: 100%;
+	max-width: 90vw;
+	max-height: 90vh;
+	height: auto;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
 }
+}
+

@@ -516,7 +516,7 @@ export const assetPaths = {
     bg: '../../images/bd3410e44a72b4baa918181e82271ee3-400.jpg',
     player: '../../images/AdorableCutieChiikawa.png',
     ground: '../../images/gameAssets/ByIjUv.png',
-    broccoli: '../../images/pngtree-sticker-vector-png-image_6818893.png',
+    broccoli: '../../images/gameAssets/pngtree-sticker-vector-png-image_6818893.png',
     brocFly: '../../images/gameAssets/b9d20377-3663-4c52-bb67-de546498067d-removebg-preview.png'
 };
 // Build flying broccoli enemies ("T")
