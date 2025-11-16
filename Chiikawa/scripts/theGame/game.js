@@ -444,7 +444,7 @@ export function runGame({ level, playerStart, onWin }) {
     }
 
     // Expose cleanup for this game instance
-    gameInstance = {
+    let gameInstance = {
         cleanup: () => {
             window.removeEventListener('keydown', keydownHandler);
             window.removeEventListener('keyup', keyupHandler);
