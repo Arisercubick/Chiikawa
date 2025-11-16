@@ -417,38 +417,30 @@ export function runGame({ level, playerStart, onWin }) {
         const world3Btn = document.getElementById('world3BTN');
         const world4Btn = document.getElementById('world4BTN');
         if (world1Btn) {
-            world1Btn.onclick = () => { switchWorld(1); };
+            world1Btn.onclick = () => { 
+                switchWorld(1); 
+            };
         }
         if (world2Btn) {
-            world2Btn.onclick = () => { switchWorld(2); };
+            world2Btn.onclick = () => { 
+                switchWorld(2); 
+            };
         }
         if (world3Btn) {
-            world3Btn.onclick = () => { switchWorld(3); };
+            world3Btn.onclick = () => { 
+                switchWorld(3); 
+            };
         }
         if (world4Btn) {
-            world4Btn.onclick = () => { switchWorld(4); };
+            world4Btn.onclick = () => { 
+                switchWorld(4); 
+            };
         }
     });
 
     function switchWorld(worldNum) {
         currentLevel = selectWorld(worldNum);
-        runGame({ playerStart: {}, onWin: getOnWinHandler(worldNum) });
-    }
-
-    function getOnWinHandler(worldNum) {
-        if (worldNum === 1) {  
-            return onWinWorld1;
-        }
-        if (worldNum === 2) {
-            return onWinWorld2;
-        }
-        if (worldNum === 3) {
-            return onWinWorld3;
-        }
-        if (worldNum === 4) {
-            return onWinWorld4;
-        }
-        return onWinWorld1;
+        runGame({ playerStart: {}, onWin: onWinWorld(worldNum) });
     }
 
     // Expose cleanup for this game instance
@@ -534,39 +526,11 @@ export function buildBrocFlys(level, tileSize) {
 
 // Example onWin handlers for each world
 // When finish, put =  alert('You finished all available levels! More coming soon!');
-function onWinWorld1() {
+function onWinWorld(worldNum) {
     const continueBtn = document.getElementById('continueBTN');
     if (continueBtn) {
         continueBtn.onclick = () => {
-            switchWorld(2);
-            document.getElementById('congratsScreen').classList.add('hidden');
-        };
-    }
-}
-function onWinWorld2() {
-    const continueBtn = document.getElementById('continueBTN');
-    if (continueBtn) {
-        continueBtn.onclick = () => {
-            switchWorld(3);
-            document.getElementById('congratsScreen').classList.add('hidden');
-        };
-    }
-}
-function onWinWorld3() {
-    const continueBtn = document.getElementById('continueBTN');
-    if (continueBtn) {
-        continueBtn.onclick = () => {
-            switchWorld(4);
-            document.getElementById('congratsScreen').classList.add('hidden');
-           
-        };
-    }
-}
-function onWinWorld4() {
-    const continueBtn = document.getElementById('continueBTN');
-    if (continueBtn) {
-        continueBtn.onclick = () => {
-            alert('You finished all available levels! More coming soon!');
+            switchWorld(worldNum + 1);
             document.getElementById('congratsScreen').classList.add('hidden');
         };
     }
