@@ -238,7 +238,7 @@ export function runGame({ level, playerStart, onWin }) {
                     onPlatform = true;
                 }
                 if (rectsCollide(g, plat)) {
-                    
+
                     if (g.dir > 0) {
                         g.x = plat.x - g.w;
                     }
@@ -310,12 +310,16 @@ export function runGame({ level, playerStart, onWin }) {
             ctx.drawImage(groundImg, plat.x - cameraX, plat.y - cameraY, plat.w, plat.h);
         }
         for (const g of broccolis) {
-            if (!g.alive) continue;
+            if (!g.alive) {
+                continue;
+            }
             ctx.drawImage(broccoliImg, g.x - cameraX, g.y - cameraY, g.w, g.h);
         }
         // Draw brocFly enemies
         for (const f of brocFlys) {
-            if (!f.alive) continue;
+            if (!f.alive) {
+                continue;
+            }
             ctx.drawImage(brocFlyImg, f.x - cameraX, f.y - cameraY, f.w, f.h);
         }
         // Directional vibration effect (horizontal or vertical, 500ms)
@@ -345,7 +349,7 @@ export function runGame({ level, playerStart, onWin }) {
         document.getElementById('gameOverScreen').classList.remove('hidden');
     }
 
-    // Store original broccoli positions for reset
+    // Store original enemy positions for reset
     const broccoliStartStates = broccolis.map(g => ({ x: g.x, y: g.y, dir: g.dir }));
     const brocFlyStartStates = brocFlys.map(f => ({ x: f.x, y: f.y, dir: f.dir }));
     function resetGame() {
@@ -392,10 +396,18 @@ export function runGame({ level, playerStart, onWin }) {
         const world2Btn = document.getElementById('world2BTN');
         const world3Btn = document.getElementById('world3BTN');
         const world4Btn = document.getElementById('world4BTN');
-        if (world1Btn) world1Btn.onclick = () => { switchWorld(1); };
-        if (world2Btn) world2Btn.onclick = () => { switchWorld(2); };
-        if (world3Btn) world3Btn.onclick = () => { switchWorld(3); };
-        if (world4Btn) world4Btn.onclick = () => { switchWorld(4); };
+        if (world1Btn) {
+            world1Btn.onclick = () => { switchWorld(1); };
+        }
+        if (world2Btn) {
+            world2Btn.onclick = () => { switchWorld(2); };
+        }
+        if (world3Btn) {
+            world3Btn.onclick = () => { switchWorld(3); };
+        }
+        if (world4Btn) {
+            world4Btn.onclick = () => { switchWorld(4); };
+        }
     });
 
     function switchWorld(worldNum) {
@@ -404,10 +416,18 @@ export function runGame({ level, playerStart, onWin }) {
     }
 
     function getOnWinHandler(worldNum) {
-        if (worldNum === 1) return onWinWorld1;
-        if (worldNum === 2) return onWinWorld2;
-        if (worldNum === 3) return onWinWorld3;
-        if (worldNum === 4) return onWinWorld4;
+        if (worldNum === 1) {  
+            return onWinWorld1;
+        }
+        if (worldNum === 2) {
+            return onWinWorld2;
+        }
+        if (worldNum === 3) {
+            return onWinWorld3;
+        }
+        if (worldNum === 4) {
+            return onWinWorld4;
+        }
         return onWinWorld1;
     }
 
@@ -416,7 +436,9 @@ export function runGame({ level, playerStart, onWin }) {
         cleanup: () => {
             window.removeEventListener('keydown', keydownHandler);
             window.removeEventListener('keyup', keyupHandler);
-            if (animationId) cancelAnimationFrame(animationId);
+            if (animationId) {
+                cancelAnimationFrame(animationId);
+            }
         }
     };
 
