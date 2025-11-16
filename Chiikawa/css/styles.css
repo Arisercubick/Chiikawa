@@ -249,7 +249,7 @@ main {
 	text-align: center;
 	font-size: 25px;
 }
-/* Css for the description for the links to our two content pages */
+/* Css for the description for the links to our content pages */
 .description {
 	text-align: center;
 }
@@ -297,7 +297,8 @@ main {
   margin-bottom: 2em;
 }
 
-#story, #character, #aboutUs {
+/* Css for the info sections */
+.info {
   width: 100%;
   max-width: 900px;
   margin: 0 auto 2em auto;
@@ -310,7 +311,7 @@ main {
   align-items: center;
 }
 
-#story h1, #character h1, #aboutUs h1 {
+.info h1 {
   font-size: 2rem;
   margin-bottom: 0.7em;
   text-align: center;
