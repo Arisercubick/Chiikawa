@@ -1,4 +1,5 @@
 // world4.js - Fourth level for the platformer game
+'use strict';
 import { runGame } from './game.js';
 
 const level = [

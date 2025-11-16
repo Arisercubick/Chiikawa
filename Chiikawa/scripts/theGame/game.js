@@ -101,7 +101,9 @@ export function runGame({ level, playerStart, onWin }) {
     // BrocFly movement logic
     function updateBrocFlys() {
         for (const f of brocFlys) {
-            if (!f.alive) continue;
+            if (!f.alive) {
+                continue;
+            }
             // Move horizontally in current direction
             f.x += f.dir * 2.2; // Faster than ground broccoli
             // Check for edge of map
@@ -132,12 +134,21 @@ export function runGame({ level, playerStart, onWin }) {
     }
 
     function update() {
-        if (gameWon || gameOver) return;
+        if (gameWon || gameOver) {
+            return;
+        }
         player.vx = 0;
         let wantLeft = isLeftPressed();
         let wantRight = isRightPressed();
-        if (wantLeft) player.vx = -player.speed;
-        if (wantRight) player.vx = player.speed;
+
+        if (wantLeft) {
+            player.vx = -player.speed;
+        }
+
+        if (wantRight) {
+            player.vx = player.speed;
+        }
+
         if (keys['Space'] && player.onGround) {
             player.vy = player.jump;
             player.onGround = false;
@@ -150,8 +161,15 @@ export function runGame({ level, playerStart, onWin }) {
         let blockedX = false;
         for (const plat of platforms) {
             if (rectsCollide(player, plat)) {
-                if (player.vx > 0) player.x = plat.x - player.w;
-                if (player.vx < 0) player.x = plat.x + plat.w;
+
+                if (player.vx > 0) {
+                    player.x = plat.x - player.w;
+                }
+
+                if (player.vx < 0) {
+                    player.x = plat.x + plat.w;
+                }
+
                 blockedX = true;
             }
         }
@@ -178,7 +196,8 @@ export function runGame({ level, playerStart, onWin }) {
                     player.onGround = true;
                     blockedY = true;
                     blockDirY = 1; // Blocked below
-                } else if (player.vy < 0) {
+                }
+                if (player.vy < 0) {
                     player.y = plat.y + plat.h;
                     player.vy = 0;
                     blockedY = true;
@@ -219,8 +238,14 @@ export function runGame({ level, playerStart, onWin }) {
                     onPlatform = true;
                 }
                 if (rectsCollide(g, plat)) {
-                    if (g.dir > 0) g.x = plat.x - g.w;
-                    if (g.dir < 0) g.x = plat.x + plat.w;
+                    
+                    if (g.dir > 0) {
+                        g.x = plat.x - g.w;
+                    }
+
+                    if (g.dir < 0) {
+                        g.x = plat.x + plat.w;
+                    }
                     g.dir *= -1;
                 }
             }

@@ -1,11 +1,12 @@
 // world5.js - Fifth level for the platformer game
+'use strict';
 import { runGame } from './game.js';
 
 const level = [
     '                                                                                ',
     '                                                             T                  ',
     '   =     T               =                 == G  ==    ==    ==    ==    ==     ',
-    '            ==   ===   ===      T  ==   ===   ===    ==    ==    ==    ==       ',
+    '            ==   ===   ===         ==   ===   ===    ==    ==    ==    ==       ',
     '      = ==  =      ==    ==    ==         ==    ==    ==   G==    ==    ==      ',
     '   =         ==       T ==    ==    ==      G  ==    ==    ==    ==    ==       ',
     '  ?  =   ==    ==    ==         ==    ==  ====         ==    ==    ==    ==     ',
