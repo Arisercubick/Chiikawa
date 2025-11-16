@@ -310,17 +310,29 @@ export function runGame({ level, playerStart, onWin }) {
             ctx.drawImage(groundImg, plat.x - cameraX, plat.y - cameraY, plat.w, plat.h);
         }
         for (const g of broccolis) {
-            if (!g.alive) {
-                continue;
+            if (!g.alive) continue;
+            ctx.save();
+            if (g.dir < 0) {
+                ctx.translate(g.x - cameraX + g.w, g.y - cameraY);
+                ctx.scale(-1, 1);
+                ctx.drawImage(broccoliImg, 0, 0, g.w, g.h);
+            } else {
+                ctx.drawImage(broccoliImg, g.x - cameraX, g.y - cameraY, g.w, g.h);
             }
-            ctx.drawImage(broccoliImg, g.x - cameraX, g.y - cameraY, g.w, g.h);
+            ctx.restore();
         }
         // Draw brocFly enemies
         for (const f of brocFlys) {
-            if (!f.alive) {
-                continue;
+            if (!f.alive) continue;
+            ctx.save();
+            if (f.dir < 0) {
+                ctx.translate(f.x - cameraX + f.w, f.y - cameraY);
+                ctx.scale(-1, 1);
+                ctx.drawImage(brocFlyImg, 0, 0, f.w, f.h);
+            } else {
+                ctx.drawImage(brocFlyImg, f.x - cameraX, f.y - cameraY, f.w, f.h);
             }
-            ctx.drawImage(brocFlyImg, f.x - cameraX, f.y - cameraY, f.w, f.h);
+            ctx.restore();
         }
         // Directional vibration effect (horizontal or vertical, 500ms)
         let vibOffsetX = 0, vibOffsetY = 0;
@@ -334,7 +346,15 @@ export function runGame({ level, playerStart, onWin }) {
                 vibOffsetY = swing;
             }
         }
-        ctx.drawImage(playerImg, player.x - cameraX + vibOffsetX, player.y - cameraY + vibOffsetY, player.w, player.h);
+        ctx.save();
+        if (player.vx < 0) {
+            ctx.translate(player.x - cameraX + vibOffsetX + player.w, player.y - cameraY + vibOffsetY);
+            ctx.scale(-1, 1);
+            ctx.drawImage(playerImg, 0, 0, player.w, player.h);
+        } else {
+            ctx.drawImage(playerImg, player.x - cameraX + vibOffsetX, player.y - cameraY + vibOffsetY, player.w, player.h);
+        }
+        ctx.restore();
     }
 
     let animationId;
