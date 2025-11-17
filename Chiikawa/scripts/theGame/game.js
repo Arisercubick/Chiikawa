@@ -96,7 +96,13 @@ export function runGame({ level, playerStart, onWin }) {
     }
 
     // Vibration state
-    let vibration = { active: false, dir: 0, axis: 'x', startTime: 0, duration: 100 };
+    let vibration = { 
+        active: false, 
+        dir: 0, 
+        axis: 'x', 
+        startTime: 0, 
+        duration: 100 
+    };
 
     // BrocFly movement logic
     function updateBrocFlys() {
