@@ -1,6 +1,18 @@
-/*
-   Styles the Home button in the navbar to match nav links but slightly larger.
-*/
+/*Our logo in the nav bar*/
+.logo {
+    height: 40px;
+    width: auto;
+    margin-right: 1rem;
+	border-radius: 50%;
+}
+
+.logoRow {
+  display: flex;
+  align-items: center;
+  gap: 0.3em; /* space between logo and h2 */
+}
+
+/*Styles the Home button in the navbar to match nav links but slightly larger.*/
 .nhome {
 	display: inline-block;
 	padding: 0.7rem 1.3rem;
@@ -11,7 +23,7 @@
 	font-weight: 700;
 	font-size: 1.15rem;
 	border: 1.5px solid rgba(0,0,0,0.08);
-	box-shadow: 0 8px 18px rgba(99,102,241,0.13);
+	box-shadow: 0 8px 18px rgba(241, 99, 99, 0.13);
 	margin-right: 0.7rem;
 	transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease;
 }
@@ -19,7 +31,7 @@
 .nhome:hover,
 .nhome:focus {
 	transform: translateY(-4px);
-	box-shadow: 0 16px 36px rgba(78,75,235,0.16);
+	box-shadow: 0 16px 36px rgba(235, 75, 75, 0.16);
 	background: linear-gradient(180deg, var(--accent), var(--accent));
 }
 
@@ -34,15 +46,13 @@
 :root {
 		--bg: #f7f9fc;
 		--header-bg: #ffffff;
-		--primary: #6c63ff; /* main box color */
-		--accent: #5a52e6;  /* hover */
-		--text: #1f2937;
-		--muted: #6b7280;
+		--primary: rgb(251, 186, 175); /* main box color */
+		--accent: rgb(245, 129, 109);  /* hover */
+		--text: #2b1919;
+		--muted: #806b6b;
 }
 
-/*
-   Sets box-sizing to border-box for all elements for easier sizing.
-*/
+/*Sets box-sizing to border-box for all elements for easier sizing.*/
 *, *::before, *::after {
 	box-sizing: border-box;
 }
@@ -57,12 +67,7 @@ html, body {
 	-moz-osx-font-smoothing: grayscale;
 }
 
-/*
-	Styles the site header as a horizontal flex container with spacing and shadow.
-*/
-/*
-	Styles the site header as a horizontal flex container with spacing and shadow.
-*/
+/*Styles the site header as a horizontal flex container with spacing and shadow.*/
 #header {
 	grid-area: header;
 	display: flex;
@@ -111,7 +116,7 @@ html, body {
 	font-weight: 600;
 	font-size: 0.95rem;
 	border: 1px solid rgba(0,0,0,0.06);
-	box-shadow: 0 6px 14px rgba(99,102,241,0.12);
+	box-shadow: 0 6px 14px rgba(241, 99, 99, 0.12);
 	transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease;
 }
 
@@ -133,7 +138,7 @@ html, body {
 	Shows a visible outline for keyboard navigation focus.
 */
 #nmain .nav a:focus-visible {
-	outline: 3px solid rgba(92, 77, 255, 0.18);
+	outline: 3px solid rgba(255, 77, 77, 0.18);
 	outline-offset: 3px;
 }
 
@@ -142,7 +147,7 @@ html, body {
 */
 #nmain .nav a[aria-current="page"],
 #nmain .nav a.active {
-	box-shadow: 0 10px 26px rgba(99,102,241,0.16);
+	box-shadow: 0 10px 26px rgba(241, 99, 99, 0.16);
 	transform: translateY(-2px);
     background: green;
 }
@@ -346,8 +351,8 @@ main {
 
 /* animation for sections */
 .animations {
-	opacity: 0;
-	transform: translateY(250px);
+	opacity: 0.5;
+	transform: translateY(80px);
 	transition: 1.2s ease;
 }
 
