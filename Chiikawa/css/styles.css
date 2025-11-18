@@ -203,7 +203,6 @@ a.muted {
 
 /* Css for banner image */
 .banner {
-	grid-area: banner;
 	text-align: center;
 }
 .banner img {
@@ -215,79 +214,7 @@ a.muted {
 	font-size: 20px;
 }
 
-/* Css for the story section */
-#story {
-	grid-area: story;
-	border: solid 5px black;
-	background-color: ;
-}
-#story h1 {
-	text-align: center;
-	font-size: 40px;
-}
-#story p {
-	text-align: center;
-	font-size: 25px;
-}
-
-/* Css for the character section */
-#character {
-	grid-area: character;
-	border: solid 5px black;
-	background-color: ;
-}
-#character h1 {
-	text-align: center;
-	font-size: 40px;
-}
-#character p {
-	text-align: center;
-	font-size: 25px;
-}
-#character ul {
-	text-align: center;
-	font-size: 25px;
-}
-
-/* css for the quiz section */
-#Quiz {
-	grid-area: quiz;
-	border: solid 5px black;
-	background-color: ;
-}
-#Quiz h1 {
-	text-align: center;
-	font-size: 40px;
-}
-#Quiz p {
-	text-align: center;
-	font-size: 25px;
-}
-#Quiz ul {
-	text-align: center;
-	font-size: 25px;
-}
-
-/*css for the game section */ 
-#Game {
-	grid-area: game;
-	border: solid 5px black;
-	background-color: ;
-}
-#Game h1 {
-	text-align: center;
-	font-size: 40px;
-}
-#Game p {
-	text-align: center;
-	font-size: 25px;
-}
-#Game ul {
-	text-align: center;
-	font-size: 25px;
-}
-
-/* Css for the description for the links to our content pages */
+/* Css for the description for the caption to our content pages */
 .description {
 	text-align: center;
 }
@@ -320,7 +247,6 @@ a.muted {
 }
 
 main {
-	display: grid;
 	background-color: rgb(248, 237, 235);
 	width: 100vw;
 	max-width: 100vw;
@@ -341,12 +267,25 @@ main {
 	max-width: 900px;
 	margin: 0 auto 2em auto;
 	background: #fff;
+	border: solid 5px black;
 	border-radius: 16px;
 	box-shadow: 0 2px 12px rgba(0,0,0,0.07);
 	padding: 2em 1.5em;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+}
+.info h1 {
+	text-align: center;
+	font-size: 40px;
+}
+.info p {
+	text-align: center;
+	font-size: 25px;
+}
+.info ul {
+	text-align: center;
+	font-size: 25px;
 }
 
 /* animation for sections */
@@ -367,6 +306,16 @@ main {
   text-align: center;
 }
 
+#infobanners {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	grid-auto-rows: repeat(2, 1fr);
+	gap: 0.5rem;
+}
+h1,p,figcaption,li {
+	font-family: Ink Free;
+}
+
 /* Animate and scale up sections in #infobanners on hover */
 #infobanners section {
 	transition: transform 0.25s cubic-bezier(0.4, 0.2, 0.2, 1);
@@ -381,10 +330,10 @@ main {
 }
 
 footer{
-	grid-area: footer;
+	
 }
 /* Responsive design for smaller screens */
-@media (max-width: 900px) {
+@media (max-width: 1000px) {
   .mainColumn {
     gap: 1.2em;
     padding: 0 0.2em;
@@ -399,14 +348,14 @@ footer{
   .info h1 {
     font-size: 1.2rem;
   }
-img {
-	width: 100%;
-	max-width: 90vw;
-	max-height: 90vh;
-	height: auto;
-	display: block;
-	margin-left: auto;
-	margin-right: auto;
-}
+	img {
+	 width: 100%;
+	 max-width: 90vw;
+	 max-height: 90vh;
+	 height: auto;
+	 display: block;
+	 margin-left: auto;
+	 margin-right: auto;
+	}
 }
 
