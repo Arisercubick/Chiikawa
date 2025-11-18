@@ -2,13 +2,13 @@
 .logo {
     height: 40px;
     width: auto;
-    margin-right: 1rem;
+    margin-right: 1em;
 	border-radius: 50%;
 }
 
 .logoRow {
   display: flex;
-  align-items: center;
+  -ms-flex-align: space-between;
   gap: 0.3em; /* space between logo and h2 */
 }
 
