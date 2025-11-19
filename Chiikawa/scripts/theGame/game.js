@@ -139,7 +139,10 @@ export function runGame({ level, playerStart, onWin }) {
         }
     }
 
-    function update() {
+
+    function update(delta) {
+
+        console.log(player.x, player.y)
         if (gameWon || gameOver) {
             return;
         }
@@ -148,22 +151,22 @@ export function runGame({ level, playerStart, onWin }) {
         let wantRight = isRightPressed();
 
         if (wantLeft) {
-            player.vx = -player.speed;
+            player.vx = -player.speed * delta;
         }
 
         if (wantRight) {
-            player.vx = player.speed;
+            player.vx = player.speed * delta;
         }
 
         if (keys['Space'] && player.onGround) {
             player.vy = player.jump;
             player.onGround = false;
         }
-        player.vy += 0.5;
+        player.vy += 0.5 * delta;
 
         // Try to move horizontally, check for block
         let prevX = player.x;
-        player.x += player.vx;
+        player.x += player.vx * delta;
         let blockedX = false;
         for (const plat of platforms) {
             if (rectsCollide(player, plat)) {
@@ -341,6 +344,7 @@ export function runGame({ level, playerStart, onWin }) {
             ctx.restore();
         }
         // Directional vibration effect (horizontal or vertical, 500ms)
+        // idk, based on my math, it supposed to be 500ms
         let vibOffsetX = 0, vibOffsetY = 0;
         if (vibration.active) {
             let elapsed = (performance.now() - vibration.startTime);
@@ -351,7 +355,11 @@ export function runGame({ level, playerStart, onWin }) {
             } else if (vibration.axis === 'y') {
                 vibOffsetY = swing;
             }
+            // So kelly, if you dont get this
+            // ME TOO!
         }
+
+        // Saves new canvas state with vibration applied
         ctx.save();
         if (player.vx < 0) {
             ctx.translate(player.x - cameraX + vibOffsetX + player.w, player.y - cameraY + vibOffsetY);
@@ -364,25 +372,43 @@ export function runGame({ level, playerStart, onWin }) {
     }
 
     let animationId;
-    function loop() {
-        update();
+    let lastTime = performance.now();
+    // THIS MAIN LOOP FUNCTION IS KILLING ME, NOW IT BROKE THE SYSTEM
+    // TODO: FIX THIS ISSUE, IT CRASHES THE GAME AND EATS UP RAM LIKE A HOG
+    function loop(now) {
+        console.log("PLayer position " + player.x, player.y);
+        const delta = (now - lastTime) / 1000; // seconds since last frame
+        console.log("Delta time: " + delta);
+        update(delta)
         draw();
+        lastTime = now;
         animationId = requestAnimationFrame(loop);
+        console.log("()() DEBUG LOG: Second requestAnimationFrame call?");
+        requestAnimationFrame(loop);
     }
 
+    // So, when the player dies, it trigers this function
     function triggerGameOver() {
         gameOver = true;
         document.getElementById('gameOverScreen').classList.remove('hidden');
     }
 
-    // Store original enemy positions for reset
+    // Store original positions for reset (somehow)
     const broccoliStartStates = broccolis.map(g => ({ x: g.x, y: g.y, dir: g.dir }));
     const brocFlyStartStates = brocFlys.map(f => ({ x: f.x, y: f.y, dir: f.dir }));
     function resetGame() {
+        // Reset player position and make velocities = zero
         player.x = playerDefaults.startX;
         player.y = playerDefaults.startY;
         player.vx = 0;
         player.vy = 0;
+
+        // When I made this, I used to know what it does.
+        // Now I need prayers to understand this
+
+        // This just restarts the positions of the enemies as their start states
+
+        // However, Kelly, I know this is hard to read, dont worry
         for (let i = 0; i < broccolis.length; i++) {
             broccolis[i].x = broccoliStartStates[i].x;
             broccolis[i].y = broccoliStartStates[i].y;
@@ -407,7 +433,10 @@ export function runGame({ level, playerStart, onWin }) {
         img.onload = () => {
             loaded++;
             if (loaded === 5) {
-                loop();
+                // calls the loop with a timestamp, but for some reason
+                // it doesnt works and breaks the system with the player flying
+                // TODO: fix this issue later
+                requestAnimationFrame(loop);
             }
         };
     });
