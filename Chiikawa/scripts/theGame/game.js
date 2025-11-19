@@ -5,7 +5,7 @@
 
 
 // Coding this makes me miss Hannah so much
-// Can she call me at 2 am and comfort me? yeah, Im obsessed and I know it
+// Can she call me at 2 am and comfort me? yeah, Im obsessed and I know
 'use strict';
 export function runGame({ level, playerStart, onWin }) {
     // So this runs the game with data passed from each world file
@@ -150,6 +150,7 @@ export function runGame({ level, playerStart, onWin }) {
     }
 
 
+    // Fix this bug where the player jumps almost forever
     function update(delta) {
 
         console.log(player.x, player.y)
@@ -175,7 +176,7 @@ export function runGame({ level, playerStart, onWin }) {
         player.vy += 0.5 * delta;
 
         // Try to move horizontally, check for block
-        let prevX = player.x;
+        let prevX = player.x; // useless variable but scared to remove thinking it might break something
         player.x += player.vx * delta;
         let blockedX = false;
         for (const plat of platforms) {
@@ -202,8 +203,8 @@ export function runGame({ level, playerStart, onWin }) {
         }
 
         // Try to move vertically, check for block
-        let prevY = player.y;
-        player.y += player.vy;
+        let prevY = player.y; // same goes here
+        player.y += player.vy * delta; // hope this fixes it. P.S. it did not and froze the player mid air, and made it worse by making it fall through the ground
         player.onGround = false;
         let blockedY = false;
         let blockDirY = 0;
