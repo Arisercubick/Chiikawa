@@ -1,6 +1,8 @@
 // --- Game Engine Logic ---
+// Ponce might not like this... oh well, fck it
 'use strict';
 export function runGame({ level, playerStart, onWin }) {
+    // So this runs the game with data passed from each world file
     const canvas = document.getElementById('gameCanvas');
     const ctx = canvas.getContext('2d');
     const platforms = buildPlatforms(level, tileSize);
@@ -18,6 +20,7 @@ export function runGame({ level, playerStart, onWin }) {
         jump: playerDefaults.jump
     };
     let keys = {};
+
     // Secret combo detection: w + a + a + w + q
     const secretCombo = ['KeyW', 'KeyA', 'KeyA', 'KeyW', 'KeyQ'];
     let comboProgress = 0;
@@ -30,7 +33,7 @@ export function runGame({ level, playerStart, onWin }) {
     const levelWidth = level[0].length * tileSize;
     const levelHeight = level.length * tileSize;
 
-    // Load images
+    // Load images as assets
     const bgImg = new Image();
     bgImg.src = assetPaths.bg;
     const playerImg = new Image();
@@ -384,7 +387,16 @@ export function runGame({ level, playerStart, onWin }) {
         lastTime = now;
         animationId = requestAnimationFrame(loop);
         console.log("()() DEBUG LOG: Second requestAnimationFrame call?");
-        requestAnimationFrame(loop);
+        // Comment this out to prevent infinite calls
+        // TODO: Fix later
+        // requestAnimationFrame(loop);
+
+        // Artificial intelligence my a**
+        // The only thing artificial is its logic because I prompted it 20 times
+        // IT JUST MAKE IT WORSE
+        // It acts soooo confident, yet it is the reason why the server CRASHES
+        // Needed to revert back forcefully to an old commit, just registering it here
+        // 2 hours of debugging wasted because of this piece of sh**
     }
 
     // So, when the player dies, it trigers this function
@@ -530,6 +542,8 @@ export function runGame({ level, playerStart, onWin }) {
 
 // Example: tile size, player defaults, and asset paths
 export const tileSize = 40;
+
+// Default player properties
 export const playerDefaults = {
     w: 40,
     h: 40,
@@ -539,6 +553,8 @@ export const playerDefaults = {
     startY: 8 * 40
 };
 
+// Blame me for making a list of asset paths
+// This makes it easier to manage assets in one place 🥺
 export const assetPaths = {
     bg: '../../images/bd3410e44a72b4baa918181e82271ee3-400.jpg',
     player: '../../images/AdorableCutieChiikawa.png',
@@ -546,7 +562,7 @@ export const assetPaths = {
     broccoli: '../../images/gameAssets/pngtree-sticker-vector-png-image_6818893.png',
     brocFly: '../../images/gameAssets/b9d20377-3663-4c52-bb67-de546498067d-removebg-preview.png'
 };
-// Build flying broccoli enemies ("T")
+// Build flying broccoli enemies
 export function buildBrocFlys(level, tileSize) {
     const brocFlys = [];
     for (let y = 0; y < level.length; y++) {
