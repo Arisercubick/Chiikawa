@@ -1,5 +1,11 @@
 // --- Game Engine Logic ---
 // Ponce might not like this... oh well, fck it
+// Date 2025-11-19: I hope Mr Ponce forgives me for this
+// I dont even know if this allowed in the rubric (He didnt even gave it to us yet smh)
+
+
+// Coding this makes me miss Hannah so much
+// Can she call me at 2 am and comfort me? yeah, Im obsessed and I know it
 'use strict';
 export function runGame({ level, playerStart, onWin }) {
     // So this runs the game with data passed from each world file
@@ -34,6 +40,7 @@ export function runGame({ level, playerStart, onWin }) {
     const levelHeight = level.length * tileSize;
 
     // Load images as assets
+    // As I like other assets being loaded 😏
     const bgImg = new Image();
     bgImg.src = assetPaths.bg;
     const playerImg = new Image();
@@ -483,14 +490,16 @@ export function runGame({ level, playerStart, onWin }) {
                 switchWorld(4); 
             };
         }
+        // TODO: Add more world buttons as needed
     });
 
+    // Im actually happy I managed to make this function work, I used to have two functions running the same logic
     function switchWorld(worldNum) {
         currentLevel = selectWorld(worldNum);
         runGame({ playerStart: {}, onWin: onWinWorld(worldNum) });
     }
 
-    // Expose cleanup for this game instance
+    // Expose cleanup for this game instance, yet the variable is never used
     let gameInstance = {
         cleanup: () => {
             window.removeEventListener('keydown', keydownHandler);
@@ -501,6 +510,9 @@ export function runGame({ level, playerStart, onWin }) {
         }
     };
 
+    // TODO: fix mobile controls
+    // Probably need to redesign the UI for mobile
+    // And also, fix the buttons (Not working)
     function setupMobileControls() {
         const upBtn = document.getElementById('mobileUpBTN');
         const leftBtn = document.getElementById('mobileLeftBTN');
@@ -538,7 +550,6 @@ export function runGame({ level, playerStart, onWin }) {
     }
     window.addEventListener('DOMContentLoaded', setupMobileControls);
 }
-// game.js - Basic game data and arrays 
 
 // Example: tile size, player defaults, and asset paths
 export const tileSize = 40;
@@ -587,7 +598,9 @@ function onWinWorld(worldNum) {
     }
 }
 
-// This file is now a pure engine. No auto-start or world selection logic.
+// It builds our platforms!!!
+// the = sign measn ground block
+// Peers mentioned to add movable platforms, maybe later, idk, I dont want to shoot myself in the foot
 export function buildPlatforms(level, tileSize) {
     const platforms = [];
     for (let y = 0; y < level.length; y++) {

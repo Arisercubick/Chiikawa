@@ -17,6 +17,8 @@ const level = [
     '                                                                                '
 ];
 
+// Runs game
+// Copy and paste this to other world files and modify
 runGame({
     level,
     playerStart: { x: undefined, y: undefined },
