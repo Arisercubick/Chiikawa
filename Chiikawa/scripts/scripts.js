@@ -3,7 +3,10 @@
 /* animation effect for sections with class 'info' using Intersection Observer */
 document.addEventListener('DOMContentLoaded', function() {
   const sections = document.querySelectorAll('.info');
-  sections.forEach(section => section.classList.add('animations'));
+  sections.forEach(section => {
+    section.classList.add('animations');
+    // Existing code to handle Intersection Observer
+  });
 
   if ('IntersectionObserver' in window) {
     const observer = new IntersectionObserver((entries) => {
