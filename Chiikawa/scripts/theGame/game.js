@@ -386,15 +386,27 @@ export function runGame({ level, playerStart, onWin }) {
     let lastTime = performance.now();
     // THIS MAIN LOOP FUNCTION IS KILLING ME, NOW IT BROKE THE SYSTEM
     // TODO: FIX THIS ISSUE, IT CRASHES THE GAME AND EATS UP RAM LIKE A HOG
-    function loop(now) {
+/*
+     function loop(now) {
         console.log("PLayer position " + player.x, player.y);
-        const delta = (now - lastTime) / 1000; // seconds since last frame
+        const delta = 1 //(now - lastTime) / 1000; // seconds since last frame
         console.log("Delta time: " + delta);
         update(delta)
         draw();
         lastTime = now;
         animationId = requestAnimationFrame(loop);
         console.log("()() DEBUG LOG: Second requestAnimationFrame call?");
+     }
+     */
+    function loop(now) {
+        console.log("PLayer position " + player.x, player.y);
+        const delta = 1 //- ((now - lastTime) / 100); // seconds since last frame
+        console.log("Delta time: " + delta);
+        update(delta)
+        draw();
+        lastTime = now;
+        animationId = requestAnimationFrame(loop);
+        // console.log("()() DEBUG LOG: Second requestAnimationFrame call?");
         // Comment this out to prevent infinite calls
         // TODO: Fix later
         // requestAnimationFrame(loop);
@@ -406,7 +418,7 @@ export function runGame({ level, playerStart, onWin }) {
         // Needed to revert back forcefully to an old commit, just registering it here
         // 2 hours of debugging wasted because of this piece of sh**
     }
-
+    
     // So, when the player dies, it trigers this function
     function triggerGameOver() {
         gameOver = true;
@@ -456,7 +468,7 @@ export function runGame({ level, playerStart, onWin }) {
                 // calls the loop with a timestamp, but for some reason
                 // it doesnt works and breaks the system with the player flying
                 // TODO: fix this issue later
-                requestAnimationFrame(loop);
+                loop(performance.now());
             }
         };
     });
