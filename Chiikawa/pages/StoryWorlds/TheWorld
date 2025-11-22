@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Story</title>
+    <link rel="stylesheet" href="../../css/styles.css" />
+    <link rel="stylesheet" href="../../css/story.css" />
+</head>
+<body>
+    <header id="header">
+        <section class="logoRow">
+            <img src="../../images/logo.png" alt="Our logo" class="logo">
+            <h1><a href="../../main.html" class="nhome">Home</a></h1>
+        </section>
+        <nav id="nmain" aria-label="Primary">
+            <!-- Navigation links  -->
+            <ul class="nav-list">
+                <li class="nav"><a href="../Story.html" aria-current="page">Story</a></li>
+                <li class="nav"><a href="../Game.html">Game</a></li>
+                <li class="nav"><a href="../Character.html">Character</a></li>
+                <li class="nav"><a href="../Quiz.html">Quiz</a></li>
+                <li class="nav"><a href="../AboutUs.html">About Us</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
