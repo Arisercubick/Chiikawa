@@ -7,7 +7,12 @@ A responsive fan website for Chiikawa, featuring story, character, game, and qui
 ## Project Status (as of November 2025)
 
 - **Navigation**: All pages use a consistent, accessible navbar. Navigation is responsive and highlights the current page.
-- **Styling**: All styles are centralized in `css/styles.css`, `css/quiz.css`, and `css/game.css`. Modern CSS (flexbox, variables, transitions) is used throughout. Quiz navigation and game overlays use custom colors and sizes for clarity and accessibility.
+- **Styling**: All styles are centralized in `css/styles.css`, `css/quiz.css`, `css/story.css`, and `css/game.css`. Modern CSS (flexbox, grid, variables, transitions, and viewport units) is used throughout. All layouts are now fully responsive, using `vw`, `vh`, and `vmin` units for scalable sizing. Quiz navigation and game overlays use custom colors and sizes for clarity and accessibility.
+- **Story Page**:
+  - Story sections are now direct children of the grid container for proper CSS Grid placement.
+  - All grid and section sizes use viewport units for full responsiveness.
+  - Mobile layout uses a single-column grid and sections always fit the screen (`100vw`, `100vh`).
+  - Clickable sections use `<a>` inside `<section>` for accessibility and grid compatibility.
 - **Quiz**:
   - Uses camelCase for all IDs and classes (e.g., `quizSection`, `quizFigure`, `quizImage`).
   - Each question now stores its own response array for answers, supporting future multi-select.
@@ -15,7 +20,7 @@ A responsive fan website for Chiikawa, featuring story, character, game, and qui
   - Loading screen cycles through fun messages while computing the score.
 - **Game**:
   - Modular 2D platformer engine in `scripts/theGame/game.js` (all core logic and rendering).
-  - Each world/level is a separate file (e.g., `world1.js`, `world2.js`) that provides level data and calls the engine.
+  - Each world/level is a separate file (e.g., `world1.js`, `world2.js`, etc.) that provides level data and calls the engine.
   - Level switching: When you finish a world, a "Continue" button appears to load the next world/level.
   - Main character: `AdorableCutieChiikawa.png`.
   - Enemies:
@@ -30,7 +35,7 @@ A responsive fan website for Chiikawa, featuring story, character, game, and qui
   - **Mobile controls:** Three large, semi-transparent pink overlay buttons (up, left, right) for mobile play, using Google Material Symbols. All controls use semantic containers and camelCase class names.
 - **Pages**:
   - `main.html`: Home/landing page
-  - `pages/Story.html`: Story section
+  - `pages/Story.html`: Story section (responsive grid, viewport units, clickable sections)
   - `pages/Game.html`: Platformer game (loads `world1.js` when press "Start Game" button, with all button and layout styles in CSS in css/game.css)
   - `pages/Character.html`: Character section
   - `pages/Quiz.html`: Interactive quiz
@@ -38,11 +43,14 @@ A responsive fan website for Chiikawa, featuring story, character, game, and qui
 ## How to Use
 
 1. Open a local server in the project directory (required for ES modules):
-   - PowerShell: `npx serve .` (Download Node.js required)
+
+- PowerShell: `npx serve .` (Download Node.js required)
+
 2. Open `main.html` in your browser via the local server (e.g., http://localhost:5000/main.html).
 3. Use the navigation bar to explore Story, Game, Character, and Quiz pages.
-4. On the Quiz page, answer all questions and submit to see your score (with animated loading messages).
-5. On the Game page, play the platformer! Use arrow keys and space to move/jump, or use the on-screen mobile controls. If you lose, click "Play Again" to restart. When you finish a world, click "Continue" to play the next world/level.
+4. On the Story page, view the responsive grid layout. Sections are clickable and always fit the screen on mobile.
+5. On the Quiz page, answer all questions and submit to see your score (with animated loading messages).
+6. On the Game page, play the platformer! Use arrow keys and space to move/jump, or use the on-screen mobile controls. If you lose, click "Play Again" to restart. When you finish a world, click "Continue" to play the next world/level.
 
 ## Authors
 
@@ -68,3 +76,6 @@ A responsive fan website for Chiikawa, featuring story, character, game, and qui
 - Quiz navigation buttons have distinct colors and sizes, all styled via CSS.
 - Loading screen cycles through multiple messages for a playful experience.
 - All styles are centralized in CSS files for easier maintenance.
+- Story page grid and sections now use viewport units and always fit the screen on mobile.
+- Story sections are direct children of the grid container for proper grid placement.
+- Footer styling clarified: use either `<footer id="footer">` or CSS selector `footer` for consistent appearance.
