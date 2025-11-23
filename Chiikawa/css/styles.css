@@ -322,9 +322,6 @@ h1,p,figcaption,li {
 	z-index: 2;
 }
 
-footer{
-	text-align: center;
-}
 /* Responsive design for smaller screens */
 @media (max-width: 1000px) {
 	.mainColumn {
@@ -358,3 +355,11 @@ footer{
 	}
 }
 
+#footer {
+	background: #fff;
+	border-top: 1px solid rgba(15, 23, 42, 0.04);
+	box-shadow: 0 -2px 6px rgba(16,24,40,0.03);
+	padding: 1rem 1.5rem;
+	margin-top: 2rem;
+	text-align: left;
+}
