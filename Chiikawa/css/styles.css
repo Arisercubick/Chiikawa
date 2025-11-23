@@ -143,6 +143,7 @@ html, body {
 	box-shadow: 0 10px 26px rgba(241, 99, 99, 0.16);
 	transform: translateY(-2px);
     background: green;
+	transform: scale(1.10);
 }
 
 /*
