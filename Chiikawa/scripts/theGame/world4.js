@@ -4,7 +4,7 @@ import { runGame } from './game.js';
 
 const level = [
     '                                                                                ',
-    '                                                                           T    ',
+    '                               T                                           T    ',
     '    ==    ==                ===    ==   ====  ===   ===   ==    ==    ==    ==  ',
     '               ==   ===    =     ==                                             ',
     '                           G                                     G           G  ',
