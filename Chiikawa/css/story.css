@@ -77,13 +77,14 @@ article a section {
         width: 100vw;
         max-width: 100vw;
         box-sizing: border-box;
-        padding: 0;
     }
 
     main {
         min-height: 0;
         max-height: none;
     }
+
+    
 
     article a section {
         max-width: 100vw;
@@ -126,4 +127,28 @@ img {
     display: block;
     margin-left: auto;
     margin-right: auto;
+}
+@media (max-width: 800px) {
+    section figure {
+        max-width: 50vw;
+    }
+    
+}
+
+footer {
+    display: flex;
+    justify-content: space-around;
+}
+
+footer section h3 {
+    margin-bottom: 0.5em;
+    text-align: center;
+    background-color: rgb(242, 160, 190);
+    border: 0.5em black double;
+    padding: 0.2em;
+}
+
+footer a {
+    text-decoration: none;
+    color: inherit;
 }
