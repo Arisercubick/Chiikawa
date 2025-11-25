@@ -468,7 +468,7 @@ export function runGame({ level, playerStart, onWin }) {
                 // calls the loop with a timestamp, but for some reason
                 // it doesnt works and breaks the system with the player flying
                 // TODO: fix this issue later
-                loop(performance.now());
+                requestAnimationFrame(loop);
             }
         };
     });
@@ -477,7 +477,15 @@ export function runGame({ level, playerStart, onWin }) {
         const btn = document.getElementById('playAgainBTN');
         if (btn) {
             btn.onclick = () => { resetGame(); };
+        } else {
+            document.addEventListener('click', () => { resetGame(); });
         }
+        // Allow Spacebar to reset game when game over or won
+        window.addEventListener('keydown', function(e) {
+            if ((gameOver || gameWon) && e.code === 'Space') {
+                resetGame();
+            }
+        });
         // World selection buttons (if any)
         const world1Btn = document.getElementById('world1BTN');
         const world2Btn = document.getElementById('world2BTN');
@@ -566,11 +574,15 @@ export function runGame({ level, playerStart, onWin }) {
 
 // Example: tile size, player defaults, and asset paths
 export const tileSize = 40;
-
+/*
+export const hitbox = {
+    x:
+}
+*/
 // Default player properties
 export const playerDefaults = {
-    w: 40,
-    h: 40,
+    w: 30,
+    h: 30,
     speed: 3,
     jump: -10,
     startX: 2 * 40,
