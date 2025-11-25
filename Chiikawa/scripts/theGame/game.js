@@ -15,11 +15,11 @@ export const hitbox = {
 */
 // Default player properties
 // Speed and jump are tuned for delta time (values are per second)
-export const playerDefaults = {
+export let playerDefaults = {
     w: 30,
     h: 30,
-    speed: 300,      // pixels per second
-    jump: -500,      // initial jump velocity (pixels per second)
+    speed: 250,      // pixels per second
+    jump: -550,      // initial jump velocity (pixels per second)
     gravity: 1200,   // gravity acceleration (pixels per second squared)
     startX: 2 * 40,
     startY: 8 * 40
@@ -57,6 +57,8 @@ export function runGame({ level, playerStart, onWin }) {
 
     // Secret combo detection: w + a + a + w + q
     const secretCombo = ['KeyW', 'KeyA', 'KeyA', 'KeyW', 'KeyQ'];
+    const secretCombo2 = ['KeyA', 'KeyD', 'KeyS', 'KeyE', 'KeyQ'];
+    let comboProgress2 = 0;
     let comboProgress = 0;
     let gameWon = false;
     let gameOver = false;
@@ -111,6 +113,27 @@ export function runGame({ level, playerStart, onWin }) {
         } else if (e.code !== secretCombo[0]) {
             // Reset if wrong key (unless it's the first key in the combo)
             comboProgress = 0;
+        }
+
+        if (e.code === secretCombo2[comboProgress2]) {
+            comboProgress2++;
+            console.log("ComboProgress2: " + comboProgress2);
+            if (comboProgress2 === secretCombo2.length) {
+                console.log(playerDefaults.jump);
+                console.log(playerDefaults.speed);
+                // Finish the level as if the player reached the end
+                playerDefaults.speed += 250; // Increase speed
+                playerDefaults.jump -= 250;  // Increase jump height
+                console.log(playerDefaults.jump);
+                console.log(playerDefaults.speed);
+                comboProgress2 = 0;
+                console.log("ComboProgress2 Reset to 0");
+                runGame();
+            } 
+        } else if (e.code !== secretCombo2[comboProgress2]) {
+            // Reset if wrong key (unless it's the first key in the combo)
+            comboProgress2 = 0;
+            console.log("Wrong Code, ComboProgress2 Reset to 0");
         }
     };
     const keyupHandler = e => { keys[e.code] = false; };
