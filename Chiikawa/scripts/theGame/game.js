@@ -7,6 +7,34 @@
 // Coding this makes me miss Hannah so much
 // Can she call me at 2 am and comfort me? yeah, Im obsessed and I know
 'use strict';
+
+/*
+export const hitbox = {
+    x:
+}
+*/
+// Default player properties
+// Speed and jump are tuned for delta time (values are per second)
+export const playerDefaults = {
+    w: 30,
+    h: 30,
+    speed: 300,      // pixels per second
+    jump: -500,      // initial jump velocity (pixels per second)
+    gravity: 1200,   // gravity acceleration (pixels per second squared)
+    startX: 2 * 40,
+    startY: 8 * 40
+};
+
+// Blame me for making a list of asset paths
+// This makes it easier to manage assets in one place 🥺
+export const assetPaths = {
+    bg: '../../images/bd3410e44a72b4baa918181e82271ee3-400.jpg',
+    player: '../../images/AdorableCutieChiikawa.png',
+    ground: '../../images/gameAssets/ByIjUv.png',
+    broccoli: '../../images/gameAssets/pngtree-sticker-vector-png-image_6818893.png',
+    brocFly: '../../images/gameAssets/b9d20377-3663-4c52-bb67-de546498067d-removebg-preview.png'
+};
+
 export function runGame({ level, playerStart, onWin }) {
     // So this runs the game with data passed from each world file
     const canvas = document.getElementById('gameCanvas');
@@ -114,14 +142,15 @@ export function runGame({ level, playerStart, onWin }) {
         duration: 100 
     };
 
-    // BrocFly movement logic
-    function updateBrocFlys() {
+    // BrocFly movement logic (delta time integrated)
+    function updateBrocFlys(delta) {
+        const brocFlySpeed = 150; // pixels per second
         for (const f of brocFlys) {
             if (!f.alive) {
                 continue;
             }
             // Move horizontally in current direction
-            f.x += f.dir * 2.2; // Faster than ground broccoli
+            f.x += f.dir * brocFlySpeed * delta; // Faster than ground broccoli
             // Check for edge of map
             if (f.x < 0) {
                 f.x = 0;
@@ -149,11 +178,55 @@ export function runGame({ level, playerStart, onWin }) {
         }
     }
 
+    function updateBroccolis(delta) {
+        const broccoliSpeed = 80; // pixels per second
+        for (const g of broccolis) {
+            if (!g.alive) continue;
+            g.x += g.dir * broccoliSpeed * delta;
+            let onPlatform = false;
+            for (const plat of platforms) {
+                if (
+                    g.x + g.w / 2 > plat.x &&
+                    g.x + g.w / 2 < plat.x + plat.w &&
+                    g.y + g.h === plat.y
+                ) {
+                    onPlatform = true;
+                }
+                if (rectsCollide(g, plat)) {
 
-    // Fix this bug where the player jumps almost forever
+                    if (g.dir > 0) {
+                        g.x = plat.x - g.w;
+                    }
+
+                    if (g.dir < 0) {
+                        g.x = plat.x + plat.w;
+                    }
+                    g.dir *= -1;
+                }
+            }
+            if (!onPlatform) g.dir *= -1;
+            if (
+                rectsCollide(player, g) &&
+                player.vy > 0 &&
+                player.y + player.h - g.y < 20
+            ) {
+                g.alive = false;
+                player.vy = player.jump / 1.5;
+                break; // breaks the for loop to prevent multiple kills at once
+            } else if (rectsCollide(player, g) && g.alive) {
+                triggerGameOver();
+                return;
+            }
+        }
+    }
+
+
+    // Delta time integrated: all movement is now frame-rate independent
     function update(delta) {
+        // Clamp delta to prevent huge jumps on lag spikes
+        if (delta > 0.1) delta = 0.1;
+        if (delta <= 0 || isNaN(delta)) return;
 
-        console.log(player.x, player.y)
         if (gameWon || gameOver) {
             return;
         }
@@ -162,22 +235,23 @@ export function runGame({ level, playerStart, onWin }) {
         let wantRight = isRightPressed();
 
         if (wantLeft) {
-            player.vx = -player.speed * delta;
+            player.vx = -player.speed; // speed is pixels per second
         }
 
         if (wantRight) {
-            player.vx = player.speed * delta;
+            player.vx = player.speed; // speed is pixels per second
         }
 
         if (keys['Space'] && player.onGround) {
-            player.vy = player.jump;
+            player.vy = player.jump; // jump is pixels per second
             player.onGround = false;
         }
-        player.vy += 0.5 * delta;
+        // Apply gravity (pixels per second squared * delta = pixels per second)
+        player.vy += playerDefaults.gravity * delta;
 
         // Try to move horizontally, check for block
-        let prevX = player.x; // useless variable but scared to remove thinking it might break something
-        player.x += player.vx * delta;
+        let prevX = player.x;
+        player.x += player.vx * delta; // vx is pixels/sec, delta is seconds
         let blockedX = false;
         for (const plat of platforms) {
             if (rectsCollide(player, plat)) {
@@ -203,8 +277,8 @@ export function runGame({ level, playerStart, onWin }) {
         }
 
         // Try to move vertically, check for block
-        let prevY = player.y; // same goes here
-        player.y += player.vy * delta; // hope this fixes it. P.S. it did not and froze the player mid air, and made it worse by making it fall through the ground
+        let prevY = player.y;
+        player.y += player.vy * delta; // vy is pixels/sec, delta is seconds
         player.onGround = false;
         let blockedY = false;
         let blockDirY = 0;
@@ -243,45 +317,10 @@ export function runGame({ level, playerStart, onWin }) {
         }
 
         // Update flying enemies
-        updateBrocFlys();
+        updateBrocFlys(delta);
+        updateBroccolis(delta);
 
-        for (const g of broccolis) {
-            if (!g.alive) continue;
-            g.x += g.dir * 1.2;
-            let onPlatform = false;
-            for (const plat of platforms) {
-                if (
-                    g.x + g.w / 2 > plat.x &&
-                    g.x + g.w / 2 < plat.x + plat.w &&
-                    g.y + g.h === plat.y
-                ) {
-                    onPlatform = true;
-                }
-                if (rectsCollide(g, plat)) {
-
-                    if (g.dir > 0) {
-                        g.x = plat.x - g.w;
-                    }
-
-                    if (g.dir < 0) {
-                        g.x = plat.x + plat.w;
-                    }
-                    g.dir *= -1;
-                }
-            }
-            if (!onPlatform) g.dir *= -1;
-            if (
-                rectsCollide(player, g) &&
-                player.vy > 0 &&
-                player.y + player.h - g.y < 20
-            ) {
-                g.alive = false;
-                player.vy = player.jump / 1.5;
-            } else if (rectsCollide(player, g) && g.alive) {
-                triggerGameOver();
-                return;
-            }
-        }
+        
         if (player.x > (level[0].length - 2) * tileSize) {
             gameWon = true;
             document.getElementById('congratsScreen').classList.remove('hidden');
@@ -329,15 +368,18 @@ export function runGame({ level, playerStart, onWin }) {
         for (const plat of platforms) {
             ctx.drawImage(groundImg, plat.x - cameraX, plat.y - cameraY, plat.w, plat.h);
         }
+        
+        const broccoliScale = 1; // Scale factor for broccoli enemies
+        // Draw broccoli enemies
         for (const g of broccolis) {
             if (!g.alive) continue;
             ctx.save();
             if (g.dir < 0) {
-                ctx.translate(g.x - cameraX + g.w, g.y - cameraY);
+                ctx.translate(g.x - cameraX + g.w * broccoliScale, g.y - cameraY);
                 ctx.scale(-1, 1);
-                ctx.drawImage(broccoliImg, 0, 0, g.w, g.h);
+                ctx.drawImage(broccoliImg, 0, 0, g.w * broccoliScale, g.h * broccoliScale);
             } else {
-                ctx.drawImage(broccoliImg, g.x - cameraX, g.y - cameraY, g.w, g.h);
+                ctx.drawImage(broccoliImg, g.x - cameraX, g.y - cameraY, g.w * broccoliScale, g.h * broccoliScale);
             }
             ctx.restore();
         }
@@ -386,26 +428,13 @@ export function runGame({ level, playerStart, onWin }) {
     let lastTime = performance.now();
     // THIS MAIN LOOP FUNCTION IS KILLING ME, NOW IT BROKE THE SYSTEM
     // TODO: FIX THIS ISSUE, IT CRASHES THE GAME AND EATS UP RAM LIKE A HOG
-/*
-     function loop(now) {
-        console.log("PLayer position " + player.x, player.y);
-        const delta = 1 //(now - lastTime) / 1000; // seconds since last frame
-        console.log("Delta time: " + delta);
-        update(delta)
-        draw();
-        lastTime = now;
-        animationId = requestAnimationFrame(loop);
-        console.log("()() DEBUG LOG: Second requestAnimationFrame call?");
-     }
-     */
     function loop(now) {
-        console.log("PLayer position " + player.x, player.y);
-        const delta = 1 //- ((now - lastTime) / 100); // seconds since last frame
-        console.log("Delta time: " + delta);
-        update(delta)
-        draw();
+        const delta = (now - lastTime) / 1000; // seconds since last frame
         lastTime = now;
+        update(delta);
+        draw();
         animationId = requestAnimationFrame(loop);
+
         // console.log("()() DEBUG LOG: Second requestAnimationFrame call?");
         // Comment this out to prevent infinite calls
         // TODO: Fix later
@@ -417,6 +446,8 @@ export function runGame({ level, playerStart, onWin }) {
         // It acts soooo confident, yet it is the reason why the server CRASHES
         // Needed to revert back forcefully to an old commit, just registering it here
         // 2 hours of debugging wasted because of this piece of sh**
+
+        //2025-11-19: Fixed the issue by removing the second requestAnimationFrame call AND IM FREEEEEEEE
     }
     
     // So, when the player dies, it trigers this function
@@ -574,42 +605,6 @@ export function runGame({ level, playerStart, onWin }) {
 
 // Example: tile size, player defaults, and asset paths
 export const tileSize = 40;
-/*
-export const hitbox = {
-    x:
-}
-*/
-// Default player properties
-export const playerDefaults = {
-    w: 30,
-    h: 30,
-    speed: 3,
-    jump: -10,
-    startX: 2 * 40,
-    startY: 8 * 40
-};
-
-// Blame me for making a list of asset paths
-// This makes it easier to manage assets in one place 🥺
-export const assetPaths = {
-    bg: '../../images/bd3410e44a72b4baa918181e82271ee3-400.jpg',
-    player: '../../images/AdorableCutieChiikawa.png',
-    ground: '../../images/gameAssets/ByIjUv.png',
-    broccoli: '../../images/gameAssets/pngtree-sticker-vector-png-image_6818893.png',
-    brocFly: '../../images/gameAssets/b9d20377-3663-4c52-bb67-de546498067d-removebg-preview.png'
-};
-// Build flying broccoli enemies
-export function buildBrocFlys(level, tileSize) {
-    const brocFlys = [];
-    for (let y = 0; y < level.length; y++) {
-        for (let x = 0; x < level[y].length; x++) {
-            if (level[y][x] === 'T') {
-                brocFlys.push({ x: x * tileSize, y: y * tileSize, w: tileSize, h: tileSize, dir: 1, alive: true });
-            }
-        }
-    }
-    return brocFlys;
-}
 
 // Example onWin handlers for each world
 // When finish, put =  alert('You finished all available levels! More coming soon!');
@@ -648,4 +643,17 @@ export function buildBroccolis(level, tileSize) {
         }
     }
     return broccolis;
+}
+
+// Build flying broccoli enemies
+export function buildBrocFlys(level, tileSize) {
+    const brocFlys = [];
+    for (let y = 0; y < level.length; y++) {
+        for (let x = 0; x < level[y].length; x++) {
+            if (level[y][x] === 'T') {
+                brocFlys.push({ x: x * tileSize, y: y * tileSize, w: tileSize, h: tileSize, dir: 1, alive: true });
+            }
+        }
+    }
+    return brocFlys;
 }
