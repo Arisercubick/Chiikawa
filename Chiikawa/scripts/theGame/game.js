@@ -6,6 +6,7 @@
 
 // Coding this makes me miss Hannah so much
 // Can she call me at 2 am and comfort me? yeah, Im obsessed and I know
+
 'use strict';
 
 /*
@@ -13,6 +14,12 @@ export const hitbox = {
     x:
 }
 */
+
+//Importing functions from the entities files
+import { buildPlatforms } from './entities/platform.js';
+import { buildBroccolis, updateBroccolis } from './entities/broccolis.js';
+import { buildBrocFlys, updateBrocFlys } from './entities/brocFly.js';
+
 // Default player properties
 // Speed and jump are tuned for delta time (values are per second)
 export let playerDefaults = {
@@ -70,7 +77,7 @@ export function runGame({ level, playerStart, onWin }) {
     const levelHeight = level.length * tileSize;
 
     // Load images as assets
-    // As I like other assets being loaded 😏
+    // As I like other assets being loaded
     const bgImg = new Image();
     bgImg.src = assetPaths.bg;
     const playerImg = new Image();
@@ -164,85 +171,6 @@ export function runGame({ level, playerStart, onWin }) {
         startTime: 0, 
         duration: 100 
     };
-
-    // BrocFly movement logic (delta time integrated)
-    function updateBrocFlys(delta) {
-        const brocFlySpeed = 150; // pixels per second
-        for (const f of brocFlys) {
-            if (!f.alive) {
-                continue;
-            }
-            // Move horizontally in current direction
-            f.x += f.dir * brocFlySpeed * delta; // Faster than ground broccoli
-            // Check for edge of map
-            if (f.x < 0) {
-                f.x = 0;
-                f.dir = 1;
-            } else if (f.x + f.w > levelWidth) {
-                f.x = levelWidth - f.w;
-                f.dir = -1;
-            }
-            // Check for block in front (at same y)
-            let nextX = f.dir > 0 ? f.x + f.w : f.x - 1;
-            let gridY = Math.floor(f.y / tileSize);
-            let gridX = Math.floor(nextX / tileSize);
-            if (
-                gridY >= 0 && gridY < level.length &&
-                gridX >= 0 && gridX < level[0].length &&
-                level[gridY][gridX] === '='
-            ) {
-                f.dir *= -1;
-            }
-            // Player dies instantly on brocFly collision
-            if (rectsCollide(player, f)) {
-                triggerGameOver();
-                return;
-            }
-        }
-    }
-
-    function updateBroccolis(delta) {
-        const broccoliSpeed = 80; // pixels per second
-        for (const g of broccolis) {
-            if (!g.alive) continue;
-            g.x += g.dir * broccoliSpeed * delta;
-            let onPlatform = false;
-            for (const plat of platforms) {
-                if (
-                    g.x + g.w / 2 > plat.x &&
-                    g.x + g.w / 2 < plat.x + plat.w &&
-                    g.y + g.h === plat.y
-                ) {
-                    onPlatform = true;
-                }
-                if (rectsCollide(g, plat)) {
-
-                    if (g.dir > 0) {
-                        g.x = plat.x - g.w;
-                    }
-
-                    if (g.dir < 0) {
-                        g.x = plat.x + plat.w;
-                    }
-                    g.dir *= -1;
-                }
-            }
-            if (!onPlatform) g.dir *= -1;
-            if (
-                rectsCollide(player, g) &&
-                player.vy > 0 &&
-                player.y + player.h - g.y < 20
-            ) {
-                g.alive = false;
-                player.vy = player.jump / 1.5;
-                break; // breaks the for loop to prevent multiple kills at once
-            } else if (rectsCollide(player, g) && g.alive) {
-                triggerGameOver();
-                return;
-            }
-        }
-    }
-
 
     // Delta time integrated: all movement is now frame-rate independent
     function update(delta) {
@@ -340,8 +268,8 @@ export function runGame({ level, playerStart, onWin }) {
         }
 
         // Update flying enemies
-        updateBrocFlys(delta);
-        updateBroccolis(delta);
+        updateBrocFlys(delta, brocFlys, level, tileSize, levelWidth, player, rectsCollide, triggerGameOver);
+        updateBroccolis(delta, broccolis, platforms, player, rectsCollide, triggerGameOver);
 
         
         if (player.x > (level[0].length - 2) * tileSize) {
@@ -639,44 +567,4 @@ function onWinWorld(worldNum) {
             document.getElementById('congratsScreen').classList.add('hidden');
         };
     }
-}
-
-// It builds our platforms!!!
-// the = sign measn ground block
-// Peers mentioned to add movable platforms, maybe later, idk, I dont want to shoot myself in the foot
-export function buildPlatforms(level, tileSize) {
-    const platforms = [];
-    for (let y = 0; y < level.length; y++) {
-        for (let x = 0; x < level[y].length; x++) {
-            if (level[y][x] === '=') {
-                platforms.push({ x: x * tileSize, y: y * tileSize, w: tileSize, h: tileSize });
-            }
-        }
-    }
-    return platforms;
-}
-
-export function buildBroccolis(level, tileSize) {
-    const broccolis = [];
-    for (let y = 0; y < level.length; y++) {
-        for (let x = 0; x < level[y].length; x++) {
-            if (level[y][x] === 'G') {
-                broccolis.push({ x: x * tileSize, y: y * tileSize, w: tileSize, h: tileSize, dir: 1, alive: true });
-            }
-        }
-    }
-    return broccolis;
-}
-
-// Build flying broccoli enemies
-export function buildBrocFlys(level, tileSize) {
-    const brocFlys = [];
-    for (let y = 0; y < level.length; y++) {
-        for (let x = 0; x < level[y].length; x++) {
-            if (level[y][x] === 'T') {
-                brocFlys.push({ x: x * tileSize, y: y * tileSize, w: tileSize, h: tileSize, dir: 1, alive: true });
-            }
-        }
-    }
-    return brocFlys;
 }
