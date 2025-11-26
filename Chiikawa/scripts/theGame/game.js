@@ -398,7 +398,7 @@ export function runGame({ level, playerStart, onWin }) {
         // Needed to revert back forcefully to an old commit, just registering it here
         // 2 hours of debugging wasted because of this piece of sh**
 
-        //2025-11-19: Fixed the issue by removing the second requestAnimationFrame call AND IM FREEEEEEEE
+        //2025-11-19: Fixed the issue by removing the second requestAnimationFrame call, added the Delta AND IM FREEEEEEEE
     }
     
     // So, when the player dies, it trigers this function

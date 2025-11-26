@@ -1,5 +1,4 @@
-
-
+'use strict';
 // Build flying broccoli enemies
 export function buildBrocFlys(level, tileSize) {
     const brocFlys = [];

@@ -1,6 +1,6 @@
 // world2.js - Second level for the platformer game
 'use strict';
-import { runGame } from './game.js';
+import { runGame } from '../game.js';
 
 const level = [
     '                                                                                ',

@@ -1,6 +1,6 @@
 // world3.js - Third level for the platformer game
 'use strict';
-import { runGame } from './game.js';
+import { runGame } from '../game.js';
 
 // TODO: Make this level harder
 const level = [
