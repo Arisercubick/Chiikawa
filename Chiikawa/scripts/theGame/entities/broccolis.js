@@ -15,7 +15,9 @@ export function buildBroccolis(level, tileSize) {
 export function updateBroccolis(delta, broccolis, platforms, player, rectsCollide, triggerGameOver) {
     const broccoliSpeed = 80; // pixels per second
     for (const g of broccolis) {
-        if (!g.alive) continue;
+        if (!g.alive) {
+            continue;
+        }
         g.x += g.dir * broccoliSpeed * delta;
         let onPlatform = false;
         for (const plat of platforms) {
@@ -36,15 +38,12 @@ export function updateBroccolis(delta, broccolis, platforms, player, rectsCollid
                 g.dir *= -1;
             }
         }
-        if (!onPlatform) g.dir *= -1;
-        if (
-            rectsCollide(player, g) &&
-            player.vy > 0 &&
-            player.y + player.h - g.y < 20
-        ) {
+        if (!onPlatform) {
+            g.dir *= -1;
+        }
+        if (rectsCollide(player, g) && player.vy > 0 && player.y + player.h + 0.4 - g.y < 20) {
             g.alive = false;
             player.vy = player.jump / 1.5;
-            break; // breaks the for loop to prevent multiple kills at once
         } else if (rectsCollide(player, g) && g.alive) {
             triggerGameOver();
             return;
@@ -54,7 +53,9 @@ export function updateBroccolis(delta, broccolis, platforms, player, rectsCollid
 
 export function drawBroccolis(ctx, broccolis, cameraX, cameraY, broccoliImg, scale = 1) {
     for (const g of broccolis) {
-        if (!g.alive) continue;
+        if (!g.alive) {
+            continue;
+        }
         ctx.save();
         if (g.dir < 0) {
             ctx.translate(g.x - cameraX + g.w * scale, g.y - cameraY);
