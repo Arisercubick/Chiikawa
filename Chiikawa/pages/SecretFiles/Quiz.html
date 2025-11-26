@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Quiz</title>
     <link rel="stylesheet" href="../css/styles.css" />
-    <link rel="stylesheet" href="../css/quiz.css" />
-    <script src="../scripts/quiz.js" defer></script>
+    <link rel="stylesheet" href="../css/Quiz.css" />
+    <script src="../scripts/Quiz.js" defer></script>
 </head>
 <body>
     <header id="header">
@@ -32,33 +32,21 @@
                 <img id="quizImage" src="" alt="Quiz image" class="quizImage" />
                 <figcaption id="quizCaption"></figcaption>
             </figure>
-		</section>
             <!-- Quiz choices -->
-		<section id="selection">
-			<fieldset>
-			<legend>Who is the main character in chiikawa?</legend>
-			<ul>
-			  <li>
-				<input type="radio" name="answer" value="answer" id="1">
-				<label for="1">Bonaventure</label>
-			  </li>
-			  <li>
-				<input type="radio" name="answer" value="answer" id="2">
-				<label for="2">Champ de mars</label>
-			  </li>
-			  <li>
-				<input type="radio" name="answer" value="answer" id="3">
-				<label for="3">Lionel Groulx</label>
-			  </li>
-			  <li>
-				<input type="radio" name="answer" value="answer" id="4">
-				<label for="4">Namur</label>
-			  </li>
-			</ul>
-			<button id ="checking" type="button">Check my answer!</button>
-		  </fieldset>
-		  <h2 id="result">&nbsp;</h2>
-    </section>
+            <ul id="quizChoices" class="quizChoicesList"></ul>
+            <nav class="quiz-nav">
+                <button id="backBTN" hidden>Back</button>
+                <button id="nextBTN">Next</button>
+                <button id="submitBTN" hidden>Submit Answers</button>
+            </nav>
+            <!-- Loading state -->
+            <aside id="quizLoading" hidden>
+                <article class="loader"></article>
+                <p>Computing your score...</p>
+            </aside>
+            <!-- Quiz result -->
+            <output id="quizResult" hidden></output>
+        </section>
     </main>
     <footer>
         <h2>Made by Aris and Kelly</h2>
