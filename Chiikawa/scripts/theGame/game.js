@@ -20,7 +20,7 @@ export let playerDefaults = {
     h: 30,
     speed: 250,      // pixels per second
     jump: -550,      // initial jump velocity (pixels per second)
-    gravity: 1200,   // gravity acceleration (pixels per second squared)
+    gravity: 1300,   // gravity acceleration (pixels per second squared)
     startX: 2 * 40,
     startY: 8 * 40
 };
