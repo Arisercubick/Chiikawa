@@ -46,3 +46,18 @@ export function updateBrocFlys(delta, brocFlys, level, tileSize, levelWidth, pla
         }
     }
 }
+
+export function drawBrocFlys(ctx, brocFlys, cameraX, cameraY, brocFlyImg, scale = 1) {
+    for (const f of brocFlys) {
+        if (!f.alive) continue;
+        ctx.save();
+        if (f.dir < 0) {
+            ctx.translate(f.x - cameraX + f.w * scale, f.y - cameraY);
+            ctx.scale(-1, 1);
+            ctx.drawImage(brocFlyImg, 0, 0, f.w * scale, f.h * scale);
+        } else {
+            ctx.drawImage(brocFlyImg, f.x - cameraX, f.y - cameraY, f.w * scale, f.h * scale);
+        }
+        ctx.restore();
+    }
+}

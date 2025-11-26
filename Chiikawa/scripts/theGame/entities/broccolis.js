@@ -51,3 +51,18 @@ export function updateBroccolis(delta, broccolis, platforms, player, rectsCollid
         }
     }
 }
+
+export function drawBroccolis(ctx, broccolis, cameraX, cameraY, broccoliImg, scale = 1) {
+    for (const g of broccolis) {
+        if (!g.alive) continue;
+        ctx.save();
+        if (g.dir < 0) {
+            ctx.translate(g.x - cameraX + g.w * scale, g.y - cameraY);
+            ctx.scale(-1, 1);
+            ctx.drawImage(broccoliImg, 0, 0, g.w * scale, g.h * scale);
+        } else {
+            ctx.drawImage(broccoliImg, g.x - cameraX, g.y - cameraY, g.w * scale, g.h * scale);
+        }
+        ctx.restore();
+    }
+}

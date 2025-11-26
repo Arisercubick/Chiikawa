@@ -17,8 +17,8 @@ export const hitbox = {
 
 //Importing functions from the entities files
 import { buildPlatforms } from './entities/platform.js';
-import { buildBroccolis, updateBroccolis } from './entities/broccolis.js';
-import { buildBrocFlys, updateBrocFlys } from './entities/brocFly.js';
+import { buildBroccolis, updateBroccolis, drawBroccolis } from './entities/broccolis.js';
+import { buildBrocFlys, updateBrocFlys, drawBrocFlys } from './entities/brocFly.js';
 
 // Default player properties
 // Speed and jump are tuned for delta time (values are per second)
@@ -60,6 +60,21 @@ export function runGame({ level, playerStart, onWin }) {
         speed: playerDefaults.speed,
         jump: playerDefaults.jump
     };
+
+    // Load images as assets
+    // As I like other assets being loaded
+    const bgImg = new Image();
+    bgImg.src = assetPaths.bg;
+    const playerImg = new Image();
+    playerImg.src = assetPaths.player;
+    const groundImg = new Image();
+    groundImg.src = assetPaths.ground;
+    const broccoliImg = new Image();
+    broccoliImg.src = assetPaths.broccoli;
+    const brocFlyImg = new Image();
+    brocFlyImg.src = assetPaths.brocFly;
+
+    
     let keys = {};
 
     // Secret combo detection: w + a + a + w + q
@@ -76,18 +91,7 @@ export function runGame({ level, playerStart, onWin }) {
     const levelWidth = level[0].length * tileSize;
     const levelHeight = level.length * tileSize;
 
-    // Load images as assets
-    // As I like other assets being loaded
-    const bgImg = new Image();
-    bgImg.src = assetPaths.bg;
-    const playerImg = new Image();
-    playerImg.src = assetPaths.player;
-    const groundImg = new Image();
-    groundImg.src = assetPaths.ground;
-    const broccoliImg = new Image();
-    broccoliImg.src = assetPaths.broccoli;
-    const brocFlyImg = new Image();
-    brocFlyImg.src = assetPaths.brocFly;
+    
 
     const keydownHandler = e => {
         keys[e.code] = true;
@@ -267,7 +271,7 @@ export function runGame({ level, playerStart, onWin }) {
             }
         }
 
-        // Update flying enemies
+        // Update enemies
         updateBrocFlys(delta, brocFlys, level, tileSize, levelWidth, player, rectsCollide, triggerGameOver);
         updateBroccolis(delta, broccolis, platforms, player, rectsCollide, triggerGameOver);
 
@@ -320,33 +324,12 @@ export function runGame({ level, playerStart, onWin }) {
             ctx.drawImage(groundImg, plat.x - cameraX, plat.y - cameraY, plat.w, plat.h);
         }
         
-        const broccoliScale = 1; // Scale factor for broccoli enemies
-        // Draw broccoli enemies
-        for (const g of broccolis) {
-            if (!g.alive) continue;
-            ctx.save();
-            if (g.dir < 0) {
-                ctx.translate(g.x - cameraX + g.w * broccoliScale, g.y - cameraY);
-                ctx.scale(-1, 1);
-                ctx.drawImage(broccoliImg, 0, 0, g.w * broccoliScale, g.h * broccoliScale);
-            } else {
-                ctx.drawImage(broccoliImg, g.x - cameraX, g.y - cameraY, g.w * broccoliScale, g.h * broccoliScale);
-            }
-            ctx.restore();
-        }
-        // Draw brocFly enemies
-        for (const f of brocFlys) {
-            if (!f.alive) continue;
-            ctx.save();
-            if (f.dir < 0) {
-                ctx.translate(f.x - cameraX + f.w, f.y - cameraY);
-                ctx.scale(-1, 1);
-                ctx.drawImage(brocFlyImg, 0, 0, f.w, f.h);
-            } else {
-                ctx.drawImage(brocFlyImg, f.x - cameraX, f.y - cameraY, f.w, f.h);
-            }
-            ctx.restore();
-        }
+        const broccoliScale = 1;
+        drawBroccolis(ctx, broccolis, cameraX, cameraY, broccoliImg, broccoliScale);
+        const brocFlyScale = 1;
+        drawBrocFlys(ctx, brocFlys, cameraX, cameraY, brocFlyImg, brocFlyScale);
+
+
         // Directional vibration effect (horizontal or vertical, 500ms)
         // idk, based on my math, it supposed to be 500ms
         let vibOffsetX = 0, vibOffsetY = 0;
@@ -473,6 +456,7 @@ export function runGame({ level, playerStart, onWin }) {
         const world2Btn = document.getElementById('world2BTN');
         const world3Btn = document.getElementById('world3BTN');
         const world4Btn = document.getElementById('world4BTN');
+        const world5Btn = document.getElementById('world5BTN');
         if (world1Btn) {
             world1Btn.onclick = () => { 
                 switchWorld(1); 
@@ -491,6 +475,11 @@ export function runGame({ level, playerStart, onWin }) {
         if (world4Btn) {
             world4Btn.onclick = () => { 
                 switchWorld(4); 
+            };
+        }
+        if (world5Btn) {
+            world5Btn.onclick = () => { 
+                switchWorld(5); 
             };
         }
         // TODO: Add more world buttons as needed
