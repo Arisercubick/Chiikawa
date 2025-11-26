@@ -213,7 +213,13 @@ main {
 #gameStartContainer {
   text-align:center; 
   margin-top:2em;
+  transition: all 0.3s ease;
 }
+
+#gameStartContainer:hover {
+  transform: scale(1.05);
+}
+
 .startGameButton {
   font-size:2em; 
   padding:1em 2em; 
