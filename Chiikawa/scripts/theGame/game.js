@@ -19,6 +19,7 @@ export const hitbox = {
 import { buildPlatforms } from './entities/platform.js';
 import { buildBroccolis, updateBroccolis, drawBroccolis } from './entities/broccolis.js';
 import { buildBrocFlys, updateBrocFlys, drawBrocFlys } from './entities/brocFly.js';
+import { updateTimer } from './handlers/timer.js';  
 
 // Default player properties
 // Speed and jump are tuned for delta time (values are per second)
@@ -44,6 +45,8 @@ export const assetPaths = {
 
 export function runGame({ level, playerStart, onWin }) {
     // So this runs the game with data passed from each world file
+    let stopTimer = false;
+    let timer = 0;
     const canvas = document.getElementById('gameCanvas');
     const ctx = canvas.getContext('2d');
     const platforms = buildPlatforms(level, tileSize);
@@ -278,6 +281,7 @@ export function runGame({ level, playerStart, onWin }) {
         
         if (player.x > (level[0].length - 2) * tileSize) {
             gameWon = true;
+            stopTimer = true;
             document.getElementById('congratsScreen').classList.remove('hidden');
             if (onWin) onWin();
             // Add restart button logic for congrats screen
@@ -367,6 +371,7 @@ export function runGame({ level, playerStart, onWin }) {
         lastTime = now;
         update(delta);
         draw();
+        timer = updateTimer(delta, timer, stopTimer);
         animationId = requestAnimationFrame(loop);
 
         // console.log("()() DEBUG LOG: Second requestAnimationFrame call?");
@@ -386,6 +391,7 @@ export function runGame({ level, playerStart, onWin }) {
     
     // So, when the player dies, it trigers this function
     function triggerGameOver() {
+        stopTimer = true;
         gameOver = true;
         document.getElementById('gameOverScreen').classList.remove('hidden');
     }
@@ -395,6 +401,8 @@ export function runGame({ level, playerStart, onWin }) {
     const brocFlyStartStates = brocFlys.map(f => ({ x: f.x, y: f.y, dir: f.dir }));
     function resetGame() {
         // Reset player position and make velocities = zero
+        timer = 0;
+        stopTimer = false;
         player.x = playerDefaults.startX;
         player.y = playerDefaults.startY;
         player.vx = 0;
