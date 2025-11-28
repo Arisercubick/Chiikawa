@@ -1,3 +1,4 @@
+<!--Kelly Yu -->
 <!doctype html>
 <html lang="en">
 <head>
@@ -5,8 +6,8 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Quiz</title>
     <link rel="stylesheet" href="../css/styles.css" />
-    <link rel="stylesheet" href="../css/quiz.css" />
-    <script src="../scripts/quiz.js" defer></script>
+    <link rel="stylesheet" href="../css/Quiz.css" />
+    <script src="../scripts/Quizing.js" defer></script>
 </head>
 <body>
     <header id="header">
@@ -40,28 +41,64 @@
 			<ul>
 			  <li>
 				<input type="radio" name="answer" value="answer" id="1">
-				<label for="1">Bonaventure</label>
+				<label for="1">Chiikawa</label>
 			  </li>
 			  <li>
 				<input type="radio" name="answer" value="answer" id="2">
-				<label for="2">Champ de mars</label>
+				<label for="2">Usagi</label>
 			  </li>
 			  <li>
 				<input type="radio" name="answer" value="answer" id="3">
-				<label for="3">Lionel Groulx</label>
+				<label for="3">Kurimanji</label>
 			  </li>
 			  <li>
 				<input type="radio" name="answer" value="answer" id="4">
-				<label for="4">Namur</label>
+				<label for="4">Momonga</label>
 			  </li>
 			</ul>
-			<button id ="checking" type="button">Check my answer!</button>
+			<button id ="checking" type="button">Submit</button>
 		  </fieldset>
 		  <h2 id="result">&nbsp;</h2>
     </section>
     </main>
     <footer>
-        <h2>Made by Aris and Kelly</h2>
+        <fieldset>
+			<label for="first_name">First Name:</label>
+			<input type="text" placeholder="First Name" name="first_name" id="first_name" size="20"> 
+			<br>
+			<label for="email">Email:</label>
+			<input type="email" placeholder="Email" id="email" name="email" required>
+			
+			<h3>What do you rate this?</h3>
+			<ul id="Stars">
+				<li>
+					<input type="radio" name="rating" value="1" id="1">
+					<label for="1">1</label>
+				</li>
+				
+				<li>
+					<input type="radio" name="rating" value="2" id="2">
+					<label for="2">2</label>
+				</li>
+				
+				<li>
+					<input type="radio" name="rating" value="3" id="3">
+					<label for="3">3</label>
+				</li>
+				
+				<li>
+					<input type="radio" name="rating" value="4" id="4">
+					<label for="4">4</label>
+				</li>
+				
+				<li>
+					<input type="radio" name="rating" value="5" id="5">
+					<label for="5">5</label>
+				</li>
+			</ul>
+			<button onclick = "clickButton()" id="checking">Submit feedback</button>
+			<h3 id="result">&nbsp; </h3>
+		</fieldset>
     </footer>
 </body>
 </html>
