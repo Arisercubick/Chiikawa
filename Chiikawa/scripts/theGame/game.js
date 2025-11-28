@@ -466,38 +466,6 @@ export function runGame({ level, playerStart, onWin }) {
                 resetGame();
             }
         });
-        // World selection buttons (if any)
-        const world1Btn = document.getElementById('world1BTN');
-        const world2Btn = document.getElementById('world2BTN');
-        const world3Btn = document.getElementById('world3BTN');
-        const world4Btn = document.getElementById('world4BTN');
-        const world5Btn = document.getElementById('world5BTN');
-        if (world1Btn) {
-            world1Btn.onclick = () => { 
-                switchWorld(1); 
-            };
-        }
-        if (world2Btn) {
-            world2Btn.onclick = () => { 
-                switchWorld(2); 
-            };
-        }
-        if (world3Btn) {
-            world3Btn.onclick = () => { 
-                switchWorld(3); 
-            };
-        }
-        if (world4Btn) {
-            world4Btn.onclick = () => { 
-                switchWorld(4); 
-            };
-        }
-        if (world5Btn) {
-            world5Btn.onclick = () => { 
-                switchWorld(5); 
-            };
-        }
-        // TODO: Add more world buttons as needed
     });
 
     // Im actually happy I managed to make this function work, I used to have two functions running the same logic
