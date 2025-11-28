@@ -16,7 +16,7 @@ export const hitbox = {
 */
 
 //Importing functions from the entities files
-import { buildPlatforms } from './entities/platform.js';
+import { buildPlatforms, buildFloats, updateFloats, drawFloats } from './entities/platform.js';
 import { buildBroccolis, updateBroccolis, drawBroccolis } from './entities/broccolis.js';
 import { buildBrocFlys, updateBrocFlys, drawBrocFlys } from './entities/brocFly.js';
 import { updateTimer } from './handlers/timer.js';  
@@ -118,7 +118,9 @@ export function runGame({ level, playerStart, onWin }) {
                 if (!gameWon && !gameOver) {
                     gameWon = true;
                     document.getElementById('congratsScreen').classList.remove('hidden');
-                    if (onWin) onWin();
+                    if (onWin) {
+                        onWin();
+                    }
                     setTimeout(() => {
                         const restartBtn = document.getElementById('restartBTN');
                         if (restartBtn) {
@@ -297,7 +299,7 @@ export function runGame({ level, playerStart, onWin }) {
               }
             }, 0);
         }
-        if (player.y > canvas.height + 100) {
+        if (player.y > canvas.height + 1000) {
             triggerGameOver();
             return;
         }
