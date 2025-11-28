@@ -63,5 +63,15 @@ export function updateFloats(delta, floats, level, tileSize, levelWidth) {
 }
 
 export function drawFloats(ctx, floats, cameraX, cameraY, floatImg, scale = 1) {
-
+    for (const pl of floats) {
+        ctx.save();
+        if (pl.dir < 0) {
+            ctx.translate(pl.x - cameraX + pl.w * scale, pl.y - cameraY);
+            ctx.scale(-1, 1);
+            ctx.drawImage(floatImg, 0, 0, pl.w * scale, pl.h * scale);
+        } else {
+            ctx.drawImage(floatImg, pl.x - cameraX, pl.y - cameraY, pl.w * scale, pl.h * scale);
+        }
+        ctx.restore();
+    }
 }

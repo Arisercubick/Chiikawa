@@ -16,7 +16,7 @@ export const hitbox = {
 */
 
 //Importing functions from the entities files
-import { buildPlatforms, buildFloats, updateFloats } from './entities/platform.js';
+import { buildPlatforms, buildFloats, updateFloats, drawFloats } from './entities/platform.js';
 import { buildBroccolis, updateBroccolis, drawBroccolis } from './entities/broccolis.js';
 import { buildBrocFlys, updateBrocFlys, drawBrocFlys } from './entities/brocFly.js';
 import { updateTimer } from './handlers/timer.js';  
