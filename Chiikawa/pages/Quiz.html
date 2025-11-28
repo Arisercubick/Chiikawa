@@ -1,4 +1,3 @@
-<!--Kelly Yu -->
 <!doctype html>
 <html lang="en">
 <head>
@@ -40,25 +39,28 @@
 			<legend>Who is the main character in chiikawa?</legend>
 			<ul>
 			  <li>
-				<input type="radio" name="answer" value="answer" id="1">
+				<input type="radio" name="answer" value="1" id="answer1">
 				<label for="1">Chiikawa</label>
 			  </li>
 			  <li>
-				<input type="radio" name="answer" value="answer" id="2">
+				<input type="radio" name="answer" value="2" id="answer2">
 				<label for="2">Usagi</label>
 			  </li>
 			  <li>
-				<input type="radio" name="answer" value="answer" id="3">
+				<input type="radio" name="answer" value="3" id="answer3">
 				<label for="3">Kurimanji</label>
 			  </li>
 			  <li>
-				<input type="radio" name="answer" value="answer" id="4">
+				<input type="radio" name="answer" value="4" id="answer4">
 				<label for="4">Momonga</label>
 			  </li>
 			</ul>
-			<button id ="checking" type="button">Submit</button>
+			<button id ="submit" type="button">Submit</button>
+			<h2 id="result">&nbsp;</h2>
 		  </fieldset>
-		  <h2 id="result">&nbsp;</h2>
+		  
+		  <button id="backButton">Back</button>
+		  <button id="nextButton">Next</button>
     </section>
     </main>
     <footer>
@@ -70,7 +72,7 @@
 			<input type="email" placeholder="Email" id="email" name="email" required>
 			
 			<h3>What do you rate this?</h3>
-			<ul id="Stars">
+			<ul>
 				<li>
 					<input type="radio" name="rating" value="1" id="1">
 					<label for="1">1</label>
@@ -97,7 +99,7 @@
 				</li>
 			</ul>
 			<button onclick = "clickButton()" id="checking">Submit feedback</button>
-			<h3 id="result">&nbsp; </h3>
+			<h3 id="resulting">&nbsp; </h3>
 		</fieldset>
     </footer>
 </body>
