@@ -5,7 +5,7 @@
 
 'use strict';
 
-import platform from "platform";
+
 
 export function buildPlatforms(level, tileSize) {
     const platforms = [];
@@ -26,10 +26,11 @@ export function buildFloats(level, titleSize) {
     for (let y = 0; y < level.length; y++) {
         for (let x = 0; x < level[y].length; x++){
             if (level[y][x] === '+') {
-                platform.push({x: x * titleSize, y: y * titleSize, w: titleSize, h: titleSize})
+                floats.push({x: x * titleSize, y: y * titleSize, w: titleSize, h: titleSize})
             }
         }
     }
+    return floats;
 }
 
 export function updateFloats(delta, floats, level, tileSize, levelWidth) {

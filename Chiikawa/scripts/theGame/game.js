@@ -55,6 +55,7 @@ export function runGame({ level, playerStart, onWin }) {
     const broccolis = buildBroccolis(level, tileSize);
     const brocFlys = buildBrocFlys(level, tileSize);
     const flames = buildFlame(level, tileSize);
+    const float = buildFloats(level, tileSize);
     const player = {
         x: playerStart?.x ?? playerDefaults.startX,
         y: playerStart?.y ?? playerDefaults.startY,
@@ -69,16 +70,25 @@ export function runGame({ level, playerStart, onWin }) {
 
     // Load images as assets
     // As I like other assets being loaded
+
+    //Backgroundimg
     const bgImg = new Image();
     bgImg.src = assetPaths.bg;
+    //Player img
     const playerImg = new Image();
     playerImg.src = assetPaths.player;
+    //Ground gimage and float imgaes
     const groundImg = new Image();
     groundImg.src = assetPaths.ground;
+    const floatsImg = new Image();
+    floatsImg.src = assetPaths.ground;
+    //Enemy ground brocolli img, basically goombas
     const broccoliImg = new Image();
     broccoliImg.src = assetPaths.broccoli;
+    //Flying broccolis!
     const brocFlyImg = new Image();
     brocFlyImg.src = assetPaths.brocFly;
+    //Purple fireball img
     const flameballImg = new Image();
     flameballImg.src = assetPaths.flameball;
     
@@ -284,6 +294,7 @@ export function runGame({ level, playerStart, onWin }) {
         updateBrocFlys(delta, brocFlys, level, tileSize, levelWidth, player, rectsCollide, triggerGameOver);
         updateFlame(delta, flames, level, tileSize, levelWidth, player, rectsCollide, triggerGameOver);
         updateBroccolis(delta, broccolis, platforms, player, rectsCollide, triggerGameOver);
+        updateFloats(delta, float, level, tileSize, levelWidth);
 
         
         if (player.x > (level[0].length - 2) * tileSize) {
@@ -341,6 +352,8 @@ export function runGame({ level, playerStart, onWin }) {
         drawBrocFlys(ctx, brocFlys, cameraX, cameraY, brocFlyImg, brocFlyScale);
         const flameScale = 1;
         drawFlames(ctx, flames, cameraX, cameraY, flameballImg, flameScale);
+        const floatsScale = 1;
+        drawFloats(ctx, float, cameraX, cameraY, floatsImg, floatsScale)
 
 
         // Directional vibration effect (horizontal or vertical, 500ms)
