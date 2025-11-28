@@ -40,7 +40,10 @@ export function updateBrocFlys(delta, brocFlys, level, tileSize, levelWidth, pla
             f.dir *= -1;
         }
         // Player dies instantly on brocFly collision
-        if (rectsCollide(player, f)) {
+        if (rectsCollide(player, f) && player.vy > 0 && player.y + player.h + 0.4 - f.y < 20) {
+            f.alive = false;
+            player.vy = player.jump / 1.5;
+        } else if (rectsCollide(player, f) && f.alive) {
             triggerGameOver();
             return;
         }

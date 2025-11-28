@@ -25,8 +25,8 @@ runGame({
         const continueBtn = document.getElementById('continueBTN');
         if (continueBtn) {
             continueBtn.onclick = () => {
-                window.location.href = 'world6.html';
                 document.getElementById('congratsScreen').classList.add('hidden');
+                alert('You finished World 6! More levels coming soon!');
             };
         }
     }

@@ -20,6 +20,7 @@ import { buildPlatforms } from './entities/platform.js';
 import { buildBroccolis, updateBroccolis, drawBroccolis } from './entities/broccolis.js';
 import { buildBrocFlys, updateBrocFlys, drawBrocFlys } from './entities/brocFly.js';
 import { updateTimer } from './handlers/timer.js';  
+import { buildFlame, updateFlame, drawFlames } from './entities/flameball.js';  
 
 // Default player properties
 // Speed and jump are tuned for delta time (values are per second)
@@ -40,7 +41,8 @@ export const assetPaths = {
     player: '../../images/AdorableCutieChiikawa.png',
     ground: '../../images/gameAssets/ByIjUv.png',
     broccoli: '../../images/gameAssets/pngtree-sticker-vector-png-image_6818893.png',
-    brocFly: '../../images/gameAssets/b9d20377-3663-4c52-bb67-de546498067d-removebg-preview.png'
+    brocFly: '../../images/gameAssets/b9d20377-3663-4c52-bb67-de546498067d-removebg-preview.png',
+    flameball: '../../images/gameAssets/purpleball.gif'
 };
 
 export function runGame({ level, playerStart, onWin }) {
@@ -52,6 +54,7 @@ export function runGame({ level, playerStart, onWin }) {
     const platforms = buildPlatforms(level, tileSize);
     const broccolis = buildBroccolis(level, tileSize);
     const brocFlys = buildBrocFlys(level, tileSize);
+    const flames = buildFlame(level, tileSize);
     const player = {
         x: playerStart?.x ?? playerDefaults.startX,
         y: playerStart?.y ?? playerDefaults.startY,
@@ -76,7 +79,8 @@ export function runGame({ level, playerStart, onWin }) {
     broccoliImg.src = assetPaths.broccoli;
     const brocFlyImg = new Image();
     brocFlyImg.src = assetPaths.brocFly;
-
+    const flameballImg = new Image();
+    flameballImg.src = assetPaths.flameball;
     
     let keys = {};
 
@@ -276,6 +280,7 @@ export function runGame({ level, playerStart, onWin }) {
 
         // Update enemies
         updateBrocFlys(delta, brocFlys, level, tileSize, levelWidth, player, rectsCollide, triggerGameOver);
+        updateFlame(delta, flames, level, tileSize, levelWidth, player, rectsCollide, triggerGameOver);
         updateBroccolis(delta, broccolis, platforms, player, rectsCollide, triggerGameOver);
 
         
@@ -332,6 +337,8 @@ export function runGame({ level, playerStart, onWin }) {
         drawBroccolis(ctx, broccolis, cameraX, cameraY, broccoliImg, broccoliScale);
         const brocFlyScale = 1;
         drawBrocFlys(ctx, brocFlys, cameraX, cameraY, brocFlyImg, brocFlyScale);
+        const flameScale = 1;
+        drawFlames(ctx, flames, cameraX, cameraY, flameballImg, flameScale);
 
 
         // Directional vibration effect (horizontal or vertical, 500ms)
@@ -459,38 +466,6 @@ export function runGame({ level, playerStart, onWin }) {
                 resetGame();
             }
         });
-        // World selection buttons (if any)
-        const world1Btn = document.getElementById('world1BTN');
-        const world2Btn = document.getElementById('world2BTN');
-        const world3Btn = document.getElementById('world3BTN');
-        const world4Btn = document.getElementById('world4BTN');
-        const world5Btn = document.getElementById('world5BTN');
-        if (world1Btn) {
-            world1Btn.onclick = () => { 
-                switchWorld(1); 
-            };
-        }
-        if (world2Btn) {
-            world2Btn.onclick = () => { 
-                switchWorld(2); 
-            };
-        }
-        if (world3Btn) {
-            world3Btn.onclick = () => { 
-                switchWorld(3); 
-            };
-        }
-        if (world4Btn) {
-            world4Btn.onclick = () => { 
-                switchWorld(4); 
-            };
-        }
-        if (world5Btn) {
-            world5Btn.onclick = () => { 
-                switchWorld(5); 
-            };
-        }
-        // TODO: Add more world buttons as needed
     });
 
     // Im actually happy I managed to make this function work, I used to have two functions running the same logic
