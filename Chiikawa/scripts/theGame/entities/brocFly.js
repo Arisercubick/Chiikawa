@@ -33,9 +33,13 @@ export function updateBrocFlys(delta, brocFlys, level, tileSize, levelWidth, pla
         let gridY = Math.floor(f.y / tileSize);
         let gridX = Math.floor(nextX / tileSize);
         if (
-            gridY >= 0 && gridY < level.length &&
+            (gridY >= 0 && gridY < level.length &&
             gridX >= 0 && gridX < level[0].length &&
-            level[gridY][gridX] === '='
+            level[gridY][gridX] === '=')
+            ||
+            (gridY >= 0 && gridY < level.length &&
+            gridX >= 0 && gridX < level[0].length &&
+            level[gridY][gridX] === '+')
         ) {
             f.dir *= -1;
         }

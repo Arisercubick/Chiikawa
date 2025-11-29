@@ -33,9 +33,17 @@ export function updateFlame(delta, flames, level, tileSize, levelWidth, player, 
         let gridY = Math.floor(p.y / tileSize);
         let gridX = Math.floor(nextX / tileSize);
         if (
-            gridY >= 0 && gridY < level.length &&
+            (gridY >= 0 && gridY < level.length &&
             gridX >= 0 && gridX < level[0].length &&
-            level[gridY][gridX] === '='
+            level[gridY][gridX] === '=')
+            ||
+            (gridY >= 0 && gridY < level.length &&
+            gridX >= 0 && gridX < level[0].length &&
+            level[gridY][gridX] === '+')
+            ||
+            (gridY >= 0 && gridY < level.length &&
+            gridX >= 0 && gridX < level[0].length &&
+            level[gridY][gridX] === '-')
         ) {
             p.dir *= -1;
         }

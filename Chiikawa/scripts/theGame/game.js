@@ -21,6 +21,7 @@ import { buildBroccolis, updateBroccolis, drawBroccolis } from './entities/brocc
 import { buildBrocFlys, updateBrocFlys, drawBrocFlys } from './entities/brocFly.js';
 import { updateTimer } from './handlers/timer.js';  
 import { buildFlame, updateFlame, drawFlames } from './entities/flameball.js';  
+import { collisionX, collisionY } from './handlers/blockCollide.js';
 
 // Default player properties
 // Speed and jump are tuned for delta time (values are per second)
@@ -224,23 +225,9 @@ export function runGame({ level, playerStart, onWin }) {
         player.vy += playerDefaults.gravity * delta;
 
         // Try to move horizontally, check for block
-        let prevX = player.x;
-        player.x += player.vx * delta; // vx is pixels/sec, delta is seconds
-        let blockedX = false;
-        for (const plat of platforms) {
-            if (rectsCollide(player, plat)) {
 
-                if (player.vx > 0) {
-                    player.x = plat.x - player.w;
-                }
-
-                if (player.vx < 0) {
-                    player.x = plat.x + plat.w;
-                }
-
-                blockedX = true;
-            }
-        }
+        //OTO
+        let blockedX = collisionX(player, platforms, float, delta, rectsCollide);
 
         // If blocked horizontally, start vibration in that direction (only if not already vibrating)
         if (blockedX && (wantLeft || wantRight) && !vibration.active) {
@@ -251,28 +238,7 @@ export function runGame({ level, playerStart, onWin }) {
         }
 
         // Try to move vertically, check for block
-        let prevY = player.y;
-        player.y += player.vy * delta; // vy is pixels/sec, delta is seconds
-        player.onGround = false;
-        let blockedY = false;
-        let blockDirY = 0;
-        for (const plat of platforms) {
-            if (rectsCollide(player, plat)) {
-                if (player.vy > 0) {
-                    player.y = plat.y - player.h;
-                    player.vy = 0;
-                    player.onGround = true;
-                    blockedY = true;
-                    blockDirY = 1; // Blocked below
-                }
-                if (player.vy < 0) {
-                    player.y = plat.y + plat.h;
-                    player.vy = 0;
-                    blockedY = true;
-                    blockDirY = -1; // Blocked above
-                }
-            }
-        }
+        let [blockDirY, blockedY] = collisionY(player, platforms, float, delta, rectsCollide);
 
         // If blocked vertically (not on ground), vibrate vertically (only if not already vibrating)
         if (blockedY && !player.onGround && !vibration.active) {
@@ -294,7 +260,7 @@ export function runGame({ level, playerStart, onWin }) {
         updateBrocFlys(delta, brocFlys, level, tileSize, levelWidth, player, rectsCollide, triggerGameOver);
         updateFlame(delta, flames, level, tileSize, levelWidth, player, rectsCollide, triggerGameOver);
         updateBroccolis(delta, broccolis, platforms, player, rectsCollide, triggerGameOver);
-        updateFloats(delta, float, level, tileSize, levelWidth);
+        updateFloats(delta, float, level, tileSize, levelWidth, player, rectsCollide);
 
         
         if (player.x > (level[0].length - 2) * tileSize) {
