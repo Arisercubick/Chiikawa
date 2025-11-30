@@ -24,6 +24,13 @@
   color: #222;
 }
 
+#congratsScreen .timer {
+  margin-top: 0.2em;
+}
+#congratsScreen p {
+  margin-bottom: 0.1em;
+}
+
 #congratsScreen.hidden {
   display: none;
 }

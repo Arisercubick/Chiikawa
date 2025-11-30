@@ -132,6 +132,7 @@ export function runGame({ level, playerStart, onWin }) {
             if (comboProgress === secretCombo.length) {
                 // Finish the level as if the player reached the end
                 if (!gameWon && !gameOver) {
+                    stopTimer = true;
                     gameWon = true;
                     document.getElementById('congratsScreen').classList.remove('hidden');
                     if (onWin) {
