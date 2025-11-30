@@ -41,9 +41,10 @@ export function updateBroccolis(delta, broccolis, platforms, player, rectsCollid
         if (!onPlatform) {
             g.dir *= -1;
         }
-        if (rectsCollide(player, g) && player.vy > 0 && player.y + player.h + 0.4 - g.y < 20) {
+        if (rectsCollide(player, g) && player.vy > 0 && player.y + player.h + 0.6 - g.y < 20) {
             g.alive = false;
             player.vy = player.jump / 1.5;
+            break;
         } else if (rectsCollide(player, g) && g.alive) {
             triggerGameOver();
             return;
