@@ -1,4 +1,4 @@
-
+'use strict';
 
 export function collisionX(player, platforms, float, delta, rectsCollide) {
 // Try to move horizontally, check for block

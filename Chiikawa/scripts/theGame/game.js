@@ -22,6 +22,8 @@ import { buildBrocFlys, updateBrocFlys, drawBrocFlys } from './entities/brocFly.
 import { updateTimer } from './handlers/timer.js';  
 import { buildFlame, updateFlame, drawFlames } from './entities/flameball.js';  
 import { collisionX, collisionY } from './handlers/blockCollide.js';
+import { resetGame } from './handlers/PositionHandler/resetGame.js';
+import { savePositions } from './handlers/PositionHandler/SavePositions.js';
 
 // Default player properties
 // Speed and jump are tuned for delta time (values are per second)
@@ -53,10 +55,10 @@ export function runGame({ level, playerStart, onWin }) {
     const canvas = document.getElementById('gameCanvas');
     const ctx = canvas.getContext('2d');
     const platforms = buildPlatforms(level, tileSize);
-    const broccolis = buildBroccolis(level, tileSize);
-    const brocFlys = buildBrocFlys(level, tileSize);
-    const flames = buildFlame(level, tileSize);
-    const float = buildFloats(level, tileSize);
+    let broccolis = buildBroccolis(level, tileSize);
+    let brocFlys = buildBrocFlys(level, tileSize);
+    let flames = buildFlame(level, tileSize);
+    let float = buildFloats(level, tileSize);
     const player = {
         x: playerStart?.x ?? playerDefaults.startX,
         y: playerStart?.y ?? playerDefaults.startY,
@@ -68,6 +70,7 @@ export function runGame({ level, playerStart, onWin }) {
         speed: playerDefaults.speed,
         jump: playerDefaults.jump
     };
+    const [broccoliStartStates, brocFlyStartStates, flamesStartStates, floatStartStates] = savePositions(broccolis, brocFlys, flames, float);
 
     // Load images as assets
     // As I like other assets being loaded
@@ -135,7 +138,7 @@ export function runGame({ level, playerStart, onWin }) {
                     setTimeout(() => {
                         const restartBtn = document.getElementById('restartBTN');
                         if (restartBtn) {
-                            restartBtn.onclick = () => { resetGame(); };
+                            restartBtn.onclick = () => { resGame(); };
                         }
                     }, 0);
                 }
@@ -272,7 +275,7 @@ export function runGame({ level, playerStart, onWin }) {
             setTimeout(() => {
               const restartBtn = document.getElementById('restartBTN');
               if (restartBtn) {
-                restartBtn.onclick = () => { resetGame(); };
+                restartBtn.onclick = () => { resGame(); };
               }
             }, 0);
         }
@@ -384,7 +387,12 @@ export function runGame({ level, playerStart, onWin }) {
         document.getElementById('gameOverScreen').classList.remove('hidden');
     }
 
-    // Store original positions for reset (somehow)
+
+    function resGame() {
+        [timer, stopTimer, gameWon, gameOver, cameraX, broccolis, brocFlys, flames, float] = resetGame(broccolis, brocFlys, flames, float, player, playerDefaults, timer, stopTimer, gameWon, gameOver, cameraX, broccoliStartStates, brocFlyStartStates, flamesStartStates, floatStartStates);
+    }
+        // Store original positions for reset (somehow)
+    /*
     const broccoliStartStates = broccolis.map(g => ({ x: g.x, y: g.y, dir: g.dir }));
     const brocFlyStartStates = brocFlys.map(f => ({ x: f.x, y: f.y, dir: f.dir }));
     function resetGame() {
@@ -419,7 +427,7 @@ export function runGame({ level, playerStart, onWin }) {
         document.getElementById('congratsScreen').classList.add('hidden');
         document.getElementById('gameOverScreen').classList.add('hidden');
         cameraX = 0;
-    }
+    }*/
 
     let loaded = 0;
     [playerImg, groundImg, bgImg, broccoliImg, brocFlyImg].forEach(img => {
@@ -437,14 +445,18 @@ export function runGame({ level, playerStart, onWin }) {
     window.addEventListener('DOMContentLoaded', () => {
         const btn = document.getElementById('playAgainBTN');
         if (btn) {
-            btn.onclick = () => { resetGame(); };
+            btn.onclick = () => { 
+                resGame();
+            };
         } else {
-            document.addEventListener('click', () => { resetGame(); });
+            document.addEventListener('click', () => { 
+                resGame();
+            });
         }
         // Allow Spacebar to reset game when game over or won
         window.addEventListener('keydown', function(e) {
             if ((gameOver || gameWon) && e.code === 'Space') {
-                resetGame();
+                resGame();
             }
         });
     });
