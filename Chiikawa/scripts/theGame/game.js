@@ -100,6 +100,8 @@ export function runGame({ level, playerStart, onWin }) {
 
     // Secret combo detection: w + a + a + w + q
     const secretCombo = ['KeyW', 'KeyA', 'KeyA', 'KeyW', 'KeyQ'];
+
+    //TODO: Fixed the second secret combo 2 because it wont update properly
     const secretCombo2 = ['KeyA', 'KeyD', 'KeyS', 'KeyE', 'KeyQ'];
     let comboProgress2 = 0;
     let comboProgress = 0;
