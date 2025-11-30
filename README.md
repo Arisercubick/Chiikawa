@@ -14,10 +14,8 @@ A responsive fan website for Chiikawa, featuring story, character, game, and qui
   - Mobile layout uses a single-column grid and sections always fit the screen (`100vw`, `100vh`).
   - Clickable sections use `<a>` inside `<section>` for accessibility and grid compatibility.
 - **Quiz**:
-  - Uses camelCase for all IDs and classes (e.g., `quizSection`, `quizFigure`, `quizImage`).
-  - Each question now stores its own response array for answers, supporting future multi-select.
-  - Quiz navigation buttons: Back (blue), Next (red), Submit (green), with custom sizes.
-  - Loading screen cycles through fun messages while computing the score.
+  - The interactive quiz is implemented in [`pages/Quiz.html`](Chiikawa/pages/Quiz.html), which is a direct child of the `/pages` folder.
+  - All quiz logic and markup are contained in this single HTML file.
 - **Game**:
   - Modular 2D platformer engine in `scripts/theGame/game.js` (all core logic and rendering).
   - Each world/level is a separate file (e.g., `world1.js`, `world2.js`, etc.) that provides level data and calls the engine.
