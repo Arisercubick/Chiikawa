@@ -27,13 +27,15 @@ export function buildFloats(level, titleSize) {
         for (let x = 0; x < level[y].length; x++){
             if (level[y][x] === '+') {
                 floats.push({x: x * titleSize, y: y * titleSize, w: titleSize, h: titleSize, dir: 1})
+            } else if (level[y][x] === '^') {
+                floats.push({x: x * titleSize, y: y * titleSize, w: titleSize, h: titleSize, dir: 1})
             }
         }
     }
     return floats;
 }
 
-export function updateFloats(delta, floats, level, tileSize, levelWidth, player, rectsCollide) {
+export function updateFloats(delta, floats, level, tileSize, levelWidth) {
     const floatSpeed = 100;
     for (const pl of floats) {
         pl.x += pl.dir * floatSpeed * delta;
@@ -49,11 +51,13 @@ export function updateFloats(delta, floats, level, tileSize, levelWidth, player,
         let nextX = pl.dir > 0 ? pl.x + pl.w : pl.x - 1;
         let gridY = Math.floor(pl.y / tileSize);
         let gridX = Math.floor(nextX / tileSize);
-        if (
-            gridY >= 0 && gridY < level.length &&
+        if ((gridY >= 0 && gridY < level.length &&
             gridX >= 0 && gridX < level[0].length &&
-            level[gridY][gridX] === '='
-        ) {
+            level[gridY][gridX] === '=')
+            ||
+            (gridY >= 0 && gridY < level.length &&
+            gridX >= 0 && gridX < level[0].length &&
+            level[gridY][gridX] === '-')) {
             pl.dir *= -1;
         }
     }

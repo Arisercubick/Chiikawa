@@ -266,7 +266,7 @@ export function runGame({ level, playerStart, onWin }) {
         updateBrocFlys(delta, brocFlys, level, tileSize, levelWidth, player, rectsCollide, triggerGameOver);
         updateFlame(delta, flames, level, tileSize, levelWidth, player, rectsCollide, triggerGameOver);
         updateBroccolis(delta, broccolis, platforms, player, rectsCollide, triggerGameOver);
-        updateFloats(delta, float, level, tileSize, levelWidth, player, rectsCollide);
+        updateFloats(delta, float, level, tileSize, levelWidth);
 
         
         if (player.x > (level[0].length - 2) * tileSize) {
@@ -394,43 +394,7 @@ export function runGame({ level, playerStart, onWin }) {
     function resGame() {
         [timer, stopTimer, gameWon, gameOver, cameraX, broccolis, brocFlys, flames, float] = resetGame(broccolis, brocFlys, flames, float, player, playerDefaults, timer, stopTimer, gameWon, gameOver, cameraX, broccoliStartStates, brocFlyStartStates, flamesStartStates, floatStartStates);
     }
-        // Store original positions for reset (somehow)
-    /*
-    const broccoliStartStates = broccolis.map(g => ({ x: g.x, y: g.y, dir: g.dir }));
-    const brocFlyStartStates = brocFlys.map(f => ({ x: f.x, y: f.y, dir: f.dir }));
-    function resetGame() {
-        // Reset player position and make velocities = zero
-        timer = 0;
-        stopTimer = false;
-        player.x = playerDefaults.startX;
-        player.y = playerDefaults.startY;
-        player.vx = 0;
-        player.vy = 0;
 
-        // When I made this, I used to know what it does.
-        // Now I need prayers to understand this
-
-        // This just restarts the positions of the enemies as their start states
-
-        // However, Kelly, I know this is hard to read, dont worry
-        for (let i = 0; i < broccolis.length; i++) {
-            broccolis[i].x = broccoliStartStates[i].x;
-            broccolis[i].y = broccoliStartStates[i].y;
-            broccolis[i].dir = broccoliStartStates[i].dir;
-            broccolis[i].alive = true;
-        }
-        for (let i = 0; i < brocFlys.length; i++) {
-            brocFlys[i].x = brocFlyStartStates[i].x;
-            brocFlys[i].y = brocFlyStartStates[i].y;
-            brocFlys[i].dir = brocFlyStartStates[i].dir;
-            brocFlys[i].alive = true;
-        }
-        gameWon = false;
-        gameOver = false;
-        document.getElementById('congratsScreen').classList.add('hidden');
-        document.getElementById('gameOverScreen').classList.add('hidden');
-        cameraX = 0;
-    }*/
 
     let loaded = 0;
     [playerImg, groundImg, bgImg, broccoliImg, brocFlyImg].forEach(img => {
@@ -484,6 +448,8 @@ export function runGame({ level, playerStart, onWin }) {
     // TODO: fix mobile controls
     // Probably need to redesign the UI for mobile
     // And also, fix the buttons (Not working)
+
+    //FIxed mobile controls
     function setupMobileControls() {
         const upBtn = document.getElementById('mobileUpBTN');
         const leftBtn = document.getElementById('mobileLeftBTN');

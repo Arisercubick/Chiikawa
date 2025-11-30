@@ -39,6 +39,8 @@ export function resetGame(broccolis, brocFlys, flames, float, player, playerDefa
         float[i].y = floatStartStates[i].y;
         float[i].dir = floatStartStates[i].dir;
     }
+
+    //resets conditions
     gameWon = false;
     gameOver = false;
     document.getElementById('congratsScreen').classList.add('hidden');
