@@ -58,22 +58,23 @@ A responsive fan website for Chiikawa, featuring story, character, game, and qui
 
 **Recent changes:**
 
-- All button and layout styles (including the Game page's Start Game button) are now implemented in CSS files—no inline styles remain.
-- Modularized game engine: All platformer logic is in `game.js`, with each world as a separate file for easy extensibility.
-- Added `world2.js`, `world3.js`, `world4.js`, and `world5.js` as additional levels; each world is loaded via its own HTML/JS pair.
-- Level switching: When you finish a world, a "Continue" button appears to load the next world/level (e.g., from world3 to world4).
-- Game page now features a Mario-style platformer with camera scrolling, staircase, and semantic overlays.
+- Modularized all entity logic in the platformer game (broccolis, brocFly, flameball, platforms) into separate modules for maintainability.
+- Integrated a requestAnimationFrame-based timer with pause/resume functionality; timer logic is now decoupled from game loop.
+- Fixed event listener accumulation and lag after multiple game restarts; listeners are now properly cleaned up.
+- Clarified quiz documentation: the interactive quiz is only in `pages/Quiz.html` and all logic/markup is in that file.
+- Refactored quiz logic to use per-question response arrays for future multi-select support.
+- All button and layout styles (including Game page's Start Game button) are now implemented in CSS files—no inline styles remain.
+- Added additional worlds (`world2.js`, `world3.js`, `world4.js`, `world5.js`, `world6.js`), each loaded via its own HTML/JS pair.
+- Level switching: "Continue" button loads the next world/level after completion.
 - Game assets (character, enemies, ground, background) are loaded and managed for reliability.
-- Added brocFly (flying enemy, 'T' in level): instantly kills player on contact, immune to being killed.
-- Game reset now restores both broccolis and brocFly enemies to their original positions and states.
+- BrocFly (flying enemy) instantly kills player on contact and is immune to being killed.
+- Game reset restores all entities to their original positions and states.
 - Game over and congratulations screens are semantic, accessible, and fully styled.
-- "Play Again" reloads the game.
+- "Play Again" reloads the game for a true fresh start.
 - Mobile controls: Overlay up/left/right buttons for touch play, using semantic containers and Google Material Symbols.
-- Refactored all quiz-related IDs/classes to camelCase for consistency.
-- Quiz logic now uses per-question response arrays.
 - Quiz navigation buttons have distinct colors and sizes, all styled via CSS.
 - Loading screen cycles through multiple messages for a playful experience.
 - All styles are centralized in CSS files for easier maintenance.
-- Story page grid and sections now use viewport units and always fit the screen on mobile.
+- Story page grid and sections use viewport units and always fit the screen on mobile.
 - Story sections are direct children of the grid container for proper grid placement.
 - Footer styling clarified: use either `<footer id="footer">` or CSS selector `footer` for consistent appearance.
