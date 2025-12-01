@@ -1,20 +1,81 @@
 'use strict'
+
+//Changes the image and possible answers
+function clickNext() {
+	const image = document.getElementById('quizImage');
+	let src = image.getAttribute('src');
+	if (src = "../images/AdorableCutieChiikawa.png"){
+		src = "../images/SweetBabyHachiware2.png";
+		document.getElementById('question').innerText = "Which character is known for their blue color";
+		document.getElementById('01').innerText = "Chiikawa";
+		document.getElementById('02').innerText = "Hachiware";
+		document.getElementById('03').innerText = "Usagi";
+		document.getElementById('04').innerText = "Momonga";
+	}
+	else if (src = "../images/SweetBabyHachiware2.png") {
+		src = "../images/YahaUsagi.png";
+		document.getElementById('question').innerText = "Which character has rabbit ears?";
+		document.getElementById('01').innerText = "Momonga";
+		document.getElementById('02').innerText = "Hachiware";
+		document.getElementById('03').innerText = "Rakko";
+		document.getElementById('04').innerText = "Usagi";
+	}
+	image.setAttribute('src', src);
+}
+const next = document.querySelector("#nextButton");
+next.addEventListener("click",clickNext);
+
+
+function clickBack() {
+	const image = document.getElementById('quizImage');
+	let src = image.getAttribute('src');
+	if (src = "../images/SweetBabyHachiware2.png"){
+		src = "../images/AdorableCutieChiikawa.png";
+		document.getElementById('question').innerText = "Which character is known for their blue color";
+		document.getElementById('01').innerText = "Chiikawa";
+		document.getElementById('02').innerText = "Usagi";
+		document.getElementById('03').innerText = "Kurimaju";
+		document.getElementById('04').innerText = "Momonga";
+	}
+	else if (src = "../images/YahaUsagi.png") {
+		src = "../images/SweetBabyHachiware2.png";
+		document.getElementById('question').innerText = "Which character is known for their blue color";
+		document.getElementById('01').innerText = "Chiikawa";
+		document.getElementById('02').innerText = "Hachiware";
+		document.getElementById('03').innerText = "Usagi";
+		document.getElementById('04').innerText = "Momonga";
+	}
+	image.setAttribute('src', src);
+}
+const back = document.querySelector("#backButton");
+back.addEventListener("click",clickBack);
+
+
+//Checking the answer
 function clickSubmit() {
 	const response = document.querySelector('input[name="answer"]:checked');
-	
+	const image = document.getElementById('quizImage');
+	let src = image.getAttribute('src');
 	if (response) {
 		const responses = response.value;
-		
-		if (responses == '1') {
+		const image = document.getElementById('quizImage');
+		let src = image.getAttribute('src');
+		if (src === "../images/AdorableCutieChiikawa.png" && responses === '1') {
+			document.getElementById('result').innerText = "I'm so proud of you!! :D";
+		}
+		else if (src === "../images/SweetBabyHachiware2.png" && responses === '2') {
+			document.getElementById('result').innerText = "I'm so proud of you!! :D";
+		}
+		else if (src === "../images/YahaUsagi.png" && responses === '4') {
 			document.getElementById('result').innerText = "I'm so proud of you!! :D";
 		}
 		else {
-			document.getElementById('result').innerText = "Try again... :(";
+			document.getElementById('result').innerText = "Try again :(";
 		}
 	}
 	
 	else {
-		document.getElementById('resulting').innerText = "Answer the damn question.";
+		document.getElementById('result').innerText = "Please put an answer.";
 	}
 }
 const submit = document.querySelector("#submit");
