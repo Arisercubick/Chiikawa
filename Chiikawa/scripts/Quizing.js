@@ -4,16 +4,19 @@
 function clickNext() {
 	const image = document.getElementById('quizImage');
 	let src = image.getAttribute('src');
-	if (src = "../images/AdorableCutieChiikawa.png"){
+	console.log("Source1 " +src);
+	if (src == "../images/AdorableCutieChiikawa.png"){
 		src = "../images/SweetBabyHachiware2.png";
+		console.log("HACHIWARE");
 		document.getElementById('question').innerText = "Which character is known for their blue color";
 		document.getElementById('01').innerText = "Chiikawa";
 		document.getElementById('02').innerText = "Hachiware";
 		document.getElementById('03').innerText = "Usagi";
 		document.getElementById('04').innerText = "Momonga";
 	}
-	else if (src = "../images/SweetBabyHachiware2.png") {
+	else if (src == "../images/SweetBabyHachiware2.png") {
 		src = "../images/YahaUsagi.png";
+		console.log("USAGI");
 		document.getElementById('question').innerText = "Which character has rabbit ears?";
 		document.getElementById('01').innerText = "Momonga";
 		document.getElementById('02').innerText = "Hachiware";
@@ -21,6 +24,7 @@ function clickNext() {
 		document.getElementById('04').innerText = "Usagi";
 	}
 	image.setAttribute('src', src);
+	console.log("Source2 " +src);
 }
 const next = document.querySelector("#nextButton");
 next.addEventListener("click",clickNext);
