@@ -238,3 +238,10 @@ main {
   border-radius:8px; 
   text-decoration:none;
 }
+
+#instructions ul, #instructions li {
+  text-align: center;
+  font-size:1.2em; 
+  margin-bottom:1em;
+  list-style: none;
+}
