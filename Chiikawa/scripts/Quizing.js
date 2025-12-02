@@ -33,7 +33,7 @@ next.addEventListener("click",clickNext);
 function clickBack() {
 	const image = document.getElementById('quizImage');
 	let src = image.getAttribute('src');
-	if (src = "../images/SweetBabyHachiware2.png"){
+	if (src == "../images/SweetBabyHachiware2.png"){
 		src = "../images/AdorableCutieChiikawa.png";
 		document.getElementById('question').innerText = "Which character is known for their blue color";
 		document.getElementById('01').innerText = "Chiikawa";
@@ -41,7 +41,7 @@ function clickBack() {
 		document.getElementById('03').innerText = "Kurimaju";
 		document.getElementById('04').innerText = "Momonga";
 	}
-	else if (src = "../images/YahaUsagi.png") {
+	else if (src == "../images/YahaUsagi.png") {
 		src = "../images/SweetBabyHachiware2.png";
 		document.getElementById('question').innerText = "Which character is known for their blue color";
 		document.getElementById('01').innerText = "Chiikawa";
