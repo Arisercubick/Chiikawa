@@ -429,12 +429,6 @@ export function runGame({ level, playerStart, onWin }) {
         });
     });
 
-    // Im actually happy I managed to make this function work, I used to have two functions running the same logic
-    function switchWorld(worldNum) {
-        currentLevel = selectWorld(worldNum);
-        runGame({ playerStart: {}, onWin: onWinWorld(worldNum) });
-    }
-
     // Expose cleanup for this game instance, yet the variable is never used
     let gameInstance = {
         cleanup: () => {
@@ -491,6 +485,15 @@ export function runGame({ level, playerStart, onWin }) {
 
 // Example: tile size, player defaults, and asset paths
 export const tileSize = 40;
+
+// Methods for the world files to switch levels
+// and handle win conditions
+
+// Im actually happy I managed to make this function work, I used to have two functions running the same logic
+    function switchWorld(worldNum) {
+        currentLevel = selectWorld(worldNum);
+        runGame({ playerStart: {}, onWin: onWinWorld(worldNum) });
+    }
 
 // Example onWin handlers for each world
 // When finish, put =  alert('You finished all available levels! More coming soon!');
