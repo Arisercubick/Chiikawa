@@ -184,11 +184,12 @@ export function runGame({ level, playerStart, onWin }) {
         return keys['ArrowRight'] || keys['KeyD'];
     }
 
+    // Collision detection between two rectangles for player
     function rectsCollide(a, b) {
         return (
-            a.x < b.x + b.w &&
-            a.x + a.w > b.x &&
-            a.y < b.y + b.h &&
+            a.x + 3 < b.x + b.w &&
+            a.x + a.w - 5 > b.x &&
+            a.y + 6 < b.y + b.h &&
             a.y + a.h > b.y
         );
     }
@@ -254,7 +255,7 @@ export function runGame({ level, playerStart, onWin }) {
             vibration.startTime = performance.now();
         }
 
-        // Stop vibration after 500ms or on key press
+        // Stop vibration based on vibration duration
         if (vibration.active) {
             let elapsed = (performance.now() - vibration.startTime);
             if (elapsed > vibration.duration) {
