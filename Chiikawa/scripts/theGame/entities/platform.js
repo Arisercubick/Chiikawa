@@ -1,7 +1,7 @@
 // It builds our platforms!!!
 // the = sign measn ground block
 // Peers mentioned to add movable platforms, maybe later, idk, I dont want to shoot myself in the foot
-// TODO: Add movable platforms
+// TODO: Add movable platforms: Done!
 
 'use strict';
 

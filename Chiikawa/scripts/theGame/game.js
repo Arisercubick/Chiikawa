@@ -26,6 +26,7 @@ import { buildFlame, updateFlame, drawFlames } from './entities/flameball.js';
 import { collisionX, collisionY } from './handlers/blockCollide.js';
 import { resetGame } from './handlers/PositionHandler/resetGame.js';
 import { savePositions } from './handlers/PositionHandler/SavePositions.js';
+import { collisions } from './handlers/Collisions.js';
 
 // Default player properties
 // Speed and jump are tuned for delta time (values are per second)
@@ -190,12 +191,7 @@ export function runGame({ level, playerStart, onWin }) {
 
     // Collision detection between two rectangles for player
     function rectsCollide(a, b) {
-        return (
-            a.x + 3 < b.x + b.w &&
-            a.x + a.w - 5 > b.x &&
-            a.y + 6 < b.y + b.h &&
-            a.y + a.h > b.y
-        );
+        return collisions(a, b);
     }
 
     // Vibration state
