@@ -1,5 +1,56 @@
+#quizSection {
+	text-align: center;
+}
 #quizImage {
-	width: 50vw;
-	height: 20vw;
+	width: 300px;
+	height: 250px;
 }
 
+#selection {
+	text-align: center;
+	background-color: rgb(255, 230, 239);
+	border: black solid 5px;
+}
+#selection ul {
+	list-style-type: none;
+}
+
+#buttons {
+	text-align: center;
+	margin: 10px;
+}
+#backButton {
+	width:100px;
+	height:25px;
+}
+#nextButton {
+	width:100px;
+	height:25px;
+}
+
+
+footer {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+	border: black solid 5px;
+}
+footer a:link {
+	color: rgb(179, 45, 92);
+}
+footer a:visited {
+	color: rgb(45, 101, 179);
+}
+footer a:hover {
+	color: rgb(138, 43, 179);
+}
+#rate {
+	width: 500px;
+}
+
+@media (max-width:850px) {
+	footer {
+		display: flex;
+		flex-direction: column;
+	}
+}
