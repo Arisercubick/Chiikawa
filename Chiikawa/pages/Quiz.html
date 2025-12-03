@@ -27,16 +27,16 @@
     </header>
     <main>
         <section id="quizSection">
-            <figure class="quizFigure">
+            <figure>
                 <!-- Quiz image and caption -->
-                <img id="quizImage" src="../images/AdorableCutieChiikawa.png" alt="Quiz image" />
+                <img id="quizImage" src="../images/LittleChiikawa.webp" alt="Quiz image" />
                 <figcaption id="quizCaption"></figcaption>
             </figure>
 		</section>
             <!-- Quiz choices -->
 		<section id="selection">
 			<fieldset>
-				<legend id="question">Who is the main character in Chiikawa?</legend>
+				<legend id="question">⊹₊˚‧︵‿₊୨ Who is the main character in Chiikawa? ୧₊‿︵‧˚₊⊹</legend>
 				<ul>
 				  <li>
 					<input type="radio" name="answer" value="1" id="answer1">
@@ -58,49 +58,65 @@
 				<button id ="submit" type="button">Submit</button>
 				<h2 id="result">&nbsp;</h2>
 			</fieldset>
-		  
+		</section>
+		<section id="buttons">
 		  <button id="backButton">Back</button>
 		  <button id="nextButton">Next</button>
-    </section>
+		</section>
+		<br>
     </main>
     <footer>
-        <fieldset>
-			<label for="first_name">First Name:</label>
-			<input type="text" placeholder="First Name" name="first_name" id="first_name" size="20"> 
-			<br>
-			<label for="email">Email:</label>
-			<input type="email" placeholder="Email" id="email" name="email" required>
-			
-			<h3>What do you rate this?</h3>
-			<ul>
-				<li>
-					<input type="radio" name="rating" value="1" id="1">
-					<label for="1">1</label>
-				</li>
+		<section>
+			<fieldset id="rate">
+				<label for="secret">𖹭 Who was the secret character in the quiz?:</label>
+				<input type="text" placeholder="Character Name" id="secret" name="freddy">
+				<br>
+				<label for="first_name">𖹭 First Name:</label>
+				<input type="text" placeholder="First Name" name="first_name" id="first_name" size="20"> 
 				
-				<li>
-					<input type="radio" name="rating" value="2" id="2">
-					<label for="2">2</label>
-				</li>
-				
-				<li>
-					<input type="radio" name="rating" value="3" id="3">
-					<label for="3">3</label>
-				</li>
-				
-				<li>
-					<input type="radio" name="rating" value="4" id="4">
-					<label for="4">4</label>
-				</li>
-				
-				<li>
-					<input type="radio" name="rating" value="5" id="5">
-					<label for="5">5</label>
-				</li>
-			</ul>
-			<button onclick = "clickButton()" id="checking">Submit feedback</button>
-			<h3 id="resulting">&nbsp; </h3>
-		</fieldset>
+				<h3>What do you rate this?</h3>
+				<ul>
+					<li>
+						<input type="radio" name="rating" value="1" id="1">
+						<label for="1">1</label>
+					</li>
+					
+					<li>
+						<input type="radio" name="rating" value="2" id="2">
+						<label for="2">2</label>
+					</li>
+					
+					<li>
+						<input type="radio" name="rating" value="3" id="3">
+						<label for="3">3</label>
+					</li>
+					
+					<li>
+						<input type="radio" name="rating" value="4" id="4">
+						<label for="4">4</label>
+					</li>
+					
+					<li>
+						<input type="radio" name="rating" value="5" id="5">
+						<label for="5">5</label>
+					</li>
+				</ul>
+				<button onclick = "clickButton()" id="checking">Submit feedback</button>
+				<h3 id="resulting">&nbsp; </h3>
+				<h4 id="charSecret">&nbsp; </h4>
+			</fieldset>
+		</section>
+		<section>
+			<h2>｡ﾟ•┈୨ Media Attributions ୧┈• ｡ﾟ</h2>
+			<p>Chiikawa picture from <a href="https://chiikawa.fandom.com/wiki/Chiikawa" target="_blank">the fandom's wiki</a></p>
+			<p>Hachiware picture from  <a href="https://chiikawa.fandom.com/wiki/Hachiware" target="_blank">the fandom's wiki</a></p>
+			<p>Usagi picture from <a href="https://chiikawa.fandom.com/wiki/Usagi" target="_blank">the fandom's wiki</a></p>
+			<p>Chiikawa with burning marshmallow picture from <a href="https://chiikawa.fandom.com/wiki/Chiikawa" target="_blank">the fandom's wiki</a></p>
+			<p>Momonga picture from <a href="https://chiikawa.fandom.com/wiki/Momonga" target="_blank">the fandom's wiki</a></p>
+			<p>Rakko picture from <a href="https://chiikawa.fandom.com/wiki/Rakko" target="_blank">the fandom's wiki</a></p>
+			<p>Momonga smiling while above fire picture from <a href="https://ca.pinterest.com/pin/31877109857312799/" target="_blank">Pinterest</a></p>
+			<p>Usagi looking miserable picture from <a href="https://ca.pinterest.com/pin/70791025389001594/" target="_blank">Pinterest</a></p>
+		</section>
     </footer>
 </body>
 </html>
