@@ -1,6 +1,6 @@
 'use strict'
 
-//Changes the image and possible answers
+//Changes the image and possible answers to the next one
 function clickNext() {
 	const image = document.getElementById('quizImage');
 	let src = image.getAttribute('src');
@@ -84,7 +84,7 @@ const next = document.querySelector("#nextButton");
 next.addEventListener("click",clickNext);
 
 
-
+//Goes to the previous question
 function clickBack() {
 	const image = document.getElementById('quizImage');
 	let src = image.getAttribute('src');
@@ -214,7 +214,7 @@ submit.addEventListener("click",clickSubmit);
 
 
 
-/* rating the interactive page */
+/* rating the interactive page with a bonus secret question*/
 function clickButton() {
 	const answer = document.querySelector('input[name="rating"]:checked');
 	const name = document.getElementById('first_name');
