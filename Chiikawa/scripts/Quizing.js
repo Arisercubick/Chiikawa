@@ -8,7 +8,7 @@ function clickNext() {
 	if (src == "../images/LittleChiikawa.webp"){
 		src = "../images/SweetBabyHachiware2.png";
 		console.log("HACHIWARE");
-		document.getElementById('question').innerText = "Which character is known for their blue color";
+		document.getElementById('question').innerText = "⊹₊˚‧︵‿₊୨ Which character is known for their blue color ୧₊‿︵‧˚₊⊹";
 		document.getElementById('01').innerText = "Chiikawa";
 		document.getElementById('02').innerText = "Hachiware";
 		document.getElementById('03').innerText = "Usagi";
@@ -17,7 +17,7 @@ function clickNext() {
 	else if (src == "../images/SweetBabyHachiware2.png") {
 		src = "../images/YahaUsagi.png";
 		console.log("USAGI");
-		document.getElementById('question').innerText = "Which character has rabbit ears?";
+		document.getElementById('question').innerText = "⊹₊˚‧︵‿₊୨ Which character has rabbit ears? ୧₊‿︵‧˚₊⊹";
 		document.getElementById('01').innerText = "Momonga";
 		document.getElementById('02').innerText = "Hachiware";
 		document.getElementById('03').innerText = "Rakko";
@@ -26,7 +26,7 @@ function clickNext() {
 	else if (src == "../images/YahaUsagi.png") {
 		src = "../images/ChiikawaMarshmallow.webp";
 		console.log("FOOD");
-		document.getElementById('question').innerText = "What is Chiikawa's favorite food?";
+		document.getElementById('question').innerText = "⊹₊˚‧︵‿₊୨ What is Chiikawa's favorite food? ୧₊‿︵‧˚₊⊹";
 		document.getElementById('01').innerText = "Dango";
 		document.getElementById('02').innerText = "Cheese";
 		document.getElementById('03').innerText = "Rice Balls";
@@ -35,7 +35,7 @@ function clickNext() {
 	else if (src == "../images/ChiikawaMarshmallow.webp") {
 		src = "../images/Momonga.webp";
 		console.log("MOMONGA");
-		document.getElementById('question').innerText = "Which character is the most mischievous?";
+		document.getElementById('question').innerText = "⊹₊˚‧︵‿₊୨ Which character is the most mischievous? ୧₊‿︵‧˚₊⊹";
 		document.getElementById('01').innerText = "Momonga";
 		document.getElementById('02').innerText = "Rakko";
 		document.getElementById('03').innerText = "Kurimanju";
@@ -44,7 +44,7 @@ function clickNext() {
 	else if (src == "../images/Momonga.webp") {
 		src = "../images/Rakko.webp";
 		console.log("RAKKO");
-		document.getElementById('question').innerText = "Who is known for their hunting skills";
+		document.getElementById('question').innerText = "⊹₊˚‧︵‿₊୨ Who is known for their hunting skills ୧₊‿︵‧˚₊⊹";
 		document.getElementById('01').innerText = "Chiikawa";
 		document.getElementById('02').innerText = "Momonga";
 		document.getElementById('03').innerText = "Usagi";
@@ -53,7 +53,7 @@ function clickNext() {
 	else if (src == "../images/Rakko.webp") {
 		src = "../images/MomongaFire.jpg";
 		console.log("MONGAAA");
-		document.getElementById('question').innerText = "Which character is a flying squirrel?";
+		document.getElementById('question').innerText = "⊹₊˚‧︵‿₊୨ Which character is a flying squirrel? ୧₊‿︵‧˚₊⊹";
 		document.getElementById('01').innerText = "Hachiware";
 		document.getElementById('02').innerText = "Freddy Fazbear";
 		document.getElementById('03').innerText = "Momonga";
@@ -62,7 +62,7 @@ function clickNext() {
 	else if (src == "../images/MomongaFire.jpg") {
 		src = "../images/UsagiSad.jpg";
 		console.log("Friendship :D");
-		document.getElementById('question').innerText = "What is the main theme of Chiikawa?";
+		document.getElementById('question').innerText = "⊹₊˚‧︵‿₊୨ What is the main theme of Chiikawa? ୧₊‿︵‧˚₊⊹";
 		document.getElementById('01').innerText = "Adventure";
 		document.getElementById('02').innerText = "Friendship";
 		document.getElementById('03').innerText = "Competition";
@@ -71,7 +71,7 @@ function clickNext() {
 	else if (src == "../images/UsagiSad.jpg") {
 		src = "../images/LittleChiikawa.webp";
 		console.log("CHIIKAWA");
-		document.getElementById('question').innerText = "Which character is known for their blue color";
+		document.getElementById('question').innerText = "⊹₊˚‧︵‿₊୨ Which character is known for their blue color ୧₊‿︵‧˚₊⊹";
 		document.getElementById('01').innerText = "Chiikawa";
 		document.getElementById('02').innerText = "Usagi";
 		document.getElementById('03').innerText = "Kurimaju";
@@ -90,7 +90,7 @@ function clickBack() {
 	let src = image.getAttribute('src');
 	if (src == "../images/SweetBabyHachiware2.png"){
 		src = "../images/LittleChiikawa.webp";
-		document.getElementById('question').innerText = "Which character is known for their blue color";
+		document.getElementById('question').innerText = "⊹₊˚‧︵‿₊୨ Which character is known for their blue color ୧₊‿︵‧˚₊⊹";
 		document.getElementById('01').innerText = "Chiikawa";
 		document.getElementById('02').innerText = "Usagi";
 		document.getElementById('03').innerText = "Kurimaju";
@@ -98,7 +98,7 @@ function clickBack() {
 	}
 	else if (src == "../images/YahaUsagi.png") {
 		src = "../images/SweetBabyHachiware2.png";
-		document.getElementById('question').innerText = "Which character is known for their blue color";
+		document.getElementById('question').innerText = "⊹₊˚‧︵‿₊୨ Which character is known for their blue color ୧₊‿︵‧˚₊⊹";
 		document.getElementById('01').innerText = "Chiikawa";
 		document.getElementById('02').innerText = "Hachiware";
 		document.getElementById('03').innerText = "Usagi";
@@ -106,7 +106,7 @@ function clickBack() {
 	}
 	else if (src == "../images/ChiikawaMarshmallow.webp") {
 		src = "../images/YahaUsagi.png";
-		document.getElementById('question').innerText = "Which character has rabbit ears?";
+		document.getElementById('question').innerText = "⊹₊˚‧︵‿₊୨ Which character has rabbit ears? ୧₊‿︵‧˚₊⊹";
 		document.getElementById('01').innerText = "Momonga";
 		document.getElementById('02').innerText = "Hachiware";
 		document.getElementById('03').innerText = "Rakko";
@@ -114,7 +114,7 @@ function clickBack() {
 	}
 	else if (src == "../images/Momonga.webp") {
 		src = "../images/ChiikawaMarshmallow.webp";
-		document.getElementById('question').innerText = "What is Chiikawa's favorite food?";
+		document.getElementById('question').innerText = "⊹₊˚‧︵‿₊୨ What is Chiikawa's favorite food? ୧₊‿︵‧˚₊⊹";
 		document.getElementById('01').innerText = "Dango";
 		document.getElementById('02').innerText = "Cheese";
 		document.getElementById('03').innerText = "Rice Balls";
@@ -122,7 +122,7 @@ function clickBack() {
 	}
 	else if (src == "../images/Rakko.webp") {
 		src = "../images/Momonga.webp";
-		document.getElementById('question').innerText = "Which character is the most mischievous?";
+		document.getElementById('question').innerText = "⊹₊˚‧︵‿₊୨ Which character is the most mischievous? ୧₊‿︵‧˚₊⊹";
 		document.getElementById('01').innerText = "Momonga";
 		document.getElementById('02').innerText = "Rakko";
 		document.getElementById('03').innerText = "Kurimanju";
@@ -130,7 +130,7 @@ function clickBack() {
 	}
 	else if (src == "../images/MomongaFire.jpg") {
 		src = "../images/Rakko.webp";
-		document.getElementById('question').innerText = "Who is known for their hunting skills";
+		document.getElementById('question').innerText = "⊹₊˚‧︵‿₊୨ Who is known for their hunting skills ୧₊‿︵‧˚₊⊹";
 		document.getElementById('01').innerText = "Chiikawa";
 		document.getElementById('02').innerText = "Momonga";
 		document.getElementById('03').innerText = "Usagi";
@@ -138,7 +138,7 @@ function clickBack() {
 	}
 	else if (src == "../images/UsagiSad.jpg") {
 		src = "../images/MomongaFire.jpg";
-		document.getElementById('question').innerText = "Which character is a flying squirrel?";
+		document.getElementById('question').innerText = "⊹₊˚‧︵‿₊୨ Which character is a flying squirrel? ୧₊‿︵‧˚₊⊹";
 		document.getElementById('01').innerText = "Hachiware";
 		document.getElementById('02').innerText = "Freddy Fazbear";
 		document.getElementById('03').innerText = "Momonga";
@@ -146,7 +146,7 @@ function clickBack() {
 	}
 	else if (src == "../images/LittleChiikawa.webp") {
 		src = "../images/UsagiSad.jpg";
-		document.getElementById('question').innerText = "What is the main theme of Chiikawa?";
+		document.getElementById('question').innerText = "⊹₊˚‧︵‿₊୨ What is the main theme of Chiikawa? ୧₊‿︵‧˚₊⊹";
 		document.getElementById('01').innerText = "Adventure";
 		document.getElementById('02').innerText = "Friendship";
 		document.getElementById('03').innerText = "Competition";
