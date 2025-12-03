@@ -194,7 +194,7 @@ export function runGame({ level, playerStart, onWin }) {
         return collisions(a, b);
     }
 
-    // Vibration state
+    // Vibration state array
     let vibration = { 
         active: false, 
         dir: 0, 
@@ -307,6 +307,8 @@ export function runGame({ level, playerStart, onWin }) {
         }
     }
 
+
+    // https://www.w3schools.com/html/html5_canvas.asp
     function draw() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.drawImage(bgImg, 0, 0, canvas.width, canvas.height);

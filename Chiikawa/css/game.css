@@ -186,13 +186,13 @@ main {
   margin: 0;
 }
 
-@media (min-width: 900px) {
+@media (min-width: 1300px) {
   .mobileControls {
     display: none;
   }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1300px) {
   main {
     padding: 0.5em;
   }
