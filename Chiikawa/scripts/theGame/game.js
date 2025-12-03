@@ -16,6 +16,8 @@ export const hitbox = {
 */
 
 //Importing functions from the entities files
+
+// https://www.w3schools.com/js/js_modules.asp
 import { buildPlatforms, buildFloats, updateFloats, drawFloats } from './entities/platform.js';
 import { buildBroccolis, updateBroccolis, drawBroccolis } from './entities/broccolis.js';
 import { buildBrocFlys, updateBrocFlys, drawBrocFlys } from './entities/brocFly.js';
@@ -27,6 +29,7 @@ import { savePositions } from './handlers/PositionHandler/SavePositions.js';
 
 // Default player properties
 // Speed and jump are tuned for delta time (values are per second)
+// https://www.w3schools.com/js/js_arrays.asp
 export let playerDefaults = {
     w: 30,
     h: 30,
@@ -116,6 +119,7 @@ export function runGame({ level, playerStart, onWin }) {
 
     
 
+    // Reads keyboard input, and basically equates that to 'e'
     const keydownHandler = e => {
         keys[e.code] = true;
         // Stop vibration on any key press
