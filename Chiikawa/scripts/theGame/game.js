@@ -386,7 +386,7 @@ export function runGame({ level, playerStart, onWin }) {
         //2025-11-19: Fixed the issue by removing the second requestAnimationFrame call, added the Delta AND IM FREEEEEEEE
     }
     
-    // So, when the player dies, it trigers this function
+    // So, when the player dies, it triggers this function
     function triggerGameOver() {
         stopTimer = true;
         gameOver = true;
