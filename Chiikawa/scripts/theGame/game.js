@@ -371,19 +371,17 @@ export function runGame({ level, playerStart, onWin }) {
         timer = updateTimer(delta, timer, stopTimer);
         animationId = requestAnimationFrame(loop);
 
-        // console.log("()() DEBUG LOG: Second requestAnimationFrame call?");
+        // console.log("()() DEBUG LOG: Second requestAnimationFrame call");
         // Comment this out to prevent infinite calls
         // TODO: Fix later
         // requestAnimationFrame(loop);
 
-        // Artificial intelligence my a**
-        // The only thing artificial is its logic because I prompted it 20 times
         // IT JUST MAKE IT WORSE
-        // It acts soooo confident, yet it is the reason why the server CRASHES
+        // This is the reason why the server CRASHES
         // Needed to revert back forcefully to an old commit, just registering it here
         // 2 hours of debugging wasted because of this piece of sh**
 
-        //2025-11-19: Fixed the issue by removing the second requestAnimationFrame call, added the Delta AND IM FREEEEEEEE
+        //2025-11-19: Fixed the issue by removing the second requestAnimationFrame call, added the Delta across the function AND IM FREEEEEEEE
     }
     
     // So, when the player dies, it triggers this function
