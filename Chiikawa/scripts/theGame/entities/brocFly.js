@@ -51,8 +51,6 @@ export function updateBrocFlys(delta, brocFlys, level, tileSize, levelWidth, pla
         ) {
             f.dir *= -1;
         }
-        // Player dies instantly on brocFly collision
-        
     }
 }
 
