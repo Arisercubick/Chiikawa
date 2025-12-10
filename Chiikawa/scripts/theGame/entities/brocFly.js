@@ -22,7 +22,6 @@ export function updateBrocFlys(delta, brocFlys, level, tileSize, levelWidth, pla
         if (rectsCollide(player, f) && player.y + player.h + 0.6 - f.y < 20) {
             f.alive = false;
             player.vy = player.jump / 1.5;
-            break;
         } else if (rectsCollide(player, f) && f.alive) {
             triggerGameOver();
             return;

@@ -369,6 +369,7 @@ export function runGame({ level, playerStart, onWin }) {
         update(delta);
         draw();
         timer = updateTimer(delta, timer, stopTimer);
+       // https://developer.mozilla.org/en-US/docs/Web/API/Window/requestAnimationFrame
         animationId = requestAnimationFrame(loop);
 
         // console.log("()() DEBUG LOG: Second requestAnimationFrame call");
@@ -402,9 +403,8 @@ export function runGame({ level, playerStart, onWin }) {
         img.onload = () => {
             loaded++;
             if (loaded === 5) {
-                // calls the loop with a timestamp, but for some reason
-                // it doesnt works and breaks the system with the player flying
-                // TODO: fix this issue later
+                // calls the loop with a timestamp
+                // https://developer.mozilla.org/en-US/docs/Web/API/Window/requestAnimationFrame
                 requestAnimationFrame(loop);
             }
         };
@@ -429,20 +429,13 @@ export function runGame({ level, playerStart, onWin }) {
         });
     });
 
-    // Expose cleanup for this game instance, yet the variable is never used
-    let gameInstance = {
-        cleanup: () => {
-            window.removeEventListener('keydown', keydownHandler);
-            window.removeEventListener('keyup', keyupHandler);
-            if (animationId) {
-                cancelAnimationFrame(animationId);
-            }
-        }
-    };
+    
 
     // TODO: fix mobile controls
     // Probably need to redesign the UI for mobile
     // And also, fix the buttons (Not working)
+
+    // Buttons fixed
 
     //FIxed mobile controls
     function setupMobileControls() {
